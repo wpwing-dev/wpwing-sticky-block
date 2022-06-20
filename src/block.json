@@ -29,7 +29,7 @@
 			"type": "string",
 			"default": ""
 		},
-		"zee": {
+		"zIndex": {
 			"type": "integer",
 			"default": 1
 		}

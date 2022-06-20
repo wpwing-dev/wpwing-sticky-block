@@ -16,12 +16,8 @@ import {
 import "./editor.scss";
 
 export default function Edit({ attributes, setAttributes }) {
-	var topSpace = attributes.topSpace;
-	var checkForAdmin = attributes.checkForAdmin;
-	var minWidth = attributes.minWidth;
-	var maxWidth = attributes.maxWidth;
-	var pushUp = attributes.pushUp;
-	var zee = attributes.zee;
+	const { topSpace, checkForAdmin, minWidth, maxWidth, pushUp, zIndex } =
+		attributes;
 
 	return (
 		<div {...useBlockProps()}>
@@ -85,10 +81,10 @@ export default function Edit({ attributes, setAttributes }) {
 						<PanelRow>
 							<RangeControl
 								label={__("Z-index:")}
-								value={zee}
+								value={zIndex}
 								min={-100}
 								max={1000}
-								onChange={(value) => setAttributes({ zee: value })}
+								onChange={(value) => setAttributes({ zIndex: value })}
 								help="Only applies once the element is sticky"
 							/>
 						</PanelRow>

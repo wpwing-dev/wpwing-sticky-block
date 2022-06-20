@@ -1,14 +1,23 @@
-import { __ } from '@wordpress/i18n';
+import { __ } from "@wordpress/i18n";
 
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, InnerBlocks } from "@wordpress/block-editor";
 
-export default function save() {
+export default function save({ attributes }) {
+	const { topSpace, checkForAdmin, minWidth, maxWidth, pushUp, zIndex } =
+		attributes;
+
 	return (
-		<p { ...useBlockProps.save() }>
-			{ __(
-				'Wpwing Sticky Block – hello from the saved content!',
-				'wpwing-sticky-block'
-			) }
-		</p>
+		<div {...useBlockProps.save()}>
+			<div
+				data-top-space={topSpace}
+				data-check-for-admin={checkForAdmin}
+				data-min-width={minWidth}
+				data-max-width={maxWidth}
+				data-push-up={pushUp}
+				data-z-index={zIndex}
+			>
+				<InnerBlocks.Content />
+			</div>
+		</div>
 	);
 }
