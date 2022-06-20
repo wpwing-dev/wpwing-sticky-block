@@ -1,41 +1,102 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
- */
-import { __ } from '@wordpress/i18n';
+import { __ } from "@wordpress/i18n";
+import {
+	InspectorControls,
+	useBlockProps,
+	InnerBlocks,
+} from "@wordpress/block-editor";
+import {
+	ToggleControl,
+	Panel,
+	PanelBody,
+	PanelRow,
+	RangeControl,
+	TextControl,
+} from "@wordpress/components";
 
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
- */
-import { useBlockProps } from '@wordpress/block-editor';
+import "./editor.scss";
 
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
-import './editor.scss';
+export default function Edit({ attributes, setAttributes }) {
+	var topSpace = attributes.topSpace;
+	var checkForAdmin = attributes.checkForAdmin;
+	var minWidth = attributes.minWidth;
+	var maxWidth = attributes.maxWidth;
+	var pushUp = attributes.pushUp;
+	var zee = attributes.zee;
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/developers/block-api/block-edit-save/#edit
- *
- * @return {WPElement} Element to render.
- */
-export default function Edit() {
 	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'Wpwing Sticky Block – hello from the editor!',
-				'wpwing-sticky-block'
-			) }
-		</p>
+		<div {...useBlockProps()}>
+			<InspectorControls>
+				<Panel>
+					<PanelBody title={__("Sticky Options")}>
+						<PanelRow>
+							<TextControl
+								label={__("Space between sticky block and top of screen:")}
+								value={topSpace}
+								type="number"
+								onChange={(value) =>
+									setAttributes({ topSpace: Number.parseInt(value, 10) })
+								}
+							/>
+						</PanelRow>
+						<PanelRow>
+							<ToggleControl
+								label={__(
+									"Move the block down a little bit if there is a toolbar at the top (for logged in users)"
+								)}
+								checked={checkForAdmin}
+								onChange={(value) =>
+									setAttributes({
+										checkForAdmin: !checkForAdmin,
+									})
+								}
+							/>
+						</PanelRow>
+						<PanelRow>
+							<TextControl
+								label={__(
+									"Block should not be sticky on screens smaller than:"
+								)}
+								value={minWidth}
+								type="number"
+								onChange={(value) =>
+									setAttributes({ minWidth: Number.parseInt(value, 10) })
+								}
+							/>
+						</PanelRow>
+						<PanelRow>
+							<TextControl
+								label={__("Block should not be sticky on screens wider than:")}
+								value={maxWidth}
+								type="number"
+								onChange={(value) =>
+									setAttributes({ maxWidth: Number.parseInt(value, 10) })
+								}
+							/>
+						</PanelRow>
+						<PanelRow>
+							<TextControl
+								label={__("Pushup Element:")}
+								value={pushUp}
+								type="text"
+								onChange={(value) => setAttributes({ pushUp: value })}
+								help="e.g. '#footer', '.widget-bottom', etc."
+							/>
+						</PanelRow>
+						<PanelRow>
+							<RangeControl
+								label={__("Z-index:")}
+								value={zee}
+								min={-100}
+								max={1000}
+								onChange={(value) => setAttributes({ zee: value })}
+								help="Only applies once the element is sticky"
+							/>
+						</PanelRow>
+					</PanelBody>
+				</Panel>
+			</InspectorControls>
+
+			<InnerBlocks />
+		</div>
 	);
 }

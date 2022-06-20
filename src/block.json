@@ -5,9 +5,35 @@
 	"version": "1.0.0",
 	"title": "WPWing Sticky Block",
 	"category": "design",
-	"keywords": [ "Sticky", "Sticky Block", "WPWing" ],
+	"keywords": ["Sticky", "Sticky Block", "WPWing"],
 	"icon": "sticky",
-	"description": "Example static block scaffolded with Create Block tool.",
+	"description": "Sticky block which can hold other block like as group or column block.",
+	"attributes": {
+		"topSpace": {
+			"type": "integer",
+			"default": 0
+		},
+		"checkForAdmin": {
+			"type": "boolean",
+			"default": true
+		},
+		"minWidth": {
+			"type": "integer",
+			"default": 0
+		},
+		"maxWidth": {
+			"type": "integer",
+			"default": 99999
+		},
+		"pushUp": {
+			"type": "string",
+			"default": ""
+		},
+		"zee": {
+			"type": "integer",
+			"default": 1
+		}
+	},
 	"supports": {
 		"html": false
 	},

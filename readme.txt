@@ -1,19 +1,18 @@
-=== Wpwing Sticky Block ===
-Contributors:      The WordPress Contributors
-Tags:              block
+=== WPWing Sticky Block ===
+Contributors:      wpwing, voboghure
+Tags:              sticky, sticky block, gutenberg
+Requires at least: 4.8
 Tested up to:      6.0
-Stable tag:        0.1.0
-License:           GPL-2.0-or-later
-License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+Requires PHP:      7.0
+Stable tag:        1.0.0
+License:           GPL-3.0-or-later
+License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
-Example static block scaffolded with Create Block tool.
+The Gutenberg Sticky Block will stick at the top of the page once you scroll down.
 
 == Description ==
 
-This is the long description. No limit, and you can use Markdown (as well as in the following sections).
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+The Gutenberg Sticky Block can be added to any Post or Page and will be sticky as soon as it hits the top of the page after you scroll down. The Sticky Block can contain any other Blocks (Paragraphs, Images, etc.), and can also be used *in* other Blocks (e.g. Column or Table).
 
 == Installation ==
 
@@ -45,8 +44,8 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Changelog ==
 
-= 0.1.0 =
-* Release
+= 1.0.0 =
+* Initial Release
 
 == Arbitrary section ==
 
