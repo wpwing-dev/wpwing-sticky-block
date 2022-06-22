@@ -13,7 +13,7 @@ import {
 	TextControl,
 } from "@wordpress/components";
 
-import "./editor.scss";
+// import "./editor.scss";
 
 export default function Edit({ attributes, setAttributes }) {
 	const { topSpace, checkForAdmin, minWidth, maxWidth, pushUp, zIndex } =
@@ -47,7 +47,7 @@ export default function Edit({ attributes, setAttributes }) {
 								}
 							/>
 						</PanelRow>
-						<PanelRow>
+						{/* <PanelRow>
 							<TextControl
 								label={__(
 									"Block should not be sticky on screens smaller than:"
@@ -77,7 +77,7 @@ export default function Edit({ attributes, setAttributes }) {
 								onChange={(value) => setAttributes({ pushUp: value })}
 								help="e.g. '#footer', '.widget-bottom', etc."
 							/>
-						</PanelRow>
+						</PanelRow> */}
 						<PanelRow>
 							<RangeControl
 								label={__("Z-index:")}

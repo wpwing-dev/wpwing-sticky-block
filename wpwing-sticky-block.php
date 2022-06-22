@@ -40,7 +40,7 @@ function wpwing_sticky_block_frontend() {
   wp_enqueue_script( 'wpwing_sticky_block-js' );
 }
 
-// add_action( 'wp_enqueue_scripts', 'wpwing_sticky_block_frontend' );
+add_action( 'wp_enqueue_scripts', 'wpwing_sticky_block_frontend' );
 
 /**
  * For test and debug, log function to view any data in wp-content/debug.log

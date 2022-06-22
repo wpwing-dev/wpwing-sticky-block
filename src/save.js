@@ -9,6 +9,7 @@ export default function save({ attributes }) {
 	return (
 		<div {...useBlockProps.save()}>
 			<div
+				id="wpwing-sticky"
 				data-top-space={topSpace}
 				data-check-for-admin={checkForAdmin}
 				data-min-width={minWidth}

@@ -17,18 +17,6 @@
 			"type": "boolean",
 			"default": true
 		},
-		"minWidth": {
-			"type": "integer",
-			"default": 0
-		},
-		"maxWidth": {
-			"type": "integer",
-			"default": 99999
-		},
-		"pushUp": {
-			"type": "string",
-			"default": ""
-		},
 		"zIndex": {
 			"type": "integer",
 			"default": 1
