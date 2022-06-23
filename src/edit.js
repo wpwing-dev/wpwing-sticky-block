@@ -5,18 +5,18 @@ import {
 	InnerBlocks,
 } from "@wordpress/block-editor";
 import {
-	ToggleControl,
 	Panel,
 	PanelBody,
 	PanelRow,
-	RangeControl,
 	TextControl,
+	ToggleControl,
+	RangeControl,
 } from "@wordpress/components";
 
 // import "./editor.scss";
 
 export default function Edit({ attributes, setAttributes }) {
-	const { topSpace, checkForAdmin, minWidth, maxWidth, pushUp, zIndex } =
+	const { topSpace, checkForAdmin, zIndex } =
 		attributes;
 
 	return (
@@ -47,37 +47,6 @@ export default function Edit({ attributes, setAttributes }) {
 								}
 							/>
 						</PanelRow>
-						{/* <PanelRow>
-							<TextControl
-								label={__(
-									"Block should not be sticky on screens smaller than:"
-								)}
-								value={minWidth}
-								type="number"
-								onChange={(value) =>
-									setAttributes({ minWidth: Number.parseInt(value, 10) })
-								}
-							/>
-						</PanelRow>
-						<PanelRow>
-							<TextControl
-								label={__("Block should not be sticky on screens wider than:")}
-								value={maxWidth}
-								type="number"
-								onChange={(value) =>
-									setAttributes({ maxWidth: Number.parseInt(value, 10) })
-								}
-							/>
-						</PanelRow>
-						<PanelRow>
-							<TextControl
-								label={__("Pushup Element:")}
-								value={pushUp}
-								type="text"
-								onChange={(value) => setAttributes({ pushUp: value })}
-								help="e.g. '#footer', '.widget-bottom', etc."
-							/>
-						</PanelRow> */}
 						<PanelRow>
 							<RangeControl
 								label={__("Z-index:")}

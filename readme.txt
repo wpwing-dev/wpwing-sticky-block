@@ -1,6 +1,6 @@
 === WPWing Sticky Block ===
 Contributors:      wpwing, voboghure
-Tags:              sticky, sticky block, gutenberg
+Tags:              sticky, sticky block, gutenberg, block editor
 Requires at least: 4.8
 Tested up to:      6.0
 Requires PHP:      7.0
@@ -8,21 +8,18 @@ Stable tag:        1.0.0
 License:           GPL-3.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
-The Gutenberg Sticky Block will stick at the top of the page once you scroll down.
+The WPWing Sticky Block for Gutenberg will stick at the top of the page once you scroll down.
 
 == Description ==
 
-The Gutenberg Sticky Block can be added to any Post or Page and will be sticky as soon as it hits the top of the page after you scroll down. The Sticky Block can contain any other Blocks (Paragraphs, Images, etc.), and can also be used *in* other Blocks (e.g. Column or Table).
+The WPWing Sticky Block for Gutenberg can be added to any Post or Page and will be sticky as soon as it hits the top of the page after you scroll down. The Sticky Block can contain any other Blocks (Paragraphs, Images, etc.), and can also be used *in* other Blocks (e.g. Column or Table).
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
+"WPWing Table of Contents Block" can be found and installed via the Plugin menu within WordPress administration (Plugins -> Add New). Alternatively, it can be downloaded from WordPress.org and installed manually...
 
 1. Upload the plugin files to the `/wp-content/plugins/wpwing-sticky-block` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-
+2. Activate the plugin through the 'Plugins' screen in WordPress
 
 == Frequently Asked Questions ==
 
@@ -36,8 +33,10 @@ Answer to foo bar dilemma.
 
 == Screenshots ==
 
-1. `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png` (or jpg, jpeg, gif).
-2. This is the second screen shot
+1. WPWing Sticky block in block search.
+2. Output in editor.
+3. Block setting in editor.
+4. Out put in frontend when sticky.
 
 == Changelog ==
 
