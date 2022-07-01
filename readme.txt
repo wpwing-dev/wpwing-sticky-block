@@ -8,35 +8,39 @@ Stable tag:        1.0.0
 License:           GPL-3.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
-The WPWing Sticky Block for Gutenberg will stick at the top of the page once you scroll down.
+The WPWing Sticky Block will stick at the top with an optional offset pixel of the page once you scroll down.
 
 == Description ==
 
-The WPWing Sticky Block for Gutenberg can be added to any Post or Page and will be sticky as soon as it hits the top of the page after you scroll down. The Sticky Block can contain any other Blocks (Paragraphs, Images, etc.), and can also be used *in* other Blocks (e.g. Column or Table).
+The WPWing Sticky Block can be added to any anywhere and will be sticky as soon as it hits the top with an optional offset pixel of the page after you scroll down. The WPWing Sticky Block is a container block meaning you can add other blocks in it (make all of them sticky) or can be added in another block like columns, etc.
+
+= Features =
+
+* **Container Block**: WPWing Sticky Block works as a container block, that can hold other blocks.
+* **Normal Block**: You can add WPWing Sticky Block in any column, group or table block.
+* **Positioning from top**: You can add any amount of space between the Sticky Block and the top of the page.
+* **Admin Bar aware**: If the current user has an admin toolbar then the sticky block will add the height and stick after that.
+* **Z-index**: You can use z-index so that no element can obscure your sticky block.
 
 == Installation ==
 
-"WPWing Table of Contents Block" can be found and installed via the Plugin menu within WordPress administration (Plugins -> Add New). Alternatively, it can be downloaded from WordPress.org and installed manually...
+"WPWing Sticky Block" can be found and installed via the Plugin menu within WordPress administration (Plugins -> Add New). Alternatively, it can be downloaded from WordPress.org and installed manually...
 
 1. Upload the plugin files to the `/wp-content/plugins/wpwing-sticky-block` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= Cat I add more than one sticky block on a page? =
 
-An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
+Unfortunately NO. With this version, you can add only one sticky block but we have a plan to add multiple blocks on a page.
 
 == Screenshots ==
 
 1. WPWing Sticky block in block search.
 2. Output in editor.
 3. Block setting in editor.
-4. Out put in frontend when sticky.
+4. Output in frontend when sticky.
 
 == Changelog ==
 
