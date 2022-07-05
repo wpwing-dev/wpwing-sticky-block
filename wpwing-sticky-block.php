@@ -1,14 +1,18 @@
 <?php
+
 /**
  * Plugin Name:       WPWing Sticky Block
- * Description:       Example static block scaffolded with Create Block tool.
- * Requires at least: 5.9
+ * Description:       A sticky block which can hold any other block.
+ * Version:           1.0.1
+ * Requires at least: 5.8
+ * Tested up to:      6.0
  * Requires PHP:      7.0
- * Version:           1.0.0
- * Author:            The WordPress Contributors
+ * Author:            WPWing
+ * Author URI:        https://wpwing.com/
  * License:           GPL-3.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       wpwing-sticky-block
+ * Domain Path:       /languages
  *
  * @package           create-block
  */
