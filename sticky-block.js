@@ -14,6 +14,7 @@
 		let zIndex = wpwingSticky.data("z-index");
 
 		// Is there an admin bar and do we need to consider it
+		let adminBarHeight;
 		if (
 			checkForAdmin &&
 			$("body").hasClass("admin-bar") &&
