@@ -40,6 +40,18 @@
 		"ariaLabel": {
 			"type": "string",
 			"default": ""
+		},
+		"stickyBackground": {
+			"type": "string",
+			"default": ""
+		},
+		"stickyShadow": {
+			"type": "string",
+			"default": "none"
+		},
+		"stickyPaddingTop": {
+			"type": "integer",
+			"default": 0
 		}
 	},
 	"supports": {

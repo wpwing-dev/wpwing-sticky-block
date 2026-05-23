@@ -3,6 +3,7 @@ import {
 	InspectorControls,
 	useBlockProps,
 	InnerBlocks,
+	ColorPalette,
 } from "@wordpress/block-editor";
 import {
 	Panel,
@@ -26,6 +27,9 @@ export default function Edit( { attributes, setAttributes } ) {
 		disableOnMobile,
 		mobileBreakpoint,
 		ariaLabel,
+		stickyBackground,
+		stickyShadow,
+		stickyPaddingTop,
 	} = attributes;
 
 	return (
@@ -174,6 +178,70 @@ export default function Edit( { attributes, setAttributes } ) {
 								}
 								help={ __(
 									'Adds an aria-label attribute to the sticky wrapper, improving screen reader context. Leave blank to omit.',
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
+					</PanelBody>
+
+					<PanelBody
+						title={ __( "Sticky State Styles", "wpwing-sticky-block" ) }
+						initialOpen={ false }
+					>
+						<p style={ { marginBottom: "8px", fontWeight: 500 } }>
+							{ __( "Background color when sticky", "wpwing-sticky-block" ) }
+						</p>
+						<ColorPalette
+							value={ stickyBackground }
+							onChange={ ( value ) =>
+								setAttributes( { stickyBackground: value ?? "" } )
+							}
+						/>
+						<PanelRow>
+							<SelectControl
+								label={ __( "Shadow when sticky", "wpwing-sticky-block" ) }
+								value={ stickyShadow }
+								options={ [
+									{
+										label: __( "None", "wpwing-sticky-block" ),
+										value: "none",
+									},
+									{
+										label: __( "Small", "wpwing-sticky-block" ),
+										value: "sm",
+									},
+									{
+										label: __( "Medium", "wpwing-sticky-block" ),
+										value: "md",
+									},
+									{
+										label: __( "Large", "wpwing-sticky-block" ),
+										value: "lg",
+									},
+								] }
+								onChange={ ( value ) =>
+									setAttributes( { stickyShadow: value } )
+								}
+								help={ __(
+									"Adds a drop shadow beneath the block once it becomes sticky.",
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
+						<PanelRow>
+							<RangeControl
+								label={ __(
+									"Top padding when sticky (px)",
+									"wpwing-sticky-block"
+								) }
+								value={ stickyPaddingTop }
+								min={ 0 }
+								max={ 100 }
+								onChange={ ( value ) =>
+									setAttributes( { stickyPaddingTop: value } )
+								}
+								help={ __(
+									"Extra top padding applied only while the block is stuck.",
 									"wpwing-sticky-block"
 								) }
 							/>

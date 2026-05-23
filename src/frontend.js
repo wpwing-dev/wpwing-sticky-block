@@ -3,6 +3,12 @@
  * Vanilla JS, no jQuery. Supports multiple sticky blocks per page.
  */
 
+const SHADOWS = {
+	sm: '0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.08)',
+	md: '0 4px 6px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.08)',
+	lg: '0 10px 15px rgba(0,0,0,.12), 0 4px 6px rgba(0,0,0,.08)',
+};
+
 document.addEventListener( 'DOMContentLoaded', () => {
 	const blocks = document.querySelectorAll( '.wp-block-wpwing-sticky-block' );
 	if ( ! blocks.length ) return;
@@ -30,6 +36,11 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const disableOnMobile = dataEl.dataset.disableOnMobile === 'true';
 		const mobileBreakpoint = parseInt( dataEl.dataset.mobileBreakpoint ?? 768, 10 );
 
+		// Sticky-state styles (only present when non-default).
+		const stickyBg = dataEl.dataset.stickyBg ?? '';
+		const stickyShadow = SHADOWS[ dataEl.dataset.stickyShadow ] ?? '';
+		const stickyPaddingTop = parseInt( dataEl.dataset.stickyPaddingTop ?? 0, 10 );
+
 		const stopEl = stopBefore ? document.querySelector( stopBefore ) : null;
 		const offset = topSpace + ( checkForAdmin ? adminBarHeight : 0 );
 
@@ -47,6 +58,24 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 		function isActive() {
 			return ! disableOnMobile || window.innerWidth > mobileBreakpoint;
+		}
+
+		function applySticky() {
+			block.style.width = `${ originalWidth }px`;
+			if ( stickyBg ) block.style.backgroundColor = stickyBg;
+			if ( stickyShadow ) block.style.boxShadow = stickyShadow;
+			if ( stickyPaddingTop ) block.style.paddingTop = `${ stickyPaddingTop }px`;
+			block.classList.add( 'is-sticky' );
+			isSticky = true;
+		}
+
+		function removeSticky() {
+			block.style.width = '';
+			block.style.backgroundColor = '';
+			block.style.boxShadow = '';
+			block.style.paddingTop = '';
+			block.classList.remove( 'is-sticky' );
+			isSticky = false;
 		}
 
 		function update() {
@@ -71,13 +100,9 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				belowTrigger && isActive() && directionOk && ! stopReached;
 
 			if ( shouldStick && ! isSticky ) {
-				block.style.width = `${ originalWidth }px`;
-				block.classList.add( 'is-sticky' );
-				isSticky = true;
+				applySticky();
 			} else if ( ! shouldStick && isSticky ) {
-				block.style.width = '';
-				block.classList.remove( 'is-sticky' );
-				isSticky = false;
+				removeSticky();
 			}
 
 			ticking = false;
