@@ -2,3 +2,9 @@
  * The following styles get applied both on the front of your site
  * and in the editor.
  */
+
+.wp-block-wpwing-sticky-block.is-sticky {
+	position: fixed;
+	top: var(--sticky-top, 0px);
+	z-index: var(--sticky-z-index, 1);
+}

@@ -13,7 +13,7 @@ import {
 	RangeControl,
 } from "@wordpress/components";
 
-// import "./editor.scss";
+import "./editor.scss";
 
 export default function Edit({ attributes, setAttributes }) {
 	const { topSpace, checkForAdmin, zIndex } =

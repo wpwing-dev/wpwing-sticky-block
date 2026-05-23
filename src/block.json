@@ -1,8 +1,8 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
-	"apiVersion": 2,
+	"apiVersion": 3,
 	"name": "wpwing/sticky-block",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"title": "WPWing Sticky Block",
 	"category": "design",
 	"keywords": ["Sticky", "Sticky Block", "WPWing"],
@@ -28,5 +28,6 @@
 	"textdomain": "wpwing-sticky-block",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
-	"style": "file:./style-index.css"
+	"style": "file:./style-index.css",
+	"viewScript": "file:./frontend.js"
 }
