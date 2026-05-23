@@ -1,49 +1,124 @@
 === WPWing Sticky Block ===
 
 Contributors:      wpwing, voboghure
-Tags:              sticky, sticky block, gutenberg, block editor
+Tags:              sticky, sticky block, gutenberg, block editor, fixed
 Requires at least: 5.8
 Tested up to:      6.8
 Requires PHP:      7.4
-Stable tag:        1.0.1
+Stable tag:        2.0.0
 License:           GPL-3.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
-The WPWing Sticky Block will stick at the top with an optional offset pixel of the page once you scroll down.
+Make any block sticky. A lightweight Gutenberg container block that fixes its content to the top of the viewport as visitors scroll — no coding required.
 
 == Description ==
 
-The WPWing Sticky Block can be added anywhere and will be sticky as soon as it hits the top with an optional offset pixel of the page after you scroll down. The WPWing Sticky Block is a container block meaning you can add other blocks in it (make all of them sticky) or can be added in another block like columns, etc.
+**WPWing Sticky Block** is a Gutenberg container block that sticks to the top of the page once the visitor scrolls past it. Drop any blocks inside — a navigation menu, a call-to-action, a contact button, a sidebar widget — and they will follow the reader down the page.
 
-= Features =
+Unlike CSS `position: sticky` (which only works within its parent scroll container), WPWing Sticky Block uses `position: fixed` with intelligent scroll detection, so it works reliably in any layout.
 
-* **Container Block**: WPWing Sticky Block works as a container block, that can hold other blocks.
-* **Normal Block**: You can add WPWing Sticky Block in any column, group or table block.
-* **Positioning from top**: You can add any amount of space between the WPWing Sticky Block and the top of the page.
-* **Admin Bar aware**: If the current user has an admin toolbar then the WPWing Sticky Block will add the height and stick after that.
-* **Z-index**: You can use z-index so that no element can obscure your WPWing Sticky Block.
+= Key Features =
+
+* **Multiple sticky blocks per page** — place as many sticky blocks as you need, each with its own settings.
+* **Container block** — nest any Gutenberg blocks inside: navigation, buttons, headings, images, widgets.
+* **Top offset** — set how many pixels of space to leave between the sticky block and the top of the viewport.
+* **Admin toolbar aware** — automatically shifts down for logged-in users who have the WordPress admin bar visible.
+* **Z-index control** — fine-tune stacking order so the sticky block always sits above (or below) other elements.
+* **Scroll direction mode** — choose "Always sticky" or "Only while scrolling up" (the pattern used by modern sticky headers that appear on the way back up).
+* **Stop before an element** — un-stick the block before it overlaps a footer or another landmark, using a CSS selector (e.g. `#footer`).
+* **Disable on mobile** — turn off sticky behaviour below a configurable viewport breakpoint (default 768 px).
+* **Sticky-state background color** — set a background color that only appears while the block is stuck, e.g. a solid white behind a transparent nav.
+* **Sticky-state shadow** — add a drop shadow (Small / Medium / Large) that appears only when the block is in sticky position.
+* **Sticky-state top padding** — add extra breathing room above the content when the block is stuck.
+* **Accessibility** — set an `aria-label` on the sticky wrapper to give screen reader users useful context.
+* **Zero dependencies** — no jQuery. The frontend script is plain JavaScript, under 2 KB minified.
+* **Starter patterns** — two ready-made block patterns in the pattern inserter: "Sticky Navigation Bar" and "Sticky Call-to-Action Bar".
+
+= How to use =
+
+1. In the block editor, search for **Sticky Block** and insert it anywhere on your page.
+2. Add blocks inside it — a Navigation block, a Button, a Group, anything you like.
+3. Open the block settings panel on the right and adjust offset, z-index, scroll behaviour, and sticky-state styles.
+4. Preview your page and scroll — the block will stick to the top.
+
+= Starter patterns =
+
+Open the Pattern inserter and look under the **WPWing** category to find:
+
+* **Sticky Navigation Bar** — a Navigation block inside a sticky container, with a white background and medium shadow that activate on scroll.
+* **Sticky Call-to-Action Bar** — a heading and button in a flex row that slides in from the top when the visitor scrolls back up.
 
 == Installation ==
 
-"WPWing Sticky Block" can be found and installed via the Plugin menu within WordPress administration (Plugins -> Add New). Alternatively, it can be downloaded from WordPress.org and installed manually...
+= Automatic installation =
 
-1. Upload the plugin files to the `/wp-content/plugins/wpwing-sticky-block` directory, or install the plugin through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress
+1. Go to **Plugins → Add New** in your WordPress admin.
+2. Search for **WPWing Sticky Block**.
+3. Click **Install Now**, then **Activate**.
+
+= Manual installation =
+
+1. Download the plugin ZIP from WordPress.org.
+2. Go to **Plugins → Add New → Upload Plugin**.
+3. Upload the ZIP and activate.
 
 == Frequently Asked Questions ==
 
-= Cat I add more than one sticky block on a page? =
+= Can I add more than one sticky block on a page? =
 
-Unfortunately NO. With this version, you can add only one sticky block but we have a plan to add multiple blocks on a page.
+Yes — v2.0.0 fully supports multiple sticky blocks on the same page. Each block has its own independent settings and scroll listener.
+
+= Does it work with the full-site editor (FSE)? =
+
+Yes. The block works in both the classic page/post editor and the full-site editor (Site Editor) in WordPress 5.9+.
+
+= Why does my sticky block not work inside a column or group? =
+
+If a parent element has `overflow: hidden` or `overflow: clip` set, `position: fixed` will be clipped to that container and may not behave as expected. Remove the overflow restriction on the parent, or move the sticky block outside the constrained container.
+
+= Can I disable sticky behaviour on phones? =
+
+Yes. Open the **Responsive** panel in the block settings and enable "Disable sticky on mobile". You can also adjust the breakpoint (default: 768 px).
+
+= How do I make the block stop before the footer? =
+
+Open the **Behavior** panel and enter a CSS selector in the "Stop before element" field — for example `#footer` or `.site-footer`. The block will un-stick before its bottom reaches that element.
+
+= Will it conflict with my theme's sticky header? =
+
+It should not conflict, but if both your theme and the plugin apply `position: fixed` to overlapping elements, adjust the **Z-index** setting in the block sidebar to control which element sits on top.
 
 == Screenshots ==
 
-1. WPWing Sticky block in block search.
-2. Output in the editor.
-3. Block settings in the editor.
-4. Output in frontend when sticky.
+1. WPWing Sticky Block in the block inserter.
+2. A sticky block with inner content shown in the editor.
+3. The block settings sidebar — Sticky Options, Behavior, Responsive, Accessibility, and Sticky State Styles panels.
+4. The block in action on the frontend in sticky (fixed) position.
+5. The two built-in starter patterns in the Pattern inserter.
 
 == Changelog ==
 
+= 2.0.0 =
+* New: multiple sticky blocks supported per page (removed the single-block limitation).
+* New: "Only while scrolling up" scroll direction mode.
+* New: Stop-before-element setting — un-stick before a chosen element (e.g. footer).
+* New: Disable-on-mobile toggle with configurable breakpoint.
+* New: Sticky-state background color (shown only when the block is stuck).
+* New: Sticky-state shadow presets (Small / Medium / Large).
+* New: Sticky-state top-padding control.
+* New: ARIA label control for accessibility.
+* New: Two built-in block patterns — Sticky Navigation Bar and Sticky Call-to-Action Bar.
+* Improvement: Rewrote frontend script in vanilla JavaScript — no jQuery dependency.
+* Improvement: Scroll handler now uses requestAnimationFrame for smooth, jank-free performance.
+* Improvement: Upgraded to Gutenberg Block API v3.
+* Improvement: Frontend script registered via block.json viewScript — loads only on pages that contain the block.
+* Fix: Editor border style now correctly targets the block wrapper class.
+* Fix: adminBarHeight variable scope (was implicit global).
+* Fix: Minimum WordPress version corrected to 5.8 (was incorrectly listed as 4.8 in readme).
+* Tested up to WordPress 6.8.
+
+= 1.0.1 =
+* Minor fixes.
+
 = 1.0.0 =
-* Initial Release
+* Initial release.

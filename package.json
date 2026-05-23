@@ -1,6 +1,6 @@
 {
 	"name": "wpwing-sticky-block",
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"description": "A sticky block which can hold any other block.",
 	"author": "WPWing",
 	"license": "GPL-3.0-or-later",
