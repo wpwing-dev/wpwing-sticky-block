@@ -7,7 +7,7 @@
 	"category": "design",
 	"keywords": ["Sticky", "Sticky Block", "WPWing"],
 	"icon": "sticky",
-	"description": "Sticky block which can hold other block like as group or column block.",
+	"description": "A sticky container block. Drop any blocks inside and they will follow the reader as they scroll — with controls for offset, z-index, scroll direction, mobile breakpoint, and sticky-state styles.",
 	"attributes": {
 		"topSpace": {
 			"type": "integer",

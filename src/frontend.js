@@ -44,9 +44,9 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const stopEl = stopBefore ? document.querySelector( stopBefore ) : null;
 		const offset = topSpace + ( checkForAdmin ? adminBarHeight : 0 );
 
-		// Natural distance from page top before any scroll.
-		const divTop = block.getBoundingClientRect().top + window.scrollY - offset;
-		const originalWidth = block.offsetWidth;
+		// divTop is the scroll position at which the block leaves its natural position.
+		// It's a `let` so the resize handler can recalculate it after layout reflows.
+		let divTop = block.getBoundingClientRect().top + window.scrollY - offset;
 
 		// Write CSS custom properties once — scroll handler only toggles a class.
 		block.style.setProperty( '--sticky-top', `${ offset }px` );
@@ -61,7 +61,8 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 
 		function applySticky() {
-			block.style.width = `${ originalWidth }px`;
+			// Measure natural width right before going fixed so it's always current.
+			block.style.width = `${ block.offsetWidth }px`;
 			if ( stickyBg ) block.style.backgroundColor = stickyBg;
 			if ( stickyShadow ) block.style.boxShadow = stickyShadow;
 			if ( stickyPaddingTop ) block.style.paddingTop = `${ stickyPaddingTop }px`;
@@ -84,12 +85,12 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			lastScrollY = scrollY;
 
 			const belowTrigger = scrollY > divTop;
-			const directionOk =
-				scrollDirection === 'always' || scrollingUp;
+			const directionOk = scrollDirection === 'always' || scrollingUp;
 
-			// Un-stick when the sticky block's bottom reaches the stop element's top.
+			// Check stopEl regardless of isSticky to prevent a one-frame flicker
+			// where applySticky() fires before the stop condition is evaluated.
 			let stopReached = false;
-			if ( stopEl && isSticky ) {
+			if ( stopEl ) {
 				const stopTop = stopEl.getBoundingClientRect().top;
 				if ( stopTop <= offset + block.offsetHeight ) {
 					stopReached = true;
@@ -115,9 +116,16 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			}
 		}
 
-		window.addEventListener( 'scroll', onScroll, { passive: true } );
+		function onResize() {
+			// Recalculate the trigger position after layout reflows (images loading,
+			// accordion expand, font swap, etc.) — only valid when block is in flow.
+			if ( ! isSticky ) {
+				divTop = block.getBoundingClientRect().top + window.scrollY - offset;
+			}
+			onScroll();
+		}
 
-		// Re-check on resize so disableOnMobile responds without a page reload.
-		window.addEventListener( 'resize', onScroll, { passive: true } );
+		window.addEventListener( 'scroll', onScroll, { passive: true } );
+		window.addEventListener( 'resize', onResize, { passive: true } );
 	} );
 } );

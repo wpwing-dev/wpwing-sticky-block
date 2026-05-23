@@ -3,7 +3,6 @@ import {
 	InspectorControls,
 	useBlockProps,
 	InnerBlocks,
-	ColorPalette,
 } from "@wordpress/block-editor";
 import {
 	Panel,
@@ -13,6 +12,7 @@ import {
 	ToggleControl,
 	RangeControl,
 	SelectControl,
+	ColorPalette,
 } from "@wordpress/components";
 
 import "./editor.scss";

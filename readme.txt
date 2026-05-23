@@ -3,7 +3,7 @@
 Contributors:      wpwing, voboghure
 Tags:              sticky, sticky block, gutenberg, block editor, fixed
 Requires at least: 5.8
-Tested up to:      6.8
+Tested up to:      7.0
 Requires PHP:      7.4
 Stable tag:        2.0.0
 License:           GPL-3.0-or-later
@@ -32,7 +32,6 @@ Unlike CSS `position: sticky` (which only works within its parent scroll contain
 * **Sticky-state top padding** — add extra breathing room above the content when the block is stuck.
 * **Accessibility** — set an `aria-label` on the sticky wrapper to give screen reader users useful context.
 * **Zero dependencies** — no jQuery. The frontend script is plain JavaScript, under 2 KB minified.
-* **Starter patterns** — two ready-made block patterns in the pattern inserter: "Sticky Navigation Bar" and "Sticky Call-to-Action Bar".
 
 = How to use =
 
@@ -40,13 +39,6 @@ Unlike CSS `position: sticky` (which only works within its parent scroll contain
 2. Add blocks inside it — a Navigation block, a Button, a Group, anything you like.
 3. Open the block settings panel on the right and adjust offset, z-index, scroll behaviour, and sticky-state styles.
 4. Preview your page and scroll — the block will stick to the top.
-
-= Starter patterns =
-
-Open the Pattern inserter and look under the **WPWing** category to find:
-
-* **Sticky Navigation Bar** — a Navigation block inside a sticky container, with a white background and medium shadow that activate on scroll.
-* **Sticky Call-to-Action Bar** — a heading and button in a flex row that slides in from the top when the visitor scrolls back up.
 
 == Installation ==
 
@@ -94,7 +86,6 @@ It should not conflict, but if both your theme and the plugin apply `position: f
 2. A sticky block with inner content shown in the editor.
 3. The block settings sidebar — Sticky Options, Behavior, Responsive, Accessibility, and Sticky State Styles panels.
 4. The block in action on the frontend in sticky (fixed) position.
-5. The two built-in starter patterns in the Pattern inserter.
 
 == Changelog ==
 
@@ -107,15 +98,16 @@ It should not conflict, but if both your theme and the plugin apply `position: f
 * New: Sticky-state shadow presets (Small / Medium / Large).
 * New: Sticky-state top-padding control.
 * New: ARIA label control for accessibility.
-* New: Two built-in block patterns — Sticky Navigation Bar and Sticky Call-to-Action Bar.
 * Improvement: Rewrote frontend script in vanilla JavaScript — no jQuery dependency.
-* Improvement: Scroll handler now uses requestAnimationFrame for smooth, jank-free performance.
+* Improvement: Scroll handler uses requestAnimationFrame for smooth, jank-free performance.
 * Improvement: Upgraded to Gutenberg Block API v3.
 * Improvement: Frontend script registered via block.json viewScript — loads only on pages that contain the block.
 * Fix: Editor border style now correctly targets the block wrapper class.
 * Fix: adminBarHeight variable scope (was implicit global).
+* Fix: stopBefore check now evaluated before sticky is applied, preventing a one-frame flicker.
+* Fix: Trigger position (divTop) and block width recalculated on viewport resize to handle layout reflows.
 * Fix: Minimum WordPress version corrected to 5.8 (was incorrectly listed as 4.8 in readme).
-* Tested up to WordPress 6.8.
+* Tested up to WordPress 7.0.
 
 = 1.0.1 =
 * Minor fixes.
