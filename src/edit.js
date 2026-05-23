@@ -11,50 +11,171 @@ import {
 	TextControl,
 	ToggleControl,
 	RangeControl,
+	SelectControl,
 } from "@wordpress/components";
 
 import "./editor.scss";
 
-export default function Edit({ attributes, setAttributes }) {
-	const { topSpace, checkForAdmin, zIndex } =
-		attributes;
+export default function Edit( { attributes, setAttributes } ) {
+	const {
+		topSpace,
+		checkForAdmin,
+		zIndex,
+		scrollDirection,
+		stopBefore,
+		disableOnMobile,
+		mobileBreakpoint,
+		ariaLabel,
+	} = attributes;
 
 	return (
-		<div {...useBlockProps()}>
+		<div { ...useBlockProps() }>
 			<InspectorControls>
 				<Panel>
-					<PanelBody title={__("Sticky Options")}>
+					<PanelBody title={ __( "Sticky Options", "wpwing-sticky-block" ) }>
 						<PanelRow>
 							<TextControl
-								label={__("Space between sticky block and top of screen:")}
-								value={topSpace}
+								label={ __(
+									"Space from top of screen (px)",
+									"wpwing-sticky-block"
+								) }
+								value={ topSpace }
 								type="number"
-								onChange={(value) =>
-									setAttributes({ topSpace: Number.parseInt(value, 10) })
+								onChange={ ( value ) =>
+									setAttributes( {
+										topSpace: Number.parseInt( value, 10 ) || 0,
+									} )
 								}
 							/>
 						</PanelRow>
 						<PanelRow>
 							<ToggleControl
-								label={__(
-									"Move the block down a little bit if there is a toolbar at the top (for logged in users)"
-								)}
-								checked={checkForAdmin}
-								onChange={(value) =>
-									setAttributes({
-										checkForAdmin: !checkForAdmin,
-									})
+								label={ __(
+									"Account for admin toolbar",
+									"wpwing-sticky-block"
+								) }
+								help={ __(
+									"Shifts the block down by the admin bar height for logged-in users.",
+									"wpwing-sticky-block"
+								) }
+								checked={ checkForAdmin }
+								onChange={ () =>
+									setAttributes( { checkForAdmin: ! checkForAdmin } )
 								}
 							/>
 						</PanelRow>
 						<PanelRow>
 							<RangeControl
-								label={__("Z-index:")}
-								value={zIndex}
-								min={-100}
-								max={1000}
-								onChange={(value) => setAttributes({ zIndex: value })}
-								help="Only applies once the element is sticky"
+								label={ __( "Z-index", "wpwing-sticky-block" ) }
+								value={ zIndex }
+								min={ -100 }
+								max={ 1000 }
+								onChange={ ( value ) => setAttributes( { zIndex: value } ) }
+								help={ __(
+									"Stack order when the block is sticky.",
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
+					</PanelBody>
+
+					<PanelBody
+						title={ __( "Behavior", "wpwing-sticky-block" ) }
+						initialOpen={ false }
+					>
+						<PanelRow>
+							<SelectControl
+								label={ __( "Stick when", "wpwing-sticky-block" ) }
+								value={ scrollDirection }
+								options={ [
+									{
+										label: __( "Always", "wpwing-sticky-block" ),
+										value: "always",
+									},
+									{
+										label: __(
+											"Only while scrolling up",
+											"wpwing-sticky-block"
+										),
+										value: "up-only",
+									},
+								] }
+								onChange={ ( value ) =>
+									setAttributes( { scrollDirection: value } )
+								}
+								help={ __(
+									'"Only while scrolling up" hides the block when scrolling down and reveals it on scroll up — a common pattern for sticky headers.',
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
+						<PanelRow>
+							<TextControl
+								label={ __( "Stop before element (CSS selector)", "wpwing-sticky-block" ) }
+								value={ stopBefore }
+								placeholder="#footer"
+								onChange={ ( value ) =>
+									setAttributes( { stopBefore: value } )
+								}
+								help={ __(
+									"Un-sticks the block when it reaches this element. E.g. #footer",
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
+					</PanelBody>
+
+					<PanelBody
+						title={ __( "Responsive", "wpwing-sticky-block" ) }
+						initialOpen={ false }
+					>
+						<PanelRow>
+							<ToggleControl
+								label={ __( "Disable sticky on mobile", "wpwing-sticky-block" ) }
+								checked={ disableOnMobile }
+								onChange={ () =>
+									setAttributes( { disableOnMobile: ! disableOnMobile } )
+								}
+							/>
+						</PanelRow>
+						{ disableOnMobile && (
+							<PanelRow>
+								<RangeControl
+									label={ __(
+										"Mobile breakpoint (px)",
+										"wpwing-sticky-block"
+									) }
+									value={ mobileBreakpoint }
+									min={ 320 }
+									max={ 1200 }
+									onChange={ ( value ) =>
+										setAttributes( { mobileBreakpoint: value } )
+									}
+									help={ __(
+										"Sticky is disabled when the viewport is narrower than this value.",
+										"wpwing-sticky-block"
+									) }
+								/>
+							</PanelRow>
+						) }
+					</PanelBody>
+
+					<PanelBody
+						title={ __( "Accessibility", "wpwing-sticky-block" ) }
+						initialOpen={ false }
+					>
+						<PanelRow>
+							<TextControl
+								label={ __( "ARIA label", "wpwing-sticky-block" ) }
+								value={ ariaLabel }
+								placeholder={ __( "e.g. Site navigation", "wpwing-sticky-block" ) }
+								onChange={ ( value ) =>
+									setAttributes( { ariaLabel: value } )
+								}
+								help={ __(
+									'Adds an aria-label attribute to the sticky wrapper, improving screen reader context. Leave blank to omit.',
+									"wpwing-sticky-block"
+								) }
 							/>
 						</PanelRow>
 					</PanelBody>

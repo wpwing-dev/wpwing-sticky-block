@@ -20,6 +20,26 @@
 		"zIndex": {
 			"type": "integer",
 			"default": 1
+		},
+		"scrollDirection": {
+			"type": "string",
+			"default": "always"
+		},
+		"stopBefore": {
+			"type": "string",
+			"default": ""
+		},
+		"disableOnMobile": {
+			"type": "boolean",
+			"default": false
+		},
+		"mobileBreakpoint": {
+			"type": "integer",
+			"default": 768
+		},
+		"ariaLabel": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {

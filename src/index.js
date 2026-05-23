@@ -7,8 +7,25 @@ import Edit from './edit';
 import save from './save';
 import metadata from './block.json';
 
-// v1 saved an inner <div id="wpwing-sticky"> wrapper; v2 puts data-* on the block root.
 const deprecated = [
+	// v2 (Phase 1): data-* on block root, no new Phase 2 attributes.
+	{
+		save( { attributes } ) {
+			const { topSpace, checkForAdmin, zIndex } = attributes;
+			return (
+				<div
+					{ ...useBlockProps.save( {
+						'data-top-space': topSpace,
+						'data-check-for-admin': checkForAdmin,
+						'data-z-index': zIndex,
+					} ) }
+				>
+					<InnerBlocks.Content />
+				</div>
+			);
+		},
+	},
+	// v1 (original): inner <div id="wpwing-sticky"> wrapper.
 	{
 		save( { attributes } ) {
 			const { topSpace, checkForAdmin, zIndex } = attributes;
