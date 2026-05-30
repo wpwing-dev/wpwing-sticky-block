@@ -13,6 +13,10 @@ export default function save( { attributes } ) {
 		stickyBackground,
 		stickyShadow,
 		stickyPaddingTop,
+		stickyTextColor,
+		fullWidthWhenSticky,
+		stickyTransition,
+		stickyTransitionDuration,
 	} = attributes;
 
 	return (
@@ -27,10 +31,14 @@ export default function save( { attributes } ) {
 				'data-stop-before': stopBefore || undefined,
 				'aria-label': ariaLabel || undefined,
 				// Sticky-state style attrs — omitted when at default so the saved HTML
-				// stays identical to Phase 2 format for blocks with no sticky styles set.
+				// stays identical to prior format for blocks with no sticky styles set.
 				'data-sticky-bg': stickyBackground || undefined,
 				'data-sticky-shadow': stickyShadow !== 'none' ? stickyShadow : undefined,
 				'data-sticky-padding-top': stickyPaddingTop || undefined,
+				'data-sticky-text-color': stickyTextColor || undefined,
+				'data-full-width-when-sticky': fullWidthWhenSticky || undefined,
+				'data-sticky-transition': stickyTransition !== 'none' ? stickyTransition : undefined,
+				'data-sticky-transition-duration': stickyTransition !== 'none' ? stickyTransitionDuration : undefined,
 			} ) }
 		>
 			<InnerBlocks.Content />

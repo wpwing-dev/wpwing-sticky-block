@@ -30,6 +30,10 @@ export default function Edit( { attributes, setAttributes } ) {
 		stickyBackground,
 		stickyShadow,
 		stickyPaddingTop,
+		stickyTextColor,
+		fullWidthWhenSticky,
+		stickyTransition,
+		stickyTransitionDuration,
 	} = attributes;
 
 	return (
@@ -197,6 +201,15 @@ export default function Edit( { attributes, setAttributes } ) {
 								setAttributes( { stickyBackground: value ?? "" } )
 							}
 						/>
+						<p style={ { marginBottom: "8px", marginTop: "16px", fontWeight: 500 } }>
+							{ __( "Text color when sticky", "wpwing-sticky-block" ) }
+						</p>
+						<ColorPalette
+							value={ stickyTextColor }
+							onChange={ ( value ) =>
+								setAttributes( { stickyTextColor: value ?? "" } )
+							}
+						/>
 						<PanelRow>
 							<SelectControl
 								label={ __( "Shadow when sticky", "wpwing-sticky-block" ) }
@@ -246,6 +259,70 @@ export default function Edit( { attributes, setAttributes } ) {
 								) }
 							/>
 						</PanelRow>
+						<PanelRow>
+							<ToggleControl
+								label={ __( "Full width when sticky", "wpwing-sticky-block" ) }
+								checked={ fullWidthWhenSticky }
+								onChange={ () =>
+									setAttributes( { fullWidthWhenSticky: ! fullWidthWhenSticky } )
+								}
+								help={ __(
+									"Expands the block to span the full viewport width when sticky.",
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
+						<PanelRow>
+							<SelectControl
+								label={ __( "Entry transition", "wpwing-sticky-block" ) }
+								value={ stickyTransition }
+								options={ [
+									{
+										label: __( "None", "wpwing-sticky-block" ),
+										value: "none",
+									},
+									{
+										label: __( "Fade", "wpwing-sticky-block" ),
+										value: "fade",
+									},
+									{
+										label: __( "Slide down", "wpwing-sticky-block" ),
+										value: "slide",
+									},
+									{
+										label: __( "Fade + Slide", "wpwing-sticky-block" ),
+										value: "fade-slide",
+									},
+								] }
+								onChange={ ( value ) =>
+									setAttributes( { stickyTransition: value } )
+								}
+								help={ __(
+									"Animation played when the block enters the sticky state.",
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
+						{ stickyTransition !== "none" && (
+							<PanelRow>
+								<RangeControl
+									label={ __(
+										"Transition duration (ms)",
+										"wpwing-sticky-block"
+									) }
+									value={ stickyTransitionDuration }
+									min={ 50 }
+									max={ 600 }
+									onChange={ ( value ) =>
+										setAttributes( { stickyTransitionDuration: value } )
+									}
+									help={ __(
+										"How long the entry animation takes in milliseconds.",
+										"wpwing-sticky-block"
+									) }
+								/>
+							</PanelRow>
+						) }
 					</PanelBody>
 				</Panel>
 			</InspectorControls>

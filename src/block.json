@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "wpwing/sticky-block",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"title": "WPWing Sticky Block",
 	"category": "design",
 	"keywords": ["Sticky", "Sticky Block", "WPWing"],
@@ -52,6 +52,22 @@
 		"stickyPaddingTop": {
 			"type": "integer",
 			"default": 0
+		},
+		"stickyTextColor": {
+			"type": "string",
+			"default": ""
+		},
+		"fullWidthWhenSticky": {
+			"type": "boolean",
+			"default": false
+		},
+		"stickyTransition": {
+			"type": "string",
+			"default": "none"
+		},
+		"stickyTransitionDuration": {
+			"type": "integer",
+			"default": 300
 		}
 	},
 	"supports": {

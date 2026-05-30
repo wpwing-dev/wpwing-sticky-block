@@ -5,7 +5,7 @@ Tags:              sticky, sticky block, gutenberg, block editor, fixed
 Requires at least: 5.8
 Tested up to:      7.0
 Requires PHP:      7.4
-Stable tag:        2.0.0
+Stable tag:        2.1.0
 License:           GPL-3.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -28,10 +28,13 @@ Unlike CSS `position: sticky` (which only works within its parent scroll contain
 * **Stop before an element** — un-stick the block before it overlaps a footer or another landmark, using a CSS selector (e.g. `#footer`).
 * **Disable on mobile** — turn off sticky behaviour below a configurable viewport breakpoint (default 768 px).
 * **Sticky-state background color** — set a background color that only appears while the block is stuck, e.g. a solid white behind a transparent nav.
+* **Sticky-state text color** — change the text color when sticky, so a transparent header with light text can switch to dark text on a white background.
 * **Sticky-state shadow** — add a drop shadow (Small / Medium / Large) that appears only when the block is in sticky position.
 * **Sticky-state top padding** — add extra breathing room above the content when the block is stuck.
+* **Full width when sticky** — instantly expand the block to span the full viewport width the moment it becomes sticky, ideal for navigation bars.
+* **Entry transition** — animate the block smoothly into view with a Fade, Slide down, or combined Fade + Slide effect, with a configurable duration.
 * **Accessibility** — set an `aria-label` on the sticky wrapper to give screen reader users useful context.
-* **Zero dependencies** — no jQuery. The frontend script is plain JavaScript, under 2 KB minified.
+* **Zero dependencies** — no jQuery. The frontend script is plain JavaScript, under 3 KB minified.
 
 = How to use =
 
@@ -88,6 +91,11 @@ It should not conflict, but if both your theme and the plugin apply `position: f
 4. The block in action on the frontend in sticky (fixed) position.
 
 == Changelog ==
+
+= 2.1.0 =
+* New: **Entry transition** — choose how the sticky block animates into view when it becomes stuck. Options: Fade, Slide down, or Fade + Slide (combined). Duration is adjustable from 50 ms to 600 ms. Previously the block snapped into position with no animation.
+* New: **Full width when sticky** — a single toggle that expands the block to span the entire viewport width the moment it becomes sticky. Perfect for navigation bars and announcement banners that need edge-to-edge coverage.
+* New: **Text color when sticky** — set a different text color for the sticky state. Combine with the existing sticky background color to build the classic transparent-header-to-solid effect: light text on a transparent background that switches to dark text on white when the user scrolls.
 
 = 2.0.0 =
 * New: multiple sticky blocks supported per page (removed the single-block limitation).
