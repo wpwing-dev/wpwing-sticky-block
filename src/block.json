@@ -7,7 +7,7 @@
 	"category": "design",
 	"keywords": ["Sticky", "Sticky Block", "WPWing"],
 	"icon": "sticky",
-	"description": "A sticky container block. Drop any blocks inside and they will follow the reader as they scroll — with controls for offset, z-index, scroll direction, mobile breakpoint, and sticky-state styles.",
+	"description": "A container block that sticks to the top of the viewport as visitors scroll — with entry/exit transitions, sticky-state styles, full-width mode, and more.",
 	"attributes": {
 		"topSpace": {
 			"type": "integer",

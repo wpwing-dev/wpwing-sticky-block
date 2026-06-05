@@ -1,9 +1,4 @@
-/**
- * The following styles get applied inside the editor only.
- *
- * Replace them with your own styles or remove the file completely.
- */
-
 .wp-block-wpwing-sticky-block {
-	border: 1px dotted #f00;
+	outline: 1px dashed rgba( 0, 0, 0, 0.2 );
+	outline-offset: -1px;
 }

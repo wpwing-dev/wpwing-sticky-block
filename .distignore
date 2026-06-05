@@ -1,0 +1,11 @@
+.git
+.gitignore
+.editorconfig
+.eslintcache
+.distignore
+node_modules
+src
+package.json
+package-lock.json
+dist
+*.zip

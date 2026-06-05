@@ -56,6 +56,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								) }
 								value={ topSpace }
 								type="number"
+								min="0"
 								onChange={ ( value ) =>
 									setAttributes( {
 										topSpace: Number.parseInt( value, 10 ) || 0,

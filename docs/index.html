@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sticky Block for Gutenberg — Documentation</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brand:   #0d6efd;
+    --brand-d: #0a58ca;
+    --text:    #1e1e1e;
+    --muted:   #555;
+    --border:  #ddd;
+    --bg:      #f9f9f9;
+    --code-bg: #eef4ff;
+    --nav-w:   260px;
+    --radius:  6px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  /* ── Layout ─────────────────────────────────────────────── */
+  .layout { display: flex; min-height: 100vh; }
+
+  /* ── Sidebar ─────────────────────────────────────────────── */
+  nav {
+    width: var(--nav-w);
+    flex-shrink: 0;
+    background: #fff;
+    border-right: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 0 0 2rem;
+  }
+
+  .nav-logo {
+    display: block;
+    padding: 1.25rem 1.25rem 1rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--brand);
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+
+  nav ul { list-style: none; padding: 0.5rem 0; }
+
+  nav ul li a {
+    display: block;
+    padding: 0.35rem 1.25rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    border-left: 3px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  nav ul li a:hover,
+  nav ul li a.active {
+    color: var(--brand);
+    border-left-color: var(--brand);
+    background: var(--code-bg);
+  }
+
+  nav .nav-section {
+    padding: 1rem 1.25rem 0.25rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #aaa;
+  }
+
+  /* ── Main content ────────────────────────────────────────── */
+  main {
+    flex: 1;
+    max-width: 860px;
+    padding: 2.5rem 3rem;
+  }
+
+  /* ── Hero ────────────────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-d) 100%);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: 2rem 2.25rem;
+    margin-bottom: 2.5rem;
+  }
+  .hero h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .hero p  { color: rgba(255,255,255,0.88); font-size: 0.95rem; margin-bottom: 0; }
+  .hero .badges { margin-top: 0.9rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .badge {
+    background: rgba(255,255,255,0.18);
+    border-radius: 100px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  /* ── Sections ────────────────────────────────────────────── */
+  section { margin-bottom: 3rem; }
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text);
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--brand);
+    margin-bottom: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p { margin-bottom: 0.75rem; color: var(--muted); }
+
+  /* ── Steps ───────────────────────────────────────────────── */
+  .steps { counter-reset: step; padding: 0; list-style: none; }
+  .steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.9rem;
+    align-items: flex-start;
+  }
+  .steps li::before {
+    content: counter(step);
+    flex-shrink: 0;
+    width: 1.7rem;
+    height: 1.7rem;
+    background: var(--brand);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-top: 0.1rem;
+  }
+
+  /* ── Feature grid ────────────────────────────────────────── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+  }
+  .feature-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.1rem;
+  }
+  .feature-card h4 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+    color: var(--brand);
+  }
+  .feature-card p { font-size: 0.85rem; margin: 0; }
+
+  /* ── Callout ─────────────────────────────────────────────── */
+  .callout {
+    background: var(--code-bg);
+    border-left: 4px solid var(--brand);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 0.85rem 1.1rem;
+    margin: 1rem 0;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .callout strong { color: var(--text); }
+
+  /* ── Code ────────────────────────────────────────────────── */
+  code {
+    background: var(--code-bg);
+    border: 1px solid #c9dbff;
+    border-radius: 4px;
+    padding: 0.1em 0.4em;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    font-size: 0.85em;
+    color: var(--brand-d);
+  }
+
+  /* ── Settings table ──────────────────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    margin: 0.75rem 0 1rem;
+  }
+  th {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.85rem;
+    text-align: left;
+    font-weight: 700;
+    color: var(--text);
+  }
+  td {
+    border: 1px solid var(--border);
+    padding: 0.55rem 0.85rem;
+    vertical-align: top;
+    color: var(--muted);
+  }
+  tr:nth-child(even) td { background: #fdfdfd; }
+
+  /* ── FAQ ─────────────────────────────────────────────────── */
+  details {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.85rem 1.1rem;
+    margin-bottom: 0.6rem;
+    overflow: hidden;
+    transition: border-color 0.25s ease;
+  }
+  details[open] { border-color: var(--brand); }
+  summary {
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "+";
+    font-size: 1.1rem;
+    color: var(--brand);
+    flex-shrink: 0;
+    margin-left: 1rem;
+  }
+  details[open] summary::after { content: "−"; }
+  details p { margin-top: 0.75rem; font-size: 0.875rem; }
+
+  /* ── Recipe block ────────────────────────────────────────── */
+  .recipe {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  .recipe h3 { margin-top: 0; font-size: 0.95rem; }
+  .recipe p  { font-size: 0.875rem; }
+  .recipe ol { margin: 0.5rem 0 0 1.25rem; color: var(--muted); font-size: 0.875rem; }
+  .recipe ol li { margin-bottom: 0.3rem; }
+
+  /* ── Responsive ──────────────────────────────────────────── */
+  @media (max-width: 720px) {
+    nav { display: none; }
+    main { padding: 1.5rem 1.25rem; }
+    .feature-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ── Sidebar nav ── -->
+  <nav>
+    <a class="nav-logo" href="#top">&#8942; Sticky Block for Gutenberg</a>
+
+    <p class="nav-section">Getting Started</p>
+    <ul>
+      <li><a href="#quick-start">Quick Start</a></li>
+    </ul>
+
+    <p class="nav-section">Configuration</p>
+    <ul>
+      <li><a href="#sticky-options">Sticky Options</a></li>
+      <li><a href="#behavior">Behavior</a></li>
+      <li><a href="#responsive">Responsive</a></li>
+    </ul>
+
+    <p class="nav-section">Sticky State Styles</p>
+    <ul>
+      <li><a href="#colors-shadow">Colors &amp; Shadow</a></li>
+      <li><a href="#padding-border">Padding &amp; Border</a></li>
+      <li><a href="#animation">Animation &amp; Full Width</a></li>
+    </ul>
+
+    <p class="nav-section">More</p>
+    <ul>
+      <li><a href="#accessibility">Accessibility</a></li>
+      <li><a href="#transforms">Block Transforms</a></li>
+      <li><a href="#recipes">Recipes</a></li>
+    </ul>
+
+    <p class="nav-section">Help</p>
+    <ul>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── Main content ── -->
+  <main id="top">
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1>Sticky Block for Gutenberg</h1>
+      <p>Make any block follow your visitors as they scroll — with controls for offset, transitions, sticky-state styles, and more.</p>
+      <div class="badges">
+        <span class="badge">WordPress 5.8+</span>
+        <span class="badge">Block Editor</span>
+        <span class="badge">No jQuery</span>
+        <span class="badge">Zero dependencies</span>
+        <span class="badge">Multiple per page</span>
+      </div>
+    </div>
+
+    <!-- Quick Start -->
+    <section id="quick-start">
+      <h2>Quick Start</h2>
+      <p>You can have a sticky block live on your page in under a minute.</p>
+      <ol class="steps">
+        <li>In the block editor, open the block inserter (<strong>+</strong>) and search for <strong>Sticky Block</strong>. Insert it anywhere on the page.</li>
+        <li>Click inside the block and add the content you want to keep on screen — a Navigation block, a Button, an Image, or any combination of blocks.</li>
+        <li>With the Sticky Block selected, open the <strong>Settings sidebar</strong> on the right. Adjust offset, z-index, and any sticky-state styles you need.</li>
+        <li>Save the page and preview it in a browser. Scroll down — your block will lock to the top of the screen once it reaches that point.</li>
+      </ol>
+      <div class="callout">
+        <strong>How it works.</strong> The block uses <code>position: fixed</code> with scroll detection, not CSS <code>position: sticky</code>. This means it works correctly in any layout — even inside columns or containers with restricted overflow.
+      </div>
+    </section>
+
+    <!-- Sticky Options -->
+    <section id="sticky-options">
+      <h2>Sticky Options</h2>
+      <p>These core controls live at the top of the block's settings sidebar and are always visible.</p>
+      <table>
+        <thead>
+          <tr><th>Setting</th><th>Default</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Space from top of screen (px)</strong></td>
+            <td>0</td>
+            <td>How many pixels of gap to leave between the top edge of the viewport and the top of the sticky block. Set this if your site has a fixed theme header so the sticky block doesn't slide underneath it.</td>
+          </tr>
+          <tr>
+            <td><strong>Account for admin toolbar</strong></td>
+            <td>On</td>
+            <td>When enabled, the block automatically shifts down by the height of the WordPress admin bar for logged-in users. Leave this on unless you have a reason to ignore the admin bar.</td>
+          </tr>
+          <tr>
+            <td><strong>Z-index</strong></td>
+            <td>1</td>
+            <td>Stack order when the block is in sticky position. Increase this if the sticky block is appearing behind other elements (dropdowns, modals, theme headers). Decrease it if it's covering something it shouldn't.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Behavior -->
+    <section id="behavior">
+      <h2>Behavior</h2>
+      <p>Control when the block sticks and when it stops.</p>
+      <table>
+        <thead>
+          <tr><th>Setting</th><th>Default</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Stick when</strong></td>
+            <td>Always</td>
+            <td>
+              <strong>Always</strong> — the block becomes sticky as soon as the visitor scrolls past it and stays sticky until they scroll back up.<br><br>
+              <strong>Only while scrolling up</strong> — the block hides when the visitor scrolls down and reappears when they scroll back up. This is the popular pattern used by modern sticky navigation bars that stay out of the way while reading but snap back as soon as you want to navigate.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Stop before element (CSS selector)</strong></td>
+            <td>Empty</td>
+            <td>Enter a CSS selector (e.g. <code>#footer</code> or <code>.site-footer</code>) and the block will un-stick before its bottom edge reaches that element. Use this to prevent the sticky block from overlapping your footer or a section landmark at the bottom of the page.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <strong>Tip.</strong> To find the right CSS selector for your footer, right-click it in the browser and choose <em>Inspect</em>. Look for an <code>id</code> or distinctive <code>class</code> attribute on the outermost element.
+      </div>
+    </section>
+
+    <!-- Responsive -->
+    <section id="responsive">
+      <h2>Responsive</h2>
+      <p>Turn off sticky behaviour on smaller screens where fixed-position elements often take up too much space.</p>
+      <table>
+        <thead>
+          <tr><th>Setting</th><th>Default</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Disable sticky on mobile</strong></td>
+            <td>Off</td>
+            <td>When turned on, the block behaves like a normal in-flow block on small screens — it will not fix to the top. The block is still displayed; it just doesn't stick.</td>
+          </tr>
+          <tr>
+            <td><strong>Mobile breakpoint (px)</strong></td>
+            <td>768</td>
+            <td>Only visible when "Disable sticky on mobile" is on. Sticky behaviour is disabled when the browser viewport is narrower than this value. The default of 768 px covers most phones and small tablets in portrait orientation.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Colors & Shadow -->
+    <section id="colors-shadow">
+      <h2>Colors &amp; Shadow</h2>
+      <p>These styles are applied <em>only</em> while the block is in sticky position. They have no effect on the block's normal in-flow appearance.</p>
+      <table>
+        <thead>
+          <tr><th>Setting</th><th>Default</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Background color when sticky</strong></td>
+            <td>None</td>
+            <td>Sets a background color that appears only once the block becomes sticky. The classic use case: a transparent navigation area that fills with a solid white (or any color) the moment it locks to the top of the page.</td>
+          </tr>
+          <tr>
+            <td><strong>Text color when sticky</strong></td>
+            <td>None</td>
+            <td>Changes the text color when sticky. Pair this with a sticky background color — for example, if your normal header has white text on a transparent background, switch to dark text on white once it becomes sticky.</td>
+          </tr>
+          <tr>
+            <td><strong>Shadow when sticky</strong></td>
+            <td>None</td>
+            <td>Adds a drop shadow beneath the block while it is in sticky position. Choose from <strong>Small</strong> (subtle), <strong>Medium</strong>, or <strong>Large</strong>. A light shadow helps the sticky block visually separate from the content scrolling underneath it.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Padding & Border -->
+    <section id="padding-border">
+      <h2>Padding &amp; Border</h2>
+      <p>Adjust spacing and add a border exclusively in the sticky state — all four sides are independent.</p>
+      <table>
+        <thead>
+          <tr><th>Setting</th><th>Default</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Top padding when sticky (px)</strong></td>
+            <td>0</td>
+            <td>Extra padding added above the block's content when sticky. Useful for adding breathing room between the top of the viewport and your content once the block locks in place.</td>
+          </tr>
+          <tr>
+            <td><strong>Bottom padding when sticky (px)</strong></td>
+            <td>0</td>
+            <td>Extra padding added below the block's content when sticky.</td>
+          </tr>
+          <tr>
+            <td><strong>Left padding when sticky (px)</strong></td>
+            <td>0</td>
+            <td>Extra padding on the left side when sticky.</td>
+          </tr>
+          <tr>
+            <td><strong>Right padding when sticky (px)</strong></td>
+            <td>0</td>
+            <td>Extra padding on the right side when sticky.</td>
+          </tr>
+          <tr>
+            <td><strong>Border when sticky</strong></td>
+            <td>None</td>
+            <td>Adds a border around the block only in the sticky state. Choose <strong>Solid</strong> or <strong>Dashed</strong>. A common use: a thin bottom border that draws a clean visual line between a sticky header and the page content scrolling beneath it.</td>
+          </tr>
+          <tr>
+            <td><strong>Border width (px)</strong></td>
+            <td>1</td>
+            <td>Thickness of the border in pixels (1–10). Only visible when Border is set to Solid or Dashed.</td>
+          </tr>
+          <tr>
+            <td><strong>Border color when sticky</strong></td>
+            <td>None</td>
+            <td>Color of the border. Only visible when Border is set to Solid or Dashed. If no color is chosen, the browser's default border color (usually the text color) is used.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Animation & Full Width -->
+    <section id="animation">
+      <h2>Animation &amp; Full Width</h2>
+      <p>Animate the block smoothly in and out of sticky state, and optionally expand it to span the full screen width.</p>
+      <table>
+        <thead>
+          <tr><th>Setting</th><th>Default</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Entry transition</strong></td>
+            <td>None</td>
+            <td>
+              The animation played when the block enters the sticky state. The same animation is reversed when it exits.<br><br>
+              <strong>None</strong> — instant snap (no animation).<br>
+              <strong>Fade</strong> — the block fades in from transparent to opaque.<br>
+              <strong>Slide down</strong> — the block slides in from above the viewport.<br>
+              <strong>Fade + Slide</strong> — both effects combined.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Transition duration (ms)</strong></td>
+            <td>300</td>
+            <td>How long the entry and exit animation takes, in milliseconds. Only visible when a transition other than None is selected. Range: 50–600 ms. 200–350 ms tends to feel natural; below 100 ms is barely perceptible.</td>
+          </tr>
+          <tr>
+            <td><strong>Full width when sticky</strong></td>
+            <td>Off</td>
+            <td>When enabled, the block stretches to span the full viewport width (<code>100vw</code>) the moment it becomes sticky. Ideal for navigation bars that should reach edge to edge once locked at the top, even if the page content is in a narrower container.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <strong>Exit animation.</strong> The exit transition is the mirror of the entry — if you chose Slide down, the block slides back up when it leaves sticky state. There is no separate exit setting; the duration control applies to both directions.
+      </div>
+    </section>
+
+    <!-- Accessibility -->
+    <section id="accessibility">
+      <h2>Accessibility</h2>
+      <p>Help screen reader users understand the purpose of your sticky block and give theme developers a reliable CSS hook.</p>
+      <table>
+        <thead>
+          <tr><th>Setting</th><th>Default</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>ARIA label</strong></td>
+            <td>Empty</td>
+            <td>Adds an <code>aria-label</code> attribute to the sticky wrapper element. Screen readers announce this label when focus moves into the block. For example, if your sticky block contains your site navigation, enter <em>Site navigation</em>. Leave blank to omit the attribute entirely.</td>
+          </tr>
+          <tr>
+            <td><strong>CSS class when sticky</strong></td>
+            <td>Empty</td>
+            <td>One or more extra CSS class names (space-separated) added to the block element when it enters sticky state, and removed when it exits. The built-in <code>is-sticky</code> class is always added automatically — use this field for additional classes you want to target from your theme's stylesheet. Example: <code>header-stuck nav-compact</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Block Transforms -->
+    <section id="transforms">
+      <h2>Block Transforms</h2>
+      <p>You can convert an existing <strong>Group</strong> block into a Sticky Block — and back — without rebuilding from scratch. All the content inside is preserved exactly as it was.</p>
+
+      <h3>Group → Sticky Block</h3>
+      <ol class="steps">
+        <li>Select the Group block you want to make sticky.</li>
+        <li>Click the block type icon (the puzzle piece) in the block toolbar at the top of the editor, or right-click the block.</li>
+        <li>Choose <strong>Transform to → Sticky Block for Gutenberg</strong>.</li>
+        <li>The Group block is replaced with a Sticky Block containing all the same inner blocks. Open the settings sidebar to configure sticky behaviour.</li>
+      </ol>
+
+      <h3>Sticky Block → Group</h3>
+      <ol class="steps">
+        <li>Select the Sticky Block.</li>
+        <li>Click the block type icon in the toolbar.</li>
+        <li>Choose <strong>Transform to → Group</strong>.</li>
+        <li>The Sticky Block is replaced with a plain Group. All inner blocks are kept. The sticky settings are discarded.</li>
+      </ol>
+
+      <div class="callout">
+        <strong>No rebuild needed.</strong> If you've already built a complex navigation or banner inside a Group block and want to make it sticky, the transform is the fastest path — one click, nothing lost.
+      </div>
+    </section>
+
+    <!-- Recipes -->
+    <section id="recipes">
+      <h2>Recipes</h2>
+      <p>Common setups and how to configure them.</p>
+
+      <div class="recipe">
+        <h3>Transparent header that turns solid when sticky</h3>
+        <p>The classic modern site header: transparent at the top of the page, fills with a solid background the moment it locks.</p>
+        <ol>
+          <li>Insert a Sticky Block at the top of your page template. Add your logo and Navigation block inside it.</li>
+          <li>In the block's normal styles (not sticky-state), set the background to transparent or leave it unset.</li>
+          <li>In the <strong>Sticky State Styles</strong> panel, set <strong>Background color when sticky</strong> to white (or your brand color).</li>
+          <li>If your normal text is white (to show against a hero image), set <strong>Text color when sticky</strong> to a dark color so it's readable against the new white background.</li>
+          <li>Optionally add a <strong>Small</strong> shadow to lift the header above the content beneath it.</li>
+          <li>For a polished feel, set <strong>Entry transition</strong> to <strong>Fade</strong> with a 250 ms duration.</li>
+        </ol>
+      </div>
+
+      <div class="recipe">
+        <h3>Full-width sticky navigation bar</h3>
+        <p>A sticky nav that stretches edge to edge the moment it locks — regardless of how wide your page container is.</p>
+        <ol>
+          <li>Insert a Sticky Block and add your Navigation block inside it.</li>
+          <li>In <strong>Sticky Options</strong>, set <strong>Space from top</strong> to <code>0</code>.</li>
+          <li>In <strong>Sticky State Styles</strong>, enable <strong>Full width when sticky</strong>.</li>
+          <li>Set a <strong>Background color when sticky</strong> so the bar is visible against the page.</li>
+          <li>Add a <strong>Bottom border</strong> (Solid, 1–2 px) to draw a clean line between the nav and the content below.</li>
+          <li>Set <strong>Entry transition</strong> to <strong>Slide down</strong> for a crisp reveal.</li>
+        </ol>
+      </div>
+
+      <div class="recipe">
+        <h3>Sticky CTA that appears only on scroll-up</h3>
+        <p>A call-to-action bar that stays hidden while the visitor reads and reappears the moment they scroll back up — never in the way, always available.</p>
+        <ol>
+          <li>Insert a Sticky Block lower on the page (below the fold). Add a Button or banner inside it.</li>
+          <li>In the <strong>Behavior</strong> panel, set <strong>Stick when</strong> to <strong>Only while scrolling up</strong>.</li>
+          <li>Set a contrasting <strong>Background color when sticky</strong> so the bar stands out.</li>
+          <li>Add a <strong>Stop before element</strong> pointing to your footer (e.g. <code>#footer</code>) so the CTA doesn't overlap it.</li>
+          <li>Set <strong>Entry transition</strong> to <strong>Fade + Slide</strong> for a smooth appearance.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <h2>FAQ</h2>
+
+      <details>
+        <summary>Can I add more than one sticky block on a page?</summary>
+        <p>Yes. You can place as many Sticky Blocks as you need on the same page. Each one has its own independent settings — offset, z-index, scroll direction, sticky-state styles — and they operate entirely independently of each other.</p>
+      </details>
+
+      <details>
+        <summary>Why doesn't my sticky block work inside a column or group?</summary>
+        <p>If a parent element has <code>overflow: hidden</code> or <code>overflow: clip</code> applied, <code>position: fixed</code> is clipped to that container and the block won't appear correctly when stuck. Remove the overflow restriction on the parent, or move the Sticky Block outside the constrained container. You can inspect the parent in your browser's DevTools to check.</p>
+      </details>
+
+      <details>
+        <summary>How do I make the block stop before my footer?</summary>
+        <p>Open the <strong>Behavior</strong> panel and enter a CSS selector in the <strong>Stop before element</strong> field — for example <code>#footer</code> or <code>.site-footer</code>. The block will un-stick before its bottom edge reaches that element. To find the right selector, right-click your footer in the browser and choose <em>Inspect</em>.</p>
+      </details>
+
+      <details>
+        <summary>Will it conflict with my theme's sticky header?</summary>
+        <p>It should not conflict, but if both your theme and the plugin apply <code>position: fixed</code> to overlapping elements, use the <strong>Z-index</strong> setting in the block sidebar to control which element sits on top. Increase the z-index to bring the Sticky Block in front, or decrease it to push it behind the theme header.</p>
+      </details>
+
+      <details>
+        <summary>Can I disable sticky behaviour on phones?</summary>
+        <p>Yes. Open the <strong>Responsive</strong> panel, enable <strong>Disable sticky on mobile</strong>, and optionally adjust the breakpoint (default: 768 px). Below that width the block behaves like a normal in-flow block — it's still visible, just not fixed to the screen.</p>
+      </details>
+
+      <details>
+        <summary>The block disappears or looks invisible when it becomes sticky — why?</summary>
+        <p>The most common cause is a z-index conflict: something else on the page (a theme header, a modal overlay, a mega menu) is sitting on top of the sticky block. Increase the <strong>Z-index</strong> in the Sticky Options panel until the block appears above the other element. If the block appears transparent, check whether you need to set a <strong>Background color when sticky</strong> in the Sticky State Styles panel.</p>
+      </details>
+
+      <details>
+        <summary>What does "Only while scrolling up" mean exactly?</summary>
+        <p>When this mode is active, the block becomes sticky as usual when the visitor scrolls past it — but it immediately hides when they start scrolling <em>down</em>. It reappears (slides or fades back in) as soon as they start scrolling <em>up</em>. This is the pattern used by most modern sticky navigation bars: it stays out of the way while the visitor is reading, and snaps back as soon as they want to navigate.</p>
+      </details>
+
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // Highlight the active nav link based on scroll position.
+  (function () {
+    var links = document.querySelectorAll('nav a[href^="#"]');
+    var sections = Array.from(links).map(function (a) {
+      return document.querySelector(a.getAttribute('href'));
+    });
+
+    function onScroll() {
+      var scrollY = window.scrollY + 80;
+      var active = sections[0];
+      sections.forEach(function (s) {
+        if (s && s.offsetTop <= scrollY) active = s;
+      });
+      links.forEach(function (a) {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + active.id);
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // Smooth open/close animation for <details> FAQ items.
+  (function () {
+    var DURATION = 260;
+    var EASING   = 'ease-out';
+
+    document.querySelectorAll('details').forEach(function (el) {
+      var summary   = el.querySelector('summary');
+      var closedH   = 0;
+      var animation = null;
+
+      summary.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        if (animation) { animation.cancel(); animation = null; }
+
+        if (el.open) {
+          animation = el.animate(
+            [{ height: el.offsetHeight + 'px' }, { height: closedH + 'px' }],
+            { duration: DURATION, easing: EASING }
+          );
+          animation.onfinish = function () {
+            el.open = false;
+            el.style.height = '';
+            animation = null;
+          };
+        } else {
+          closedH  = el.offsetHeight;
+          el.open  = true;
+          var openH = el.offsetHeight;
+          animation = el.animate(
+            [{ height: closedH + 'px' }, { height: openH + 'px' }],
+            { duration: DURATION, easing: EASING }
+          );
+          animation.onfinish = function () {
+            el.style.height = '';
+            animation = null;
+          };
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

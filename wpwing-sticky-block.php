@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name:       Sticky Block for Gutenberg
- * Description:       A sticky container block that keeps its content fixed at the top of the viewport as visitors scroll. Supports multiple instances per page.
+ * Description:       Sticky Block for Gutenberg — make any content follow your visitors as they scroll.
  * Version:           2.2.0
  * Requires at least: 5.8
  * Tested up to:      7.0
@@ -22,4 +22,16 @@ if ( ! function_exists( 'wpwing_sticky_block_init' ) ) {
 		register_block_type( __DIR__ . '/build' );
 	}
 	add_action( 'init', 'wpwing_sticky_block_init' );
+}
+
+if ( ! function_exists( 'wpwing_sticky_block_row_meta' ) ) {
+	function wpwing_sticky_block_row_meta( array $links, string $file ): array {
+		if ( plugin_basename( __FILE__ ) === $file ) {
+			$links[] = '<a href="' . esc_url( plugins_url( 'docs/index.html', __FILE__ ) ) . '" target="_blank">'
+				. esc_html__( 'Documentation', 'wpwing-sticky-block' )
+				. '</a>';
+		}
+		return $links;
+	}
+	add_filter( 'plugin_row_meta', 'wpwing_sticky_block_row_meta', 10, 2 );
 }

@@ -65,7 +65,14 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const useFade = stickyTransition === 'fade' || stickyTransition === 'fade-slide';
 		const hasTransition = stickyTransition !== 'none';
 
-		const stopEl = stopBefore ? document.querySelector( stopBefore ) : null;
+		let stopEl = null;
+		if ( stopBefore ) {
+			try {
+				stopEl = document.querySelector( stopBefore );
+			} catch {
+				// invalid CSS selector — silently ignore the stop-before setting
+			}
+		}
 		const offset = topSpace + ( checkForAdmin ? adminBarHeight : 0 );
 
 		// divTop is the scroll position at which the block leaves its natural position.
