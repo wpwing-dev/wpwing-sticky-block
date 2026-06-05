@@ -34,6 +34,13 @@ export default function Edit( { attributes, setAttributes } ) {
 		fullWidthWhenSticky,
 		stickyTransition,
 		stickyTransitionDuration,
+		stickyPaddingBottom,
+		stickyPaddingLeft,
+		stickyPaddingRight,
+		stickyBorderStyle,
+		stickyBorderWidth,
+		stickyBorderColor,
+		stickyExtraClass,
 	} = attributes;
 
 	return (
@@ -186,6 +193,20 @@ export default function Edit( { attributes, setAttributes } ) {
 								) }
 							/>
 						</PanelRow>
+						<PanelRow>
+							<TextControl
+								label={ __( "CSS class when sticky", "wpwing-sticky-block" ) }
+								value={ stickyExtraClass }
+								placeholder="my-sticky-class"
+								onChange={ ( value ) =>
+									setAttributes( { stickyExtraClass: value } )
+								}
+								help={ __(
+									"Extra CSS classes added to the block when it is sticky. Separate multiple classes with spaces.",
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
 					</PanelBody>
 
 					<PanelBody
@@ -253,12 +274,96 @@ export default function Edit( { attributes, setAttributes } ) {
 								onChange={ ( value ) =>
 									setAttributes( { stickyPaddingTop: value } )
 								}
+							/>
+						</PanelRow>
+						<PanelRow>
+							<RangeControl
+								label={ __(
+									"Bottom padding when sticky (px)",
+									"wpwing-sticky-block"
+								) }
+								value={ stickyPaddingBottom }
+								min={ 0 }
+								max={ 100 }
+								onChange={ ( value ) =>
+									setAttributes( { stickyPaddingBottom: value } )
+								}
+							/>
+						</PanelRow>
+						<PanelRow>
+							<RangeControl
+								label={ __(
+									"Left padding when sticky (px)",
+									"wpwing-sticky-block"
+								) }
+								value={ stickyPaddingLeft }
+								min={ 0 }
+								max={ 100 }
+								onChange={ ( value ) =>
+									setAttributes( { stickyPaddingLeft: value } )
+								}
+							/>
+						</PanelRow>
+						<PanelRow>
+							<RangeControl
+								label={ __(
+									"Right padding when sticky (px)",
+									"wpwing-sticky-block"
+								) }
+								value={ stickyPaddingRight }
+								min={ 0 }
+								max={ 100 }
+								onChange={ ( value ) =>
+									setAttributes( { stickyPaddingRight: value } )
+								}
 								help={ __(
-									"Extra top padding applied only while the block is stuck.",
+									"Padding applied to all four sides only while the block is stuck.",
 									"wpwing-sticky-block"
 								) }
 							/>
 						</PanelRow>
+						<PanelRow>
+							<SelectControl
+								label={ __( "Border when sticky", "wpwing-sticky-block" ) }
+								value={ stickyBorderStyle }
+								options={ [
+									{ label: __( "None", "wpwing-sticky-block" ), value: "none" },
+									{ label: __( "Solid", "wpwing-sticky-block" ), value: "solid" },
+									{ label: __( "Dashed", "wpwing-sticky-block" ), value: "dashed" },
+								] }
+								onChange={ ( value ) =>
+									setAttributes( { stickyBorderStyle: value } )
+								}
+								help={ __(
+									"Adds a border only while the block is sticky.",
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
+						{ stickyBorderStyle !== "none" && (
+							<>
+								<PanelRow>
+									<RangeControl
+										label={ __( "Border width (px)", "wpwing-sticky-block" ) }
+										value={ stickyBorderWidth }
+										min={ 1 }
+										max={ 10 }
+										onChange={ ( value ) =>
+											setAttributes( { stickyBorderWidth: value } )
+										}
+									/>
+								</PanelRow>
+								<p style={ { marginBottom: "8px", marginTop: "8px", fontWeight: 500 } }>
+									{ __( "Border color when sticky", "wpwing-sticky-block" ) }
+								</p>
+								<ColorPalette
+									value={ stickyBorderColor }
+									onChange={ ( value ) =>
+										setAttributes( { stickyBorderColor: value ?? "" } )
+									}
+								/>
+							</>
+						) }
 						<PanelRow>
 							<ToggleControl
 								label={ __( "Full width when sticky", "wpwing-sticky-block" ) }

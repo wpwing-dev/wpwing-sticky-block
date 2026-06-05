@@ -17,6 +17,13 @@ export default function save( { attributes } ) {
 		fullWidthWhenSticky,
 		stickyTransition,
 		stickyTransitionDuration,
+		stickyPaddingBottom,
+		stickyPaddingLeft,
+		stickyPaddingRight,
+		stickyBorderStyle,
+		stickyBorderWidth,
+		stickyBorderColor,
+		stickyExtraClass,
 	} = attributes;
 
 	return (
@@ -39,6 +46,13 @@ export default function save( { attributes } ) {
 				'data-full-width-when-sticky': fullWidthWhenSticky || undefined,
 				'data-sticky-transition': stickyTransition !== 'none' ? stickyTransition : undefined,
 				'data-sticky-transition-duration': stickyTransition !== 'none' ? stickyTransitionDuration : undefined,
+				'data-sticky-padding-bottom': stickyPaddingBottom || undefined,
+				'data-sticky-padding-left': stickyPaddingLeft || undefined,
+				'data-sticky-padding-right': stickyPaddingRight || undefined,
+				'data-sticky-border-style': stickyBorderStyle !== 'none' ? stickyBorderStyle : undefined,
+				'data-sticky-border-width': stickyBorderStyle !== 'none' ? stickyBorderWidth : undefined,
+				'data-sticky-border-color': stickyBorderColor || undefined,
+				'data-sticky-extra-class': stickyExtraClass || undefined,
 			} ) }
 		>
 			<InnerBlocks.Content />

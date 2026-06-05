@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name:       WPWing Sticky Block
+ * Plugin Name:       Sticky Block for Gutenberg
  * Description:       A sticky container block that keeps its content fixed at the top of the viewport as visitors scroll. Supports multiple instances per page.
- * Version:           2.1.0
+ * Version:           2.2.0
  * Requires at least: 5.8
  * Tested up to:      7.0
  * Requires PHP:      7.4

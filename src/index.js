@@ -1,4 +1,4 @@
-import { registerBlockType } from '@wordpress/blocks';
+import { registerBlockType, createBlock } from '@wordpress/blocks';
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
 import './style.scss';
@@ -45,8 +45,28 @@ const deprecated = [
 	},
 ];
 
+const transforms = {
+	from: [
+		{
+			type: 'block',
+			blocks: [ 'core/group' ],
+			transform: ( attributes, innerBlocks ) =>
+				createBlock( 'wpwing/sticky-block', {}, innerBlocks ),
+		},
+	],
+	to: [
+		{
+			type: 'block',
+			blocks: [ 'core/group' ],
+			transform: ( attributes, innerBlocks ) =>
+				createBlock( 'core/group', {}, innerBlocks ),
+		},
+	],
+};
+
 registerBlockType( metadata.name, {
 	edit: Edit,
 	save,
 	deprecated,
+	transforms,
 } );

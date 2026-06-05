@@ -40,10 +40,25 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const stickyBg = dataEl.dataset.stickyBg ?? '';
 		const stickyShadow = SHADOWS[ dataEl.dataset.stickyShadow ] ?? '';
 		const stickyPaddingTop = parseInt( dataEl.dataset.stickyPaddingTop ?? 0, 10 );
+		const stickyPaddingBottom = parseInt( dataEl.dataset.stickyPaddingBottom ?? 0, 10 );
+		const stickyPaddingLeft = parseInt( dataEl.dataset.stickyPaddingLeft ?? 0, 10 );
+		const stickyPaddingRight = parseInt( dataEl.dataset.stickyPaddingRight ?? 0, 10 );
 		const stickyTextColor = dataEl.dataset.stickyTextColor ?? '';
 		const fullWidthWhenSticky = dataEl.dataset.fullWidthWhenSticky === 'true';
 
-		// Entry transition.
+		// Border when sticky.
+		const stickyBorderStyle = dataEl.dataset.stickyBorderStyle ?? 'none';
+		const stickyBorderWidth = parseInt( dataEl.dataset.stickyBorderWidth ?? 1, 10 );
+		const stickyBorderColor = dataEl.dataset.stickyBorderColor ?? '';
+		const hasBorder = stickyBorderStyle !== 'none';
+
+		// Extra CSS classes when sticky (space-separated).
+		const extraClasses = ( dataEl.dataset.stickyExtraClass ?? '' )
+			.trim()
+			.split( /\s+/ )
+			.filter( Boolean );
+
+		// Transition (entry + exit).
 		const stickyTransition = dataEl.dataset.stickyTransition ?? 'none';
 		const stickyTransitionDuration = parseInt( dataEl.dataset.stickyTransitionDuration ?? 300, 10 );
 		const useSlide = stickyTransition === 'slide' || stickyTransition === 'fade-slide';
@@ -64,12 +79,45 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		let isSticky = false;
 		let ticking = false;
 		let lastScrollY = window.scrollY;
+		// Timer ID for the exit animation cleanup; non-null while an exit is in flight.
+		let exitTimer = null;
 
 		function isActive() {
 			return ! disableOnMobile || window.innerWidth > mobileBreakpoint;
 		}
 
+		function clearStickyStyles() {
+			block.style.width = '';
+			block.style.left = '';
+			block.style.right = '';
+			block.style.backgroundColor = '';
+			block.style.boxShadow = '';
+			block.style.paddingTop = '';
+			block.style.paddingBottom = '';
+			block.style.paddingLeft = '';
+			block.style.paddingRight = '';
+			block.style.borderStyle = '';
+			block.style.borderWidth = '';
+			block.style.borderColor = '';
+			block.style.color = '';
+			block.style.transition = '';
+			block.style.transform = '';
+			block.style.opacity = '';
+		}
+
 		function applySticky() {
+			// If an exit animation is in flight, cancel it and snap back — no re-entry
+			// animation needed since the block never actually left the sticky position.
+			if ( exitTimer !== null ) {
+				clearTimeout( exitTimer );
+				exitTimer = null;
+				block.style.transition = '';
+				block.style.transform = '';
+				block.style.opacity = '';
+				isSticky = true;
+				return;
+			}
+
 			// Width and horizontal position.
 			if ( fullWidthWhenSticky ) {
 				block.style.width = '100vw';
@@ -84,10 +132,19 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			if ( stickyBg ) block.style.backgroundColor = stickyBg;
 			if ( stickyShadow ) block.style.boxShadow = stickyShadow;
 			if ( stickyPaddingTop ) block.style.paddingTop = `${ stickyPaddingTop }px`;
+			if ( stickyPaddingBottom ) block.style.paddingBottom = `${ stickyPaddingBottom }px`;
+			if ( stickyPaddingLeft ) block.style.paddingLeft = `${ stickyPaddingLeft }px`;
+			if ( stickyPaddingRight ) block.style.paddingRight = `${ stickyPaddingRight }px`;
+			if ( hasBorder ) {
+				block.style.borderStyle = stickyBorderStyle;
+				block.style.borderWidth = `${ stickyBorderWidth }px`;
+				if ( stickyBorderColor ) block.style.borderColor = stickyBorderColor;
+			}
 			if ( stickyTextColor ) block.style.color = stickyTextColor;
 
-			// Add sticky class (applies position: fixed via CSS).
+			// Add sticky class (applies position: fixed via CSS) and any extra classes.
 			block.classList.add( 'is-sticky' );
+			if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.add( cls ) );
 			isSticky = true;
 
 			// Animate entry: set initial state → force reflow → set transition → animate to rest.
@@ -111,18 +168,33 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 
 		function removeSticky() {
-			block.style.width = '';
-			block.style.left = '';
-			block.style.right = '';
-			block.style.backgroundColor = '';
-			block.style.boxShadow = '';
-			block.style.paddingTop = '';
-			block.style.color = '';
-			block.style.transition = '';
-			block.style.transform = '';
-			block.style.opacity = '';
-			block.classList.remove( 'is-sticky' );
 			isSticky = false;
+
+			if ( hasTransition ) {
+				// Animate exit: transition to the hidden state, then clean up after.
+				const transProps = [];
+				if ( useSlide ) transProps.push( `transform ${ stickyTransitionDuration }ms ease` );
+				if ( useFade ) transProps.push( `opacity ${ stickyTransitionDuration }ms ease` );
+				block.style.transition = transProps.join( ', ' );
+
+				requestAnimationFrame( () => {
+					if ( useSlide ) block.style.transform = 'translateY(-100%)';
+					if ( useFade ) block.style.opacity = '0';
+				} );
+
+				// After the animation ends, remove the class and clear all inline styles.
+				// +50 ms buffer so cleanup is never visible before the animation finishes.
+				exitTimer = setTimeout( () => {
+					exitTimer = null;
+					clearStickyStyles();
+					block.classList.remove( 'is-sticky' );
+					if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.remove( cls ) );
+				}, stickyTransitionDuration + 50 );
+			} else {
+				clearStickyStyles();
+				block.classList.remove( 'is-sticky' );
+				if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.remove( cls ) );
+			}
 		}
 
 		function update() {
