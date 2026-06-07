@@ -88,6 +88,8 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		let lastScrollY = window.scrollY;
 		// Timer ID for the exit animation cleanup; non-null while an exit is in flight.
 		let exitTimer = null;
+		// Placeholder that holds the block's natural space while it is position:fixed.
+		let spacer = null;
 
 		function isActive() {
 			return ! disableOnMobile || window.innerWidth > mobileBreakpoint;
@@ -125,14 +127,23 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				return;
 			}
 
+			// Capture natural dimensions before any sticky styles change the layout.
+			const naturalHeight = block.offsetHeight;
+			const naturalWidth = block.offsetWidth;
+
+			// Prevent layout shift: hold the block's natural vertical space in the flow.
+			spacer = document.createElement( 'div' );
+			spacer.style.height = `${ naturalHeight }px`;
+			spacer.setAttribute( 'aria-hidden', 'true' );
+			block.parentNode.insertBefore( spacer, block );
+
 			// Width and horizontal position.
 			if ( fullWidthWhenSticky ) {
 				block.style.width = '100vw';
 				block.style.left = '0';
 				block.style.right = '0';
 			} else {
-				// Measure natural width right before going fixed so it's always current.
-				block.style.width = `${ block.offsetWidth }px`;
+				block.style.width = `${ naturalWidth }px`;
 			}
 
 			// Sticky-state styles.
@@ -193,11 +204,13 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				// +50 ms buffer so cleanup is never visible before the animation finishes.
 				exitTimer = setTimeout( () => {
 					exitTimer = null;
+					if ( spacer ) { spacer.remove(); spacer = null; }
 					clearStickyStyles();
 					block.classList.remove( 'is-sticky' );
 					if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.remove( cls ) );
 				}, stickyTransitionDuration + 50 );
 			} else {
+				if ( spacer ) { spacer.remove(); spacer = null; }
 				clearStickyStyles();
 				block.classList.remove( 'is-sticky' );
 				if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.remove( cls ) );
@@ -209,7 +222,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			const scrollingUp = scrollY < lastScrollY;
 			lastScrollY = scrollY;
 
-			const belowTrigger = scrollY > divTop;
+			const belowTrigger = scrollY >= divTop;
 			const directionOk = scrollDirection === 'always' || scrollingUp;
 
 			// Check stopEl regardless of isSticky to prevent a one-frame flicker
@@ -252,5 +265,8 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 		window.addEventListener( 'scroll', onScroll, { passive: true } );
 		window.addEventListener( 'resize', onResize, { passive: true } );
+		// Recalculate divTop once all images and embeds have loaded — DOMContentLoaded
+		// fires before late-loading assets shift the page layout.
+		window.addEventListener( 'load', onResize, { once: true, passive: true } );
 	} );
 } );
