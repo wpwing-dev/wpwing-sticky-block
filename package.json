@@ -7,12 +7,11 @@
 	"main": "build/index.js",
 	"scripts": {
 		"build": "wp-scripts build",
-		"dist": "npm run build && npm run plugin-zip && rm -rf dist && mkdir dist && mv wpwing-sticky-block.zip dist/",
+		"dist": "npm run build && rm -rf dist && mkdir -p dist/wpwing-sticky-block && cp -r build docs readme.txt wpwing-sticky-block.php dist/wpwing-sticky-block/ && cd dist && zip -r wpwing-sticky-block.zip wpwing-sticky-block && rm -rf wpwing-sticky-block",
 		"format": "wp-scripts format",
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip",
 		"start": "wp-scripts start"
 	},
 	"devDependencies": {
