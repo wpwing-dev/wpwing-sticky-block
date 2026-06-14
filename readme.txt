@@ -5,7 +5,7 @@ Tags:              sticky, sticky block, gutenberg, block editor, fixed
 Requires at least: 5.8
 Tested up to:      7.0
 Requires PHP:      7.4
-Stable tag:        2.2.0
+Stable tag:        2.3.0
 License:           GPL-3.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ Make any block sticky. A lightweight Gutenberg container block that fixes its co
 
 == Description ==
 
-**Sticky Block for Gutenberg** is a container block that sticks to the top of the page once the visitor scrolls past it. Drop any blocks inside — a navigation menu, a call-to-action, a contact button, a sidebar widget — and they will follow the reader down the page.
+**Sticky Block for Gutenberg** is a container block that sticks to the top or bottom of the page once the visitor scrolls past it. Drop any blocks inside — a navigation menu, a call-to-action, a contact button, a sidebar widget — and they will follow the reader down the page.
 
 Unlike CSS `position: sticky` (which only works within its parent scroll container), Sticky Block for Gutenberg uses `position: fixed` with intelligent scroll detection, so it works reliably in any layout.
 
@@ -21,12 +21,15 @@ Unlike CSS `position: sticky` (which only works within its parent scroll contain
 
 * **Multiple sticky blocks per page** — place as many sticky blocks as you need, each with its own settings.
 * **Container block** — nest any Gutenberg blocks inside: navigation, buttons, headings, images, widgets.
+* **Top or bottom sticky** — choose whether the block locks to the top or bottom of the viewport. Cookie bars, chat widgets, and floating CTAs belong at the bottom.
+* **Show only after scrolling** — hide the block entirely at page load and reveal it only after the visitor scrolls past the trigger point. Pairs naturally with an entry transition for a smooth appear effect.
 * **Top offset** — set how many pixels of space to leave between the sticky block and the top of the viewport.
 * **Admin toolbar aware** — automatically shifts down for logged-in users who have the WordPress admin bar visible.
 * **Z-index control** — fine-tune stacking order so the sticky block always sits above (or below) other elements.
 * **Scroll direction mode** — choose "Always sticky" or "Only while scrolling up" (the pattern used by modern sticky headers that appear on the way back up).
 * **Stop before an element** — un-stick the block before it overlaps a footer or another landmark, using a CSS selector (e.g. `#footer`).
 * **Disable on mobile** — turn off sticky behaviour below a configurable viewport breakpoint (default 768 px).
+* **Disable on desktop** — turn off sticky behaviour above a configurable viewport breakpoint. Useful for elements that should only float on smaller screens.
 * **Sticky-state background color** — set a background color that only appears while the block is stuck, e.g. a solid white behind a transparent nav.
 * **Sticky-state text color** — change the text color when sticky, so a transparent header with light text can switch to dark text on a white background.
 * **Sticky-state shadow** — add a drop shadow (Small / Medium / Large) that appears only when the block is in sticky position.
@@ -44,7 +47,7 @@ Unlike CSS `position: sticky` (which only works within its parent scroll contain
 1. In the block editor, search for **Sticky Block** and insert it anywhere on your page.
 2. Add blocks inside it — a Navigation block, a Button, a Group, anything you like.
 3. Open the block settings panel on the right and adjust offset, z-index, scroll behaviour, and sticky-state styles.
-4. Preview your page and scroll — the block will stick to the top.
+4. Preview your page and scroll — the block will stick to the top (or bottom) of the viewport.
 
 == Installation ==
 
@@ -74,9 +77,9 @@ Yes. The block works in both the classic page/post editor and the full-site edit
 
 If a parent element has `overflow: hidden` or `overflow: clip` set, `position: fixed` will be clipped to that container and may not behave as expected. Remove the overflow restriction on the parent, or move the sticky block outside the constrained container.
 
-= Can I disable sticky behaviour on phones? =
+= Can I disable sticky behaviour on phones or only show it on mobile? =
 
-Yes. Open the **Responsive** panel in the block settings and enable "Disable sticky on mobile". You can also adjust the breakpoint (default: 768 px).
+Yes. Open the **Responsive** panel in the block settings. Enable "Disable sticky on mobile" to turn off sticky below a breakpoint (default: 768 px). Enable "Disable sticky on desktop" to turn it off above a breakpoint (default: 1024 px) — useful for elements that should only float on smaller screens.
 
 = How do I make the block stop before the footer? =
 
@@ -95,7 +98,15 @@ It should not conflict, but if both your theme and the plugin apply `position: f
 
 == Changelog ==
 
-= 2.2.0 =
+= 2.3.0 - 14/06/2026 =
+* New: Your sticky block can now lock to the bottom of the viewport instead of the top. Cookie consent bars, floating chat widgets, and mobile call-to-action strips all belong at the bottom — now you can build them without any custom code.
+* New: A new "Show only after scrolling" toggle hides the block entirely at page load and reveals it only after the user has scrolled past it. Pair it with an entry transition for a smooth appear effect — ideal for back-to-top buttons and floating CTAs.
+* New: You can now disable sticky behaviour on desktop — the counterpart to the existing mobile disable. Handy for elements that only make sense as floating buttons on small screens.
+* Fix: Sticky was being disabled at exactly the mobile breakpoint width instead of below it, causing a one-pixel gap where the setting had no effect. The breakpoint now behaves consistently with its label.
+* Fix: Resizing the window during the exit animation could corrupt the scroll trigger point, causing the block to snap straight back into sticky position. The trigger is now only recalculated once the block has fully returned to its natural position.
+* Fix: The transition control in the editor was still labelled "Entry transition" even though it has driven both entry and exit animations since version 2.2.0.
+
+= 2.2.0 - 07/06/2026 =
 * New: Your sticky bar now animates out the same way it came in. If you chose a Fade or Slide entry, the exit now matches — no more jarring snap when the block leaves the sticky position.
 * New: You can now control the spacing on all four sides of your sticky block, not just the top. Handy when your sticky nav feels cramped once it locks to the screen.
 * New: Add a border that only appears when your block is stuck — a clean way to draw a visual line between a sticky header and the content scrolling beneath it. Choose Solid or Dashed, set a thickness and a color.

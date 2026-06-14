@@ -8,3 +8,8 @@
 	top: var(--sticky-top, 0px);
 	z-index: var(--sticky-z-index, 1);
 }
+
+.wp-block-wpwing-sticky-block.is-sticky.is-sticky--bottom {
+	top: auto;
+	bottom: var(--sticky-bottom, 0px);
+}

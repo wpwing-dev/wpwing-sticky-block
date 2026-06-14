@@ -24,6 +24,11 @@ export default function save( { attributes } ) {
 		stickyBorderWidth,
 		stickyBorderColor,
 		stickyExtraClass,
+		hideBeforeSticky,
+		stickyPosition,
+		bottomSpace,
+		disableOnDesktop,
+		desktopBreakpoint,
 	} = attributes;
 
 	return (
@@ -53,6 +58,11 @@ export default function save( { attributes } ) {
 				'data-sticky-border-width': stickyBorderStyle !== 'none' ? stickyBorderWidth : undefined,
 				'data-sticky-border-color': stickyBorderColor || undefined,
 				'data-sticky-extra-class': stickyExtraClass || undefined,
+				'data-hide-before-sticky': hideBeforeSticky || undefined,
+				'data-sticky-position': stickyPosition !== 'top' ? stickyPosition : undefined,
+				'data-bottom-space': stickyPosition === 'bottom' ? bottomSpace : undefined,
+				'data-disable-on-desktop': disableOnDesktop || undefined,
+				'data-desktop-breakpoint': disableOnDesktop ? desktopBreakpoint : undefined,
 			} ) }
 		>
 			<InnerBlocks.Content />

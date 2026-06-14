@@ -35,6 +35,8 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const stopBefore = dataEl.dataset.stopBefore ?? '';
 		const disableOnMobile = dataEl.dataset.disableOnMobile === 'true';
 		const mobileBreakpoint = parseInt( dataEl.dataset.mobileBreakpoint ?? 768, 10 );
+		const disableOnDesktop = dataEl.dataset.disableOnDesktop === 'true';
+		const desktopBreakpoint = parseInt( dataEl.dataset.desktopBreakpoint ?? 1024, 10 );
 
 		// Sticky-state styles (only present when non-default).
 		const stickyBg = dataEl.dataset.stickyBg ?? '';
@@ -65,6 +67,16 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const useFade = stickyTransition === 'fade' || stickyTransition === 'fade-slide';
 		const hasTransition = stickyTransition !== 'none';
 
+		// --- Feature 6: show only after scrolling ---
+		const hideBeforeSticky = dataEl.dataset.hideBeforeSticky === 'true';
+
+		// --- Feature 8: sticky position (top / bottom) ---
+		const stickyPosition = dataEl.dataset.stickyPosition ?? 'top';
+		const isBottomSticky = stickyPosition === 'bottom';
+		const bottomSpace = parseInt( dataEl.dataset.bottomSpace ?? 0, 10 );
+		// Slide direction is reversed for bottom-sticky.
+		const slideInitial = isBottomSticky ? 'translateY(100%)' : 'translateY(-100%)';
+
 		let stopEl = null;
 		if ( stopBefore ) {
 			try {
@@ -73,15 +85,29 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				// invalid CSS selector — silently ignore the stop-before setting
 			}
 		}
-		const offset = topSpace + ( checkForAdmin ? adminBarHeight : 0 );
+
+		// Top-sticky uses topSpace + optional admin bar. Bottom-sticky ignores admin bar.
+		const offset = isBottomSticky
+			? 0
+			: topSpace + ( checkForAdmin ? adminBarHeight : 0 );
 
 		// divTop is the scroll position at which the block leaves its natural position.
 		// It's a `let` so the resize handler can recalculate it after layout reflows.
 		let divTop = block.getBoundingClientRect().top + window.scrollY - offset;
 
 		// Write CSS custom properties once — scroll handler only toggles a class.
-		block.style.setProperty( '--sticky-top', `${ offset }px` );
+		if ( isBottomSticky ) {
+			block.style.setProperty( '--sticky-bottom', `${ bottomSpace }px` );
+		} else {
+			block.style.setProperty( '--sticky-top', `${ offset }px` );
+		}
 		block.style.setProperty( '--sticky-z-index', String( zIndex ) );
+
+		// Feature 6: hide the block in its natural position until the trigger fires.
+		if ( hideBeforeSticky ) {
+			block.style.visibility = 'hidden';
+			block.style.pointerEvents = 'none';
+		}
 
 		let isSticky = false;
 		let ticking = false;
@@ -91,14 +117,19 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		// Placeholder that holds the block's natural space while it is position:fixed.
 		let spacer = null;
 
+		// Feature 9: active when viewport is within the enabled range.
 		function isActive() {
-			return ! disableOnMobile || window.innerWidth > mobileBreakpoint;
+			const w = window.innerWidth;
+			if ( disableOnMobile && w < mobileBreakpoint ) return false;
+			if ( disableOnDesktop && w > desktopBreakpoint ) return false;
+			return true;
 		}
 
 		function clearStickyStyles() {
 			block.style.width = '';
 			block.style.left = '';
 			block.style.right = '';
+			block.style.bottom = '';
 			block.style.backgroundColor = '';
 			block.style.boxShadow = '';
 			block.style.paddingTop = '';
@@ -125,6 +156,12 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				block.style.opacity = '';
 				isSticky = true;
 				return;
+			}
+
+			// Feature 6: reveal the block before applying sticky styles.
+			if ( hideBeforeSticky ) {
+				block.style.visibility = '';
+				block.style.pointerEvents = '';
 			}
 
 			// Capture natural dimensions before any sticky styles change the layout.
@@ -162,12 +199,13 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 			// Add sticky class (applies position: fixed via CSS) and any extra classes.
 			block.classList.add( 'is-sticky' );
+			if ( isBottomSticky ) block.classList.add( 'is-sticky--bottom' );
 			if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.add( cls ) );
 			isSticky = true;
 
 			// Animate entry: set initial state → force reflow → set transition → animate to rest.
 			if ( hasTransition ) {
-				if ( useSlide ) block.style.transform = 'translateY(-100%)';
+				if ( useSlide ) block.style.transform = slideInitial;
 				if ( useFade ) block.style.opacity = '0';
 
 				// Force layout recalculation so the browser registers the initial state.
@@ -196,7 +234,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				block.style.transition = transProps.join( ', ' );
 
 				requestAnimationFrame( () => {
-					if ( useSlide ) block.style.transform = 'translateY(-100%)';
+					if ( useSlide ) block.style.transform = slideInitial;
 					if ( useFade ) block.style.opacity = '0';
 				} );
 
@@ -207,13 +245,25 @@ document.addEventListener( 'DOMContentLoaded', () => {
 					if ( spacer ) { spacer.remove(); spacer = null; }
 					clearStickyStyles();
 					block.classList.remove( 'is-sticky' );
+					if ( isBottomSticky ) block.classList.remove( 'is-sticky--bottom' );
 					if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.remove( cls ) );
+					// Feature 6: re-hide once back in natural position.
+					if ( hideBeforeSticky ) {
+						block.style.visibility = 'hidden';
+						block.style.pointerEvents = 'none';
+					}
 				}, stickyTransitionDuration + 50 );
 			} else {
 				if ( spacer ) { spacer.remove(); spacer = null; }
 				clearStickyStyles();
 				block.classList.remove( 'is-sticky' );
+				if ( isBottomSticky ) block.classList.remove( 'is-sticky--bottom' );
 				if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.remove( cls ) );
+				// Feature 6: re-hide once back in natural position.
+				if ( hideBeforeSticky ) {
+					block.style.visibility = 'hidden';
+					block.style.pointerEvents = 'none';
+				}
 			}
 		}
 
@@ -229,9 +279,17 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			// where applySticky() fires before the stop condition is evaluated.
 			let stopReached = false;
 			if ( stopEl ) {
-				const stopTop = stopEl.getBoundingClientRect().top;
-				if ( stopTop <= offset + block.offsetHeight ) {
-					stopReached = true;
+				if ( isBottomSticky ) {
+					// Bottom sticky: stop when stopEl approaches the sticky block from below.
+					const stopTop = stopEl.getBoundingClientRect().top;
+					if ( stopTop <= window.innerHeight - bottomSpace - block.offsetHeight ) {
+						stopReached = true;
+					}
+				} else {
+					const stopTop = stopEl.getBoundingClientRect().top;
+					if ( stopTop <= offset + block.offsetHeight ) {
+						stopReached = true;
+					}
 				}
 			}
 
@@ -257,7 +315,9 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		function onResize() {
 			// Recalculate the trigger position after layout reflows (images loading,
 			// accordion expand, font swap, etc.) — only valid when block is in flow.
-			if ( ! isSticky ) {
+			// exitTimer being set means the block is still position:fixed mid-animation,
+			// so getBoundingClientRect() would return the fixed position, not the natural one.
+			if ( ! isSticky && exitTimer === null ) {
 				divTop = block.getBoundingClientRect().top + window.scrollY - offset;
 			}
 			onScroll();

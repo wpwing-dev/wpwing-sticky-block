@@ -50,6 +50,11 @@ export default function Edit( { attributes, setAttributes } ) {
 		stickyBorderWidth,
 		stickyBorderColor,
 		stickyExtraClass,
+		hideBeforeSticky,
+		stickyPosition,
+		bottomSpace,
+		disableOnDesktop,
+		desktopBreakpoint,
 	} = attributes;
 
 	const [ previewSticky, setPreviewSticky ] = useState( false );
@@ -75,36 +80,72 @@ export default function Edit( { attributes, setAttributes } ) {
 				<Panel>
 					<PanelBody title={ __( "Sticky Options", "wpwing-sticky-block" ) }>
 						<PanelRow>
-							<RangeControl
-								label={ __( "Space from top (px)", "wpwing-sticky-block" ) }
-								value={ topSpace }
-								min={ 0 }
-								max={ 300 }
-								onChange={ ( value ) =>
-									setAttributes( { topSpace: value ?? 0 } )
-								}
+							<SelectControl
+								label={ __( "Sticky position", "wpwing-sticky-block" ) }
+								value={ stickyPosition }
+								options={ [
+									{ label: __( "Top", "wpwing-sticky-block" ), value: "top" },
+									{ label: __( "Bottom", "wpwing-sticky-block" ), value: "bottom" },
+								] }
+								onChange={ ( value ) => setAttributes( { stickyPosition: value } ) }
 								help={ __(
-									"Gap between the top of the viewport and the sticky block.",
+									"Stick the block to the top or bottom of the viewport.",
 									"wpwing-sticky-block"
 								) }
 							/>
 						</PanelRow>
-						<PanelRow>
-							<ToggleControl
-								label={ __(
-									"Account for admin toolbar",
-									"wpwing-sticky-block"
-								) }
-								help={ __(
-									"Shifts the block down by the admin bar height for logged-in users.",
-									"wpwing-sticky-block"
-								) }
-								checked={ checkForAdmin }
-								onChange={ () =>
-									setAttributes( { checkForAdmin: ! checkForAdmin } )
-								}
-							/>
-						</PanelRow>
+						{ stickyPosition === 'top' && (
+							<PanelRow>
+								<RangeControl
+									label={ __( "Space from top (px)", "wpwing-sticky-block" ) }
+									value={ topSpace }
+									min={ 0 }
+									max={ 300 }
+									onChange={ ( value ) =>
+										setAttributes( { topSpace: value ?? 0 } )
+									}
+									help={ __(
+										"Gap between the top of the viewport and the sticky block.",
+										"wpwing-sticky-block"
+									) }
+								/>
+							</PanelRow>
+						) }
+						{ stickyPosition === 'bottom' && (
+							<PanelRow>
+								<RangeControl
+									label={ __( "Space from bottom (px)", "wpwing-sticky-block" ) }
+									value={ bottomSpace }
+									min={ 0 }
+									max={ 300 }
+									onChange={ ( value ) =>
+										setAttributes( { bottomSpace: value ?? 0 } )
+									}
+									help={ __(
+										"Gap between the bottom of the viewport and the sticky block.",
+										"wpwing-sticky-block"
+									) }
+								/>
+							</PanelRow>
+						) }
+						{ stickyPosition === 'top' && (
+							<PanelRow>
+								<ToggleControl
+									label={ __(
+										"Account for admin toolbar",
+										"wpwing-sticky-block"
+									) }
+									help={ __(
+										"Shifts the block down by the admin bar height for logged-in users.",
+										"wpwing-sticky-block"
+									) }
+									checked={ checkForAdmin }
+									onChange={ () =>
+										setAttributes( { checkForAdmin: ! checkForAdmin } )
+									}
+								/>
+							</PanelRow>
+						) }
 						<PanelRow>
 							<RangeControl
 								label={ __( "Z-index", "wpwing-sticky-block" ) }
@@ -124,6 +165,19 @@ export default function Edit( { attributes, setAttributes } ) {
 						title={ __( "Behavior", "wpwing-sticky-block" ) }
 						initialOpen={ false }
 					>
+						<PanelRow>
+							<ToggleControl
+								label={ __( "Show only after scrolling", "wpwing-sticky-block" ) }
+								checked={ hideBeforeSticky }
+								onChange={ () =>
+									setAttributes( { hideBeforeSticky: ! hideBeforeSticky } )
+								}
+								help={ __(
+									"Hides the block until the scroll trigger is passed — useful for back-to-top buttons and floating CTAs.",
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
 						<PanelRow>
 							<SelectControl
 								label={ __( "Stick when", "wpwing-sticky-block" ) }
@@ -194,6 +248,35 @@ export default function Edit( { attributes, setAttributes } ) {
 									}
 									help={ __(
 										"Sticky is disabled when the viewport is narrower than this value.",
+										"wpwing-sticky-block"
+									) }
+								/>
+							</PanelRow>
+						) }
+						<PanelRow>
+							<ToggleControl
+								label={ __( "Disable sticky on desktop", "wpwing-sticky-block" ) }
+								checked={ disableOnDesktop }
+								onChange={ () =>
+									setAttributes( { disableOnDesktop: ! disableOnDesktop } )
+								}
+							/>
+						</PanelRow>
+						{ disableOnDesktop && (
+							<PanelRow>
+								<RangeControl
+									label={ __(
+										"Desktop breakpoint (px)",
+										"wpwing-sticky-block"
+									) }
+									value={ desktopBreakpoint }
+									min={ 600 }
+									max={ 1920 }
+									onChange={ ( value ) =>
+										setAttributes( { desktopBreakpoint: value } )
+									}
+									help={ __(
+										"Sticky is disabled when the viewport is wider than this value.",
 										"wpwing-sticky-block"
 									) }
 								/>
@@ -361,7 +444,7 @@ export default function Edit( { attributes, setAttributes } ) {
 						</PanelRow>
 						<PanelRow>
 							<SelectControl
-								label={ __( "Entry transition", "wpwing-sticky-block" ) }
+								label={ __( "Entry & exit transition", "wpwing-sticky-block" ) }
 								value={ stickyTransition }
 								options={ [
 									{
@@ -373,7 +456,7 @@ export default function Edit( { attributes, setAttributes } ) {
 										value: "fade",
 									},
 									{
-										label: __( "Slide down", "wpwing-sticky-block" ),
+										label: __( "Slide", "wpwing-sticky-block" ),
 										value: "slide",
 									},
 									{
@@ -385,7 +468,7 @@ export default function Edit( { attributes, setAttributes } ) {
 									setAttributes( { stickyTransition: value } )
 								}
 								help={ __(
-									"Animation played when the block enters the sticky state.",
+									"Animation played when the block enters and exits the sticky state.",
 									"wpwing-sticky-block"
 								) }
 							/>
