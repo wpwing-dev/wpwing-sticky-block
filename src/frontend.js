@@ -63,9 +63,14 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		// Transition (entry + exit).
 		const stickyTransition = dataEl.dataset.stickyTransition ?? 'none';
 		const stickyTransitionDuration = parseInt( dataEl.dataset.stickyTransitionDuration ?? 300, 10 );
+		const stickyTransitionEasing = dataEl.dataset.stickyTransitionEasing ?? 'ease';
 		const useSlide = stickyTransition === 'slide' || stickyTransition === 'fade-slide';
 		const useFade = stickyTransition === 'fade' || stickyTransition === 'fade-slide';
 		const hasTransition = stickyTransition !== 'none';
+
+		const stickyScale = parseInt( dataEl.dataset.stickyScale ?? 100, 10 );
+		const scaleVal = stickyScale / 100;
+		const hasScale = stickyScale !== 100;
 
 		// --- Feature 6: show only after scrolling ---
 		const hideBeforeSticky = dataEl.dataset.hideBeforeSticky === 'true';
@@ -152,7 +157,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				clearTimeout( exitTimer );
 				exitTimer = null;
 				block.style.transition = '';
-				block.style.transform = '';
+				block.style.transform = hasScale ? `scale(${ scaleVal })` : '';
 				block.style.opacity = '';
 				isSticky = true;
 				return;
@@ -203,38 +208,56 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.add( cls ) );
 			isSticky = true;
 
+			block.dispatchEvent( new CustomEvent( 'wpwing:sticky', { bubbles: true } ) );
+
 			// Animate entry: set initial state → force reflow → set transition → animate to rest.
+			// Scale is composed into the same transform property as slide to avoid overriding it.
 			if ( hasTransition ) {
-				if ( useSlide ) block.style.transform = slideInitial;
+				const initParts = [
+					hasScale ? `scale(${ scaleVal })` : '',
+					useSlide ? slideInitial : '',
+				].filter( Boolean );
+				if ( initParts.length ) block.style.transform = initParts.join( ' ' );
 				if ( useFade ) block.style.opacity = '0';
 
 				// Force layout recalculation so the browser registers the initial state.
 				block.getBoundingClientRect();
 
 				const transProps = [];
-				if ( useSlide ) transProps.push( `transform ${ stickyTransitionDuration }ms ease` );
-				if ( useFade ) transProps.push( `opacity ${ stickyTransitionDuration }ms ease` );
+				if ( useSlide ) transProps.push( `transform ${ stickyTransitionDuration }ms ${ stickyTransitionEasing }` );
+				if ( useFade ) transProps.push( `opacity ${ stickyTransitionDuration }ms ${ stickyTransitionEasing }` );
 				block.style.transition = transProps.join( ', ' );
 
 				requestAnimationFrame( () => {
-					if ( useSlide ) block.style.transform = '';
+					block.style.transform = hasScale ? `scale(${ scaleVal })` : '';
 					if ( useFade ) block.style.opacity = '';
 				} );
+			} else if ( hasScale ) {
+				block.style.transform = `scale(${ scaleVal })`;
 			}
 		}
 
 		function removeSticky() {
 			isSticky = false;
 
+			block.dispatchEvent( new CustomEvent( 'wpwing:unsticky', { bubbles: true } ) );
+
 			if ( hasTransition ) {
 				// Animate exit: transition to the hidden state, then clean up after.
 				const transProps = [];
-				if ( useSlide ) transProps.push( `transform ${ stickyTransitionDuration }ms ease` );
-				if ( useFade ) transProps.push( `opacity ${ stickyTransitionDuration }ms ease` );
+				if ( useSlide ) transProps.push( `transform ${ stickyTransitionDuration }ms ${ stickyTransitionEasing }` );
+				// Animate scale back to identity on fade-only exit so it doesn't persist until cleanup.
+				if ( hasScale && ! useSlide ) transProps.push( `transform ${ stickyTransitionDuration }ms ${ stickyTransitionEasing }` );
+				if ( useFade ) transProps.push( `opacity ${ stickyTransitionDuration }ms ${ stickyTransitionEasing }` );
 				block.style.transition = transProps.join( ', ' );
 
 				requestAnimationFrame( () => {
-					if ( useSlide ) block.style.transform = slideInitial;
+					if ( useSlide ) {
+						// Keep scale during the slide-out so the transform doesn't snap.
+						block.style.transform = hasScale ? `scale(${ scaleVal }) ${ slideInitial }` : slideInitial;
+					} else if ( hasScale ) {
+						block.style.transform = '';
+					}
 					if ( useFade ) block.style.opacity = '0';
 				} );
 

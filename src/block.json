@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "wpwing/sticky-block",
-	"version": "2.3.0",
+	"version": "2.4.0",
 	"title": "Sticky Block for Gutenberg",
 	"category": "design",
 	"keywords": ["Sticky", "Sticky Block", "WPWing"],
@@ -49,6 +49,10 @@
 			"type": "string",
 			"default": "none"
 		},
+		"stickyScale": {
+			"type": "integer",
+			"default": 100
+		},
 		"stickyPaddingTop": {
 			"type": "integer",
 			"default": 0
@@ -68,6 +72,10 @@
 		"stickyTransitionDuration": {
 			"type": "integer",
 			"default": 300
+		},
+		"stickyTransitionEasing": {
+			"type": "string",
+			"default": "ease"
 		},
 		"stickyPaddingBottom": {
 			"type": "integer",

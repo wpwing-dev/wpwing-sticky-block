@@ -5,7 +5,7 @@ Tags:              sticky, sticky block, gutenberg, block editor, fixed
 Requires at least: 5.8
 Tested up to:      7.0
 Requires PHP:      7.4
-Stable tag:        2.3.0
+Stable tag:        2.4.0
 License:           GPL-3.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -97,6 +97,12 @@ It should not conflict, but if both your theme and the plugin apply `position: f
 4. The block in action on the frontend in sticky (fixed) position.
 
 == Changelog ==
+
+= 2.4.0 - 21/06/2026 =
+* New: A popular design pattern is a logo or nav bar that shrinks slightly once the visitor starts scrolling - it signals that the header has switched modes without any jarring jump. You can now build this without writing a line of CSS: set a scale percentage in the block settings and the block smoothly reduces in size the moment it becomes sticky.
+* New: You can now choose how your transition animation feels, not just how long it takes. Pick from five motion curves - a gentle ease in, a soft ease out, or a steady linear pace - to match the animation to the mood of your site.
+* New: If you are a developer building on top of this plugin, the block now announces when it sticks and when it releases. You can listen for those moments in JavaScript and react to them - useful for triggering analytics, syncing other animations, or updating navigation state elsewhere on the page.
+* Fix: When using a scale combined with a fade transition, the block would briefly snap back to its original size at the very end of the exit animation. It now smoothly returns to full size as it fades out, so the transition looks clean from start to finish.
 
 = 2.3.0 - 14/06/2026 =
 * New: Your sticky block can now lock to the bottom of the viewport instead of the top. Cookie consent bars, floating chat widgets, and mobile call-to-action strips all belong at the bottom — now you can build them without any custom code.

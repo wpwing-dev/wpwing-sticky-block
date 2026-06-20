@@ -38,11 +38,13 @@ export default function Edit( { attributes, setAttributes } ) {
 		ariaLabel,
 		stickyBackground,
 		stickyShadow,
+		stickyScale,
 		stickyPaddingTop,
 		stickyTextColor,
 		fullWidthWhenSticky,
 		stickyTransition,
 		stickyTransitionDuration,
+		stickyTransitionEasing,
 		stickyPaddingBottom,
 		stickyPaddingLeft,
 		stickyPaddingRight,
@@ -70,6 +72,7 @@ export default function Edit( { attributes, setAttributes } ) {
 		borderStyle: stickyBorderStyle !== 'none' ? stickyBorderStyle : undefined,
 		borderWidth: stickyBorderStyle !== 'none' ? `${ stickyBorderWidth }px` : undefined,
 		borderColor: stickyBorderStyle !== 'none' && stickyBorderColor ? stickyBorderColor : undefined,
+		transform: stickyScale !== 100 ? `scale(${ stickyScale / 100 })` : undefined,
 	} : {};
 
 	const blockProps = useBlockProps( { style: previewStyle } );
@@ -443,6 +446,21 @@ export default function Edit( { attributes, setAttributes } ) {
 							/>
 						</PanelRow>
 						<PanelRow>
+							<RangeControl
+								label={ __( "Scale when sticky (%)", "wpwing-sticky-block" ) }
+								value={ stickyScale }
+								min={ 50 }
+								max={ 100 }
+								onChange={ ( value ) =>
+									setAttributes( { stickyScale: value ?? 100 } )
+								}
+								help={ __(
+									"Shrinks the block to this percentage of its size when sticky. Useful for logos or nav bars that scale down on scroll.",
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
+						<PanelRow>
 							<SelectControl
 								label={ __( "Entry & exit transition", "wpwing-sticky-block" ) }
 								value={ stickyTransition }
@@ -474,24 +492,46 @@ export default function Edit( { attributes, setAttributes } ) {
 							/>
 						</PanelRow>
 						{ stickyTransition !== "none" && (
-							<PanelRow>
-								<RangeControl
-									label={ __(
-										"Transition duration (ms)",
-										"wpwing-sticky-block"
-									) }
-									value={ stickyTransitionDuration }
-									min={ 50 }
-									max={ 600 }
-									onChange={ ( value ) =>
-										setAttributes( { stickyTransitionDuration: value } )
-									}
-									help={ __(
-										"How long the entry animation takes in milliseconds.",
-										"wpwing-sticky-block"
-									) }
-								/>
-							</PanelRow>
+							<>
+								<PanelRow>
+									<RangeControl
+										label={ __(
+											"Transition duration (ms)",
+											"wpwing-sticky-block"
+										) }
+										value={ stickyTransitionDuration }
+										min={ 50 }
+										max={ 600 }
+										onChange={ ( value ) =>
+											setAttributes( { stickyTransitionDuration: value } )
+										}
+										help={ __(
+											"How long the entry animation takes in milliseconds.",
+											"wpwing-sticky-block"
+										) }
+									/>
+								</PanelRow>
+								<PanelRow>
+									<SelectControl
+										label={ __( "Transition easing", "wpwing-sticky-block" ) }
+										value={ stickyTransitionEasing }
+										options={ [
+											{ label: __( "Ease (default)", "wpwing-sticky-block" ), value: "ease" },
+											{ label: __( "Ease in", "wpwing-sticky-block" ), value: "ease-in" },
+											{ label: __( "Ease out", "wpwing-sticky-block" ), value: "ease-out" },
+											{ label: __( "Ease in-out", "wpwing-sticky-block" ), value: "ease-in-out" },
+											{ label: __( "Linear", "wpwing-sticky-block" ), value: "linear" },
+										] }
+										onChange={ ( value ) =>
+											setAttributes( { stickyTransitionEasing: value } )
+										}
+										help={ __(
+											"Controls the acceleration curve of the animation.",
+											"wpwing-sticky-block"
+										) }
+									/>
+								</PanelRow>
+							</>
 						) }
 					</PanelBody>
 
