@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       Sticky Block for Gutenberg
  * Description:       Sticky Block for Gutenberg — make any content follow your visitors as they scroll.
- * Version:           2.4.0
+ * Version:           2.5.0
  * Requires at least: 5.8
  * Tested up to:      7.0
  * Requires PHP:      7.4

@@ -57,6 +57,9 @@ export default function Edit( { attributes, setAttributes } ) {
 		bottomSpace,
 		disableOnDesktop,
 		desktopBreakpoint,
+		dismissible,
+		dismissExpiry,
+		dismissButtonPosition,
 	} = attributes;
 
 	const [ previewSticky, setPreviewSticky ] = useState( false );
@@ -221,6 +224,51 @@ export default function Edit( { attributes, setAttributes } ) {
 								) }
 							/>
 						</PanelRow>
+						<PanelRow>
+							<ToggleControl
+								label={ __( "Show a dismiss (×) button", "wpwing-sticky-block" ) }
+								checked={ dismissible }
+								onChange={ () =>
+									setAttributes( { dismissible: ! dismissible } )
+								}
+								help={ __(
+									"Adds a close button so visitors can dismiss the block. Ideal for cookie bars and floating CTAs.",
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
+						{ dismissible && (
+							<>
+								<PanelRow>
+									<RangeControl
+										label={ __( "Remember dismissal for (days)", "wpwing-sticky-block" ) }
+										value={ dismissExpiry }
+										min={ 0 }
+										max={ 365 }
+										onChange={ ( value ) =>
+											setAttributes( { dismissExpiry: value ?? 0 } )
+										}
+										help={ __(
+											"How long to keep the block hidden after a visitor dismisses it. 0 = until the page is reloaded.",
+											"wpwing-sticky-block"
+										) }
+									/>
+								</PanelRow>
+								<PanelRow>
+									<SelectControl
+										label={ __( "Dismiss button position", "wpwing-sticky-block" ) }
+										value={ dismissButtonPosition }
+										options={ [
+											{ label: __( "Right", "wpwing-sticky-block" ), value: "right" },
+											{ label: __( "Left", "wpwing-sticky-block" ), value: "left" },
+										] }
+										onChange={ ( value ) =>
+											setAttributes( { dismissButtonPosition: value } )
+										}
+									/>
+								</PanelRow>
+							</>
+						) }
 					</PanelBody>
 
 					<PanelBody
@@ -576,6 +624,19 @@ export default function Edit( { attributes, setAttributes } ) {
 					</PanelBody>
 				</Panel>
 			</InspectorControls>
+
+			{ dismissible && (
+				<button
+					type="button"
+					className={ `wpwing-sticky-dismiss wpwing-sticky-dismiss--${ dismissButtonPosition }` }
+					aria-label={ __( "Dismiss", "wpwing-sticky-block" ) }
+					onClick={ ( e ) => e.preventDefault() }
+				>
+					<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
+						<path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="2" fill="none" />
+					</svg>
+				</button>
+			) }
 
 			<InnerBlocks />
 		</div>

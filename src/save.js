@@ -1,3 +1,4 @@
+import { __ } from "@wordpress/i18n";
 import { useBlockProps, InnerBlocks } from "@wordpress/block-editor";
 
 export default function save( { attributes } ) {
@@ -31,6 +32,9 @@ export default function save( { attributes } ) {
 		bottomSpace,
 		disableOnDesktop,
 		desktopBreakpoint,
+		dismissible,
+		dismissExpiry,
+		dismissButtonPosition,
 	} = attributes;
 
 	return (
@@ -67,8 +71,22 @@ export default function save( { attributes } ) {
 				'data-bottom-space': stickyPosition === 'bottom' ? bottomSpace : undefined,
 				'data-disable-on-desktop': disableOnDesktop || undefined,
 				'data-desktop-breakpoint': disableOnDesktop ? desktopBreakpoint : undefined,
+				'data-dismissible': dismissible || undefined,
+				'data-dismiss-expiry': dismissible ? dismissExpiry : undefined,
+				'data-dismiss-position': dismissible && dismissButtonPosition !== 'right' ? dismissButtonPosition : undefined,
 			} ) }
 		>
+			{ dismissible && (
+				<button
+					type="button"
+					className={ `wpwing-sticky-dismiss wpwing-sticky-dismiss--${ dismissButtonPosition }` }
+					aria-label={ __( "Dismiss", "wpwing-sticky-block" ) }
+				>
+					<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
+						<path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="2" fill="none" />
+					</svg>
+				</button>
+			) }
 			<InnerBlocks.Content />
 		</div>
 	);

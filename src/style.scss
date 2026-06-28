@@ -13,3 +13,40 @@
 	top: auto;
 	bottom: var(--sticky-bottom, 0px);
 }
+
+// Positioning context for the dismiss button in the block's natural state.
+.wp-block-wpwing-sticky-block:has(> .wpwing-sticky-dismiss) {
+	position: relative;
+}
+
+.wpwing-sticky-dismiss {
+	position: absolute;
+	top: 8px;
+	z-index: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: transparent;
+	color: inherit;
+	cursor: pointer;
+	opacity: 0.6;
+	transition: opacity 0.15s ease;
+
+	&:hover,
+	&:focus {
+		opacity: 1;
+	}
+
+	&--right {
+		right: 8px;
+	}
+
+	&--left {
+		left: 8px;
+	}
+}

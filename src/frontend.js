@@ -18,7 +18,12 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	const adminBarHeight =
 		adminBarEl && window.innerWidth > 600 ? adminBarEl.offsetHeight : 0;
 
-	blocks.forEach( ( block ) => {
+	// Respect the visitor's reduced-motion preference page-wide.
+	const prefersReducedMotion =
+		window.matchMedia &&
+		window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches;
+
+	blocks.forEach( ( block, index ) => {
 		// v3 format: data-* on the block root.
 		// v1 format (deprecated save): data-* on an inner [data-top-space] child.
 		const dataEl = block.hasAttribute( 'data-top-space' )
@@ -66,7 +71,8 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const stickyTransitionEasing = dataEl.dataset.stickyTransitionEasing ?? 'ease';
 		const useSlide = stickyTransition === 'slide' || stickyTransition === 'fade-slide';
 		const useFade = stickyTransition === 'fade' || stickyTransition === 'fade-slide';
-		const hasTransition = stickyTransition !== 'none';
+		// Reduced-motion visitors get the final state with no animation.
+		const hasTransition = stickyTransition !== 'none' && ! prefersReducedMotion;
 
 		const stickyScale = parseInt( dataEl.dataset.stickyScale ?? 100, 10 );
 		const scaleVal = stickyScale / 100;
@@ -81,6 +87,29 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const bottomSpace = parseInt( dataEl.dataset.bottomSpace ?? 0, 10 );
 		// Slide direction is reversed for bottom-sticky.
 		const slideInitial = isBottomSticky ? 'translateY(100%)' : 'translateY(-100%)';
+
+		// --- Dismissible (close button + optional remembered dismissal) ---
+		const dismissible = dataEl.dataset.dismissible === 'true';
+		const dismissExpiry = parseInt( dataEl.dataset.dismissExpiry ?? 0, 10 );
+		// Session-only when expiry is 0, otherwise persist across visits.
+		const dismissStore = dismissExpiry === 0 ? window.sessionStorage : window.localStorage;
+		const dismissKey = `wpwing-sticky-dismissed:${ block.id || `${ location.pathname }#${ index }` }`;
+
+		if ( dismissible ) {
+			try {
+				const raw = dismissStore.getItem( dismissKey );
+				if ( raw ) {
+					const stillHidden = dismissExpiry === 0 || Date.now() < parseInt( raw, 10 );
+					if ( stillHidden ) {
+						block.style.display = 'none';
+						return;
+					}
+					dismissStore.removeItem( dismissKey );
+				}
+			} catch {
+				// storage unavailable (private mode, disabled) — fall through and show the block
+			}
+		}
 
 		let stopEl = null;
 		if ( stopBefore ) {
@@ -115,6 +144,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 
 		let isSticky = false;
+		let dismissed = false;
 		let ticking = false;
 		let lastScrollY = window.scrollY;
 		// Timer ID for the exit animation cleanup; non-null while an exit is in flight.
@@ -147,6 +177,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			block.style.color = '';
 			block.style.transition = '';
 			block.style.transform = '';
+			block.style.transformOrigin = '';
 			block.style.opacity = '';
 		}
 
@@ -179,13 +210,20 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			spacer.setAttribute( 'aria-hidden', 'true' );
 			block.parentNode.insertBefore( spacer, block );
 
-			// Width and horizontal position.
+			// Width and horizontal position. Pin both edges instead of using 100vw so the
+			// bar spans the viewport minus the scrollbar — no horizontal overflow/shift.
 			if ( fullWidthWhenSticky ) {
-				block.style.width = '100vw';
 				block.style.left = '0';
 				block.style.right = '0';
+				block.style.width = 'auto';
 			} else {
 				block.style.width = `${ naturalWidth }px`;
+			}
+
+			// Anchor scaling to the stuck edge so a shrunk block stays flush with the
+			// viewport instead of pulling away and leaving a gap.
+			if ( hasScale ) {
+				block.style.transformOrigin = isBottomSticky ? 'bottom center' : 'top center';
 			}
 
 			// Sticky-state styles.
@@ -291,6 +329,10 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 
 		function update() {
+			if ( dismissed ) {
+				ticking = false;
+				return;
+			}
 			const scrollY = window.scrollY;
 			const scrollingUp = scrollY < lastScrollY;
 			lastScrollY = scrollY;
@@ -344,6 +386,27 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				divTop = block.getBoundingClientRect().top + window.scrollY - offset;
 			}
 			onScroll();
+		}
+
+		// Wire the dismiss button: remember the choice, tear down sticky state, hide.
+		if ( dismissible ) {
+			const dismissBtn = block.querySelector( '.wpwing-sticky-dismiss' );
+			if ( dismissBtn ) {
+				dismissBtn.addEventListener( 'click', () => {
+					dismissed = true;
+					try {
+						dismissStore.setItem(
+							dismissKey,
+							dismissExpiry === 0 ? '1' : String( Date.now() + dismissExpiry * 86400000 )
+						);
+					} catch {
+						// storage unavailable — dismissal just won't persist
+					}
+					if ( spacer ) { spacer.remove(); spacer = null; }
+					block.style.display = 'none';
+					block.dispatchEvent( new CustomEvent( 'wpwing:dismiss', { bubbles: true } ) );
+				} );
+			}
 		}
 
 		window.addEventListener( 'scroll', onScroll, { passive: true } );

@@ -5,7 +5,7 @@ Tags:              sticky, sticky block, gutenberg, block editor, fixed
 Requires at least: 5.8
 Tested up to:      7.0
 Requires PHP:      7.4
-Stable tag:        2.4.0
+Stable tag:        2.5.0
 License:           GPL-3.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -23,6 +23,7 @@ Unlike CSS `position: sticky` (which only works within its parent scroll contain
 * **Container block** — nest any Gutenberg blocks inside: navigation, buttons, headings, images, widgets.
 * **Top or bottom sticky** — choose whether the block locks to the top or bottom of the viewport. Cookie bars, chat widgets, and floating CTAs belong at the bottom.
 * **Show only after scrolling** — hide the block entirely at page load and reveal it only after the visitor scrolls past the trigger point. Pairs naturally with an entry transition for a smooth appear effect.
+* **Dismissible** — add a close button so visitors can dismiss the block, and optionally remember the dismissal for a set number of days. Perfect for cookie bars and floating CTAs.
 * **Top offset** — set how many pixels of space to leave between the sticky block and the top of the viewport.
 * **Admin toolbar aware** — automatically shifts down for logged-in users who have the WordPress admin bar visible.
 * **Z-index control** — fine-tune stacking order so the sticky block always sits above (or below) other elements.
@@ -97,6 +98,12 @@ It should not conflict, but if both your theme and the plugin apply `position: f
 4. The block in action on the frontend in sticky (fixed) position.
 
 == Changelog ==
+
+= 2.5.0 - 28/06/2026 =
+* New: Add a close button so visitors can dismiss the block, and optionally remember that choice for a set number of days. The missing piece for cookie bars and floating CTAs - now built with no code.
+* Fix: Turning on "Full width when sticky" could push a thin horizontal scrollbar onto the page and nudge the layout sideways the moment the block stuck. The bar now spans the visible width exactly, with no overflow or shift.
+* Fix: The plugin now honours the visitor's "reduce motion" system setting. When that setting is on, the block snaps cleanly into and out of its sticky position instead of fading or sliding - more comfortable for people sensitive to movement.
+* Fix: When using the scale effect, the block now stays anchored to the edge it sticks to as it shrinks, instead of drifting away and leaving a small gap.
 
 = 2.4.0 - 21/06/2026 =
 * New: A popular design pattern is a logo or nav bar that shrinks slightly once the visitor starts scrolling - it signals that the header has switched modes without any jarring jump. You can now build this without writing a line of CSS: set a scale percentage in the block settings and the block smoothly reduces in size the moment it becomes sticky.
