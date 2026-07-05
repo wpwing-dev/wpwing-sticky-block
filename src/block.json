@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "wpwing/sticky-block",
-	"version": "2.5.0",
+	"version": "2.6.0",
 	"title": "Sticky Block for Gutenberg",
 	"category": "design",
 	"keywords": ["Sticky", "Sticky Block", "WPWing"],
@@ -136,6 +136,18 @@
 		"dismissButtonPosition": {
 			"type": "string",
 			"default": "right"
+		},
+		"scrollTriggerOffset": {
+			"type": "integer",
+			"default": 0
+		},
+		"stickyOpacity": {
+			"type": "integer",
+			"default": 100
+		},
+		"stickyBorderRadius": {
+			"type": "integer",
+			"default": 0
 		}
 	},
 	"supports": {

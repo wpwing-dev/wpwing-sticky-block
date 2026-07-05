@@ -1,0 +1,26 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "/?pagename=sticky-block-demo",
+	"preferredVersions": {
+		"php": "8.2",
+		"wp": "latest"
+	},
+	"steps": [
+		{
+			"step": "login",
+			"username": "admin",
+			"password": "password"
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "wpwing-sticky-block"
+			}
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require_once '/wordpress/wp-load.php'; $nav = '<!-- wp:wpwing/sticky-block {\"zIndex\":100,\"stickyBackground\":\"#1e1e2e\",\"stickyTextColor\":\"#ffffff\",\"stickyShadow\":\"md\",\"fullWidthWhenSticky\":true,\"stickyTransition\":\"slide\",\"stickyPaddingTop\":12,\"stickyPaddingBottom\":12,\"stickyPaddingLeft\":24,\"stickyPaddingRight\":24} --><div class=\"wp-block-wpwing-sticky-block\" data-top-space=\"0\" data-check-for-admin=\"true\" data-z-index=\"100\" data-scroll-direction=\"always\" data-sticky-bg=\"#1e1e2e\" data-sticky-shadow=\"md\" data-sticky-text-color=\"#ffffff\" data-full-width-when-sticky=\"true\" data-sticky-transition=\"slide\" data-sticky-transition-duration=\"300\" data-sticky-padding-top=\"12\" data-sticky-padding-bottom=\"12\" data-sticky-padding-left=\"24\" data-sticky-padding-right=\"24\"><!-- wp:paragraph --><p><strong>Sticky Block</strong> - this bar sticks to the top, goes full width, and changes color. Scroll to see it in action.</p><!-- /wp:paragraph --></div><!-- /wp:wpwing/sticky-block -->'; $bar = '<!-- wp:wpwing/sticky-block {\"zIndex\":90,\"stickyPosition\":\"bottom\",\"hideBeforeSticky\":true,\"scrollTriggerOffset\":500,\"dismissible\":true,\"stickyBackground\":\"#0a4b78\",\"stickyTextColor\":\"#ffffff\",\"stickyTransition\":\"fade-slide\",\"stickyPaddingTop\":10,\"stickyPaddingBottom\":10,\"stickyPaddingLeft\":24,\"stickyPaddingRight\":40} --><div class=\"wp-block-wpwing-sticky-block\" data-top-space=\"0\" data-check-for-admin=\"true\" data-z-index=\"90\" data-scroll-direction=\"always\" data-sticky-bg=\"#0a4b78\" data-sticky-text-color=\"#ffffff\" data-sticky-transition=\"fade-slide\" data-sticky-transition-duration=\"300\" data-sticky-padding-top=\"10\" data-sticky-padding-bottom=\"10\" data-sticky-padding-left=\"24\" data-sticky-padding-right=\"40\" data-hide-before-sticky=\"true\" data-sticky-position=\"bottom\" data-bottom-space=\"0\" data-dismissible=\"true\" data-dismiss-expiry=\"0\" data-scroll-trigger-offset=\"500\"><button type=\"button\" class=\"wpwing-sticky-dismiss wpwing-sticky-dismiss--right\" aria-label=\"Dismiss\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M1 1l12 12M13 1L1 13\" stroke=\"currentColor\" stroke-width=\"2\" fill=\"none\"></path></svg></button><!-- wp:paragraph --><p>This dismissible bar appears at the bottom after you scroll 500px - built with the same block, zero code.</p><!-- /wp:paragraph --></div><!-- /wp:wpwing/sticky-block -->'; $filler = ''; for ($i = 1; $i <= 8; $i++) { $filler .= '<!-- wp:heading --><h2 class=\"wp-block-heading\">Section ' . $i . '</h2><!-- /wp:heading --><!-- wp:paragraph --><p>Keep scrolling. The top bar stays with you, and after 500 pixels a dismissible bar slides in from the bottom. Every behavior on this page - full width, colors, shadow, transitions, the close button - is configured in the block sidebar with no code.</p><!-- /wp:paragraph --><!-- wp:paragraph --><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p><!-- /wp:paragraph -->'; } wp_insert_post(array('post_title' => 'Sticky Block Demo', 'post_name' => 'sticky-block-demo', 'post_status' => 'publish', 'post_type' => 'page', 'post_content' => $nav . $bar . $filler));"
+		}
+	]
+}

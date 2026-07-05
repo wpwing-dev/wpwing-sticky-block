@@ -14,9 +14,11 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	if ( ! blocks.length ) return;
 
 	// Admin bar offset is the same for every block on the page.
+	// Below 783px the admin bar is position:absolute and scrolls away with the
+	// page, so it never overlaps a fixed block — no offset needed there.
 	const adminBarEl = document.getElementById( 'wpadminbar' );
 	const adminBarHeight =
-		adminBarEl && window.innerWidth > 600 ? adminBarEl.offsetHeight : 0;
+		adminBarEl && window.innerWidth >= 783 ? adminBarEl.offsetHeight : 0;
 
 	// Respect the visitor's reduced-motion preference page-wide.
 	const prefersReducedMotion =
@@ -42,6 +44,8 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const mobileBreakpoint = parseInt( dataEl.dataset.mobileBreakpoint ?? 768, 10 );
 		const disableOnDesktop = dataEl.dataset.disableOnDesktop === 'true';
 		const desktopBreakpoint = parseInt( dataEl.dataset.desktopBreakpoint ?? 1024, 10 );
+		// Minimum scroll distance before sticking; 0 = natural trigger only.
+		const scrollTriggerOffset = parseInt( dataEl.dataset.scrollTriggerOffset ?? 0, 10 );
 
 		// Sticky-state styles (only present when non-default).
 		const stickyBg = dataEl.dataset.stickyBg ?? '';
@@ -52,6 +56,10 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const stickyPaddingRight = parseInt( dataEl.dataset.stickyPaddingRight ?? 0, 10 );
 		const stickyTextColor = dataEl.dataset.stickyTextColor ?? '';
 		const fullWidthWhenSticky = dataEl.dataset.fullWidthWhenSticky === 'true';
+		const stickyOpacity = parseInt( dataEl.dataset.stickyOpacity ?? 100, 10 );
+		// '' means "no inline opacity" — used as the fade-in target too.
+		const opacityTarget = stickyOpacity !== 100 ? String( stickyOpacity / 100 ) : '';
+		const stickyBorderRadius = parseInt( dataEl.dataset.stickyBorderRadius ?? 0, 10 );
 
 		// Border when sticky.
 		const stickyBorderStyle = dataEl.dataset.stickyBorderStyle ?? 'none';
@@ -137,6 +145,9 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 		block.style.setProperty( '--sticky-z-index', String( zIndex ) );
 
+		// State class for CSS targeting; swapped with is-sticky as the block sticks.
+		block.classList.add( 'is-not-sticky' );
+
 		// Feature 6: hide the block in its natural position until the trigger fires.
 		if ( hideBeforeSticky ) {
 			block.style.visibility = 'hidden';
@@ -174,6 +185,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			block.style.borderStyle = '';
 			block.style.borderWidth = '';
 			block.style.borderColor = '';
+			block.style.borderRadius = '';
 			block.style.color = '';
 			block.style.transition = '';
 			block.style.transform = '';
@@ -189,7 +201,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				exitTimer = null;
 				block.style.transition = '';
 				block.style.transform = hasScale ? `scale(${ scaleVal })` : '';
-				block.style.opacity = '';
+				block.style.opacity = opacityTarget;
 				isSticky = true;
 				return;
 			}
@@ -238,9 +250,11 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				block.style.borderWidth = `${ stickyBorderWidth }px`;
 				if ( stickyBorderColor ) block.style.borderColor = stickyBorderColor;
 			}
+			if ( stickyBorderRadius ) block.style.borderRadius = `${ stickyBorderRadius }px`;
 			if ( stickyTextColor ) block.style.color = stickyTextColor;
 
 			// Add sticky class (applies position: fixed via CSS) and any extra classes.
+			block.classList.remove( 'is-not-sticky' );
 			block.classList.add( 'is-sticky' );
 			if ( isBottomSticky ) block.classList.add( 'is-sticky--bottom' );
 			if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.add( cls ) );
@@ -256,7 +270,11 @@ document.addEventListener( 'DOMContentLoaded', () => {
 					useSlide ? slideInitial : '',
 				].filter( Boolean );
 				if ( initParts.length ) block.style.transform = initParts.join( ' ' );
-				if ( useFade ) block.style.opacity = '0';
+				if ( useFade ) {
+					block.style.opacity = '0';
+				} else {
+					block.style.opacity = opacityTarget;
+				}
 
 				// Force layout recalculation so the browser registers the initial state.
 				block.getBoundingClientRect();
@@ -268,10 +286,12 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 				requestAnimationFrame( () => {
 					block.style.transform = hasScale ? `scale(${ scaleVal })` : '';
-					if ( useFade ) block.style.opacity = '';
+					// Fade-in lands on the configured sticky opacity, not always full.
+					if ( useFade ) block.style.opacity = opacityTarget;
 				} );
-			} else if ( hasScale ) {
-				block.style.transform = `scale(${ scaleVal })`;
+			} else {
+				if ( hasScale ) block.style.transform = `scale(${ scaleVal })`;
+				block.style.opacity = opacityTarget;
 			}
 		}
 
@@ -306,6 +326,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 					if ( spacer ) { spacer.remove(); spacer = null; }
 					clearStickyStyles();
 					block.classList.remove( 'is-sticky' );
+					block.classList.add( 'is-not-sticky' );
 					if ( isBottomSticky ) block.classList.remove( 'is-sticky--bottom' );
 					if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.remove( cls ) );
 					// Feature 6: re-hide once back in natural position.
@@ -318,6 +339,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				if ( spacer ) { spacer.remove(); spacer = null; }
 				clearStickyStyles();
 				block.classList.remove( 'is-sticky' );
+				block.classList.add( 'is-not-sticky' );
 				if ( isBottomSticky ) block.classList.remove( 'is-sticky--bottom' );
 				if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.remove( cls ) );
 				// Feature 6: re-hide once back in natural position.
@@ -337,7 +359,9 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			const scrollingUp = scrollY < lastScrollY;
 			lastScrollY = scrollY;
 
-			const belowTrigger = scrollY >= divTop;
+			// max() so the offset can only delay sticking, never fire while the
+			// block is still in view above its natural position.
+			const belowTrigger = scrollY >= Math.max( divTop, scrollTriggerOffset );
 			const directionOk = scrollDirection === 'always' || scrollingUp;
 
 			// Check stopEl regardless of isSticky to prevent a one-frame flicker
@@ -414,5 +438,10 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		// Recalculate divTop once all images and embeds have loaded — DOMContentLoaded
 		// fires before late-loading assets shift the page layout.
 		window.addEventListener( 'load', onResize, { once: true, passive: true } );
+		// Lazy-loaded images, embeds, and expanding accordions shift the trigger
+		// point after `load` — watch the page height and recalculate.
+		if ( 'ResizeObserver' in window ) {
+			new ResizeObserver( onResize ).observe( document.body );
+		}
 	} );
 } );

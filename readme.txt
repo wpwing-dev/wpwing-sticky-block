@@ -5,7 +5,7 @@ Tags:              sticky, sticky block, gutenberg, block editor, fixed
 Requires at least: 5.8
 Tested up to:      7.0
 Requires PHP:      7.4
-Stable tag:        2.5.0
+Stable tag:        2.6.0
 License:           GPL-3.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -23,6 +23,7 @@ Unlike CSS `position: sticky` (which only works within its parent scroll contain
 * **Container block** — nest any Gutenberg blocks inside: navigation, buttons, headings, images, widgets.
 * **Top or bottom sticky** — choose whether the block locks to the top or bottom of the viewport. Cookie bars, chat widgets, and floating CTAs belong at the bottom.
 * **Show only after scrolling** — hide the block entirely at page load and reveal it only after the visitor scrolls past the trigger point. Pairs naturally with an entry transition for a smooth appear effect.
+* **Scroll trigger offset** - make the block wait until the visitor has scrolled a set number of pixels before it sticks, instead of sticking the moment it reaches the viewport edge.
 * **Dismissible** — add a close button so visitors can dismiss the block, and optionally remember the dismissal for a set number of days. Perfect for cookie bars and floating CTAs.
 * **Top offset** — set how many pixels of space to leave between the sticky block and the top of the viewport.
 * **Admin toolbar aware** — automatically shifts down for logged-in users who have the WordPress admin bar visible.
@@ -36,9 +37,12 @@ Unlike CSS `position: sticky` (which only works within its parent scroll contain
 * **Sticky-state shadow** — add a drop shadow (Small / Medium / Large) that appears only when the block is in sticky position.
 * **Sticky-state padding (all sides)** — control top, bottom, left, and right padding independently, applied only while the block is stuck.
 * **Sticky-state border** — add a Solid or Dashed border with custom width and color that appears only in the sticky state.
+* **Sticky-state border radius** - round the block's corners only while it is stuck.
+* **Sticky-state opacity** - make the block semi-transparent while it is stuck, for a subtle see-through floating bar.
 * **Full width when sticky** — instantly expand the block to span the full viewport width the moment it becomes sticky, ideal for navigation bars.
 * **Entry & exit transition** — animate the block smoothly in and out of the sticky state with Fade, Slide down, or Fade + Slide, with a configurable duration.
 * **Custom class when sticky** — add your own CSS classes to the block when it becomes sticky, for advanced theme integration.
+* **State classes for developers** - the block always carries an `is-sticky` or `is-not-sticky` class, so your theme CSS can target both states without any JavaScript.
 * **Block transforms** — convert any Group block into a Sticky Block (and back) directly in the editor, without rebuilding.
 * **Accessibility** — set an `aria-label` on the sticky wrapper to give screen reader users useful context.
 * **Zero dependencies** — no jQuery. The frontend script is plain JavaScript, under 4 KB minified.
@@ -98,6 +102,14 @@ It should not conflict, but if both your theme and the plugin apply `position: f
 4. The block in action on the frontend in sticky (fixed) position.
 
 == Changelog ==
+
+= 2.6.0 - 05/07/2026 =
+* New: Choose how far the visitor must scroll before the block sticks. Set a pixel distance in the Behavior panel and the block waits until then - ideal for bars that should appear only after the intro has scrolled by.
+* New: Set the block's opacity while it is sticky - a subtle see-through effect for floating bars that lets the page show through.
+* New: Round the block's corners while it is sticky with a new border radius control - perfect companion to the sticky background and shadow.
+* New: The block now always carries an is-sticky or is-not-sticky CSS class, so theme developers can style both states without writing any JavaScript.
+* Fix: For logged-in users on screens between 600 and 782 pixels wide, the block sat too far from the top because it reserved space for the admin toolbar - but at those sizes the toolbar scrolls away with the page. The offset now applies only where the toolbar is actually fixed.
+* Fix: Lazy-loaded images, embeds, and expanding sections could silently shift the page after load and make the block stick at the wrong scroll position. The trigger point is now recalculated automatically whenever the page layout changes.
 
 = 2.5.0 - 28/06/2026 =
 * New: Add a close button so visitors can dismiss the block, and optionally remember that choice for a set number of days. The missing piece for cookie bars and floating CTAs - now built with no code.

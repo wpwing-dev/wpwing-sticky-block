@@ -356,9 +356,19 @@
         </thead>
         <tbody>
           <tr>
+            <td><strong>Sticky position</strong></td>
+            <td>Top</td>
+            <td>Whether the block locks to the <strong>Top</strong> or the <strong>Bottom</strong> of the viewport. Bottom is the natural home for cookie consent bars, floating chat widgets, and mobile call-to-action strips.</td>
+          </tr>
+          <tr>
             <td><strong>Space from top of screen (px)</strong></td>
             <td>0</td>
-            <td>How many pixels of gap to leave between the top edge of the viewport and the top of the sticky block. Set this if your site has a fixed theme header so the sticky block doesn't slide underneath it.</td>
+            <td>How many pixels of gap to leave between the top edge of the viewport and the top of the sticky block. Set this if your site has a fixed theme header so the sticky block doesn't slide underneath it. Only visible when Sticky position is Top.</td>
+          </tr>
+          <tr>
+            <td><strong>Space from bottom of screen (px)</strong></td>
+            <td>0</td>
+            <td>Gap between the bottom edge of the viewport and the sticky block. Only visible when Sticky position is Bottom.</td>
           </tr>
           <tr>
             <td><strong>Account for admin toolbar</strong></td>
@@ -383,6 +393,16 @@
           <tr><th>Setting</th><th>Default</th><th>Description</th></tr>
         </thead>
         <tbody>
+          <tr>
+            <td><strong>Show only after scrolling</strong></td>
+            <td>Off</td>
+            <td>Hides the block entirely at page load and reveals it only once the scroll trigger is passed. Pair it with an entry transition for a smooth appear effect - ideal for back-to-top buttons and floating CTAs.</td>
+          </tr>
+          <tr>
+            <td><strong>Scroll trigger offset (px)</strong></td>
+            <td>0</td>
+            <td>Makes the block wait until the visitor has scrolled at least this many pixels before it sticks. With the default of <code>0</code> the block sticks as soon as it reaches the viewport edge. Use this for bars that should appear only after the intro section has scrolled by.</td>
+          </tr>
           <tr>
             <td><strong>Stick when</strong></td>
             <td>Always</td>
@@ -427,6 +447,16 @@
             <td>768</td>
             <td>Only visible when "Disable sticky on mobile" is on. Sticky behaviour is disabled when the browser viewport is narrower than this value. The default of 768 px covers most phones and small tablets in portrait orientation.</td>
           </tr>
+          <tr>
+            <td><strong>Disable sticky on desktop</strong></td>
+            <td>Off</td>
+            <td>The counterpart to the mobile toggle: sticky behaviour is turned off on large screens. Useful for elements that should only float on phones, like a call button.</td>
+          </tr>
+          <tr>
+            <td><strong>Desktop breakpoint (px)</strong></td>
+            <td>1024</td>
+            <td>Only visible when "Disable sticky on desktop" is on. Sticky behaviour is disabled when the viewport is wider than this value.</td>
+          </tr>
         </tbody>
       </table>
     </section>
@@ -449,6 +479,11 @@
             <td><strong>Text color when sticky</strong></td>
             <td>None</td>
             <td>Changes the text color when sticky. Pair this with a sticky background color — for example, if your normal header has white text on a transparent background, switch to dark text on white once it becomes sticky.</td>
+          </tr>
+          <tr>
+            <td><strong>Opacity when sticky (%)</strong></td>
+            <td>100</td>
+            <td>Makes the block semi-transparent while it is sticky, letting the page show through - a subtle see-through effect for floating bars. 100 means fully opaque. Range: 10-100.</td>
           </tr>
           <tr>
             <td><strong>Shadow when sticky</strong></td>
@@ -503,6 +538,11 @@
             <td>None</td>
             <td>Color of the border. Only visible when Border is set to Solid or Dashed. If no color is chosen, the browser's default border color (usually the text color) is used.</td>
           </tr>
+          <tr>
+            <td><strong>Border radius when sticky (px)</strong></td>
+            <td>0</td>
+            <td>Rounds the block's corners only while it is sticky. Works with or without a border - pair it with a sticky background color and shadow for a floating card look. Range: 0-50 px.</td>
+          </tr>
         </tbody>
       </table>
     </section>
@@ -517,7 +557,7 @@
         </thead>
         <tbody>
           <tr>
-            <td><strong>Entry transition</strong></td>
+            <td><strong>Entry &amp; exit transition</strong></td>
             <td>None</td>
             <td>
               The animation played when the block enters the sticky state. The same animation is reversed when it exits.<br><br>
@@ -533,9 +573,19 @@
             <td>How long the entry and exit animation takes, in milliseconds. Only visible when a transition other than None is selected. Range: 50–600 ms. 200–350 ms tends to feel natural; below 100 ms is barely perceptible.</td>
           </tr>
           <tr>
+            <td><strong>Transition easing</strong></td>
+            <td>Ease</td>
+            <td>The acceleration curve of the animation. Choose from <strong>Ease</strong>, <strong>Ease in</strong>, <strong>Ease out</strong>, <strong>Ease in-out</strong>, or <strong>Linear</strong>. Only visible when a transition other than None is selected.</td>
+          </tr>
+          <tr>
+            <td><strong>Scale when sticky (%)</strong></td>
+            <td>100</td>
+            <td>Shrinks the block to this percentage of its natural size once it becomes sticky - the popular pattern of a header or logo that gets slightly smaller as you scroll. The block stays anchored to the edge it sticks to as it shrinks. Range: 50-100.</td>
+          </tr>
+          <tr>
             <td><strong>Full width when sticky</strong></td>
             <td>Off</td>
-            <td>When enabled, the block stretches to span the full viewport width (<code>100vw</code>) the moment it becomes sticky. Ideal for navigation bars that should reach edge to edge once locked at the top, even if the page content is in a narrower container.</td>
+            <td>When enabled, the block stretches to span the full viewport width the moment it becomes sticky. Ideal for navigation bars that should reach edge to edge once locked at the top, even if the page content is in a narrower container.</td>
           </tr>
         </tbody>
       </table>
@@ -561,10 +611,13 @@
           <tr>
             <td><strong>CSS class when sticky</strong></td>
             <td>Empty</td>
-            <td>One or more extra CSS class names (space-separated) added to the block element when it enters sticky state, and removed when it exits. The built-in <code>is-sticky</code> class is always added automatically — use this field for additional classes you want to target from your theme's stylesheet. Example: <code>header-stuck nav-compact</code>.</td>
+            <td>One or more extra CSS class names (space-separated) added to the block element when it enters sticky state, and removed when it exits. The built-in <code>is-sticky</code> and <code>is-not-sticky</code> classes are always managed automatically — use this field for additional classes you want to target from your theme's stylesheet. Example: <code>header-stuck nav-compact</code>.</td>
           </tr>
         </tbody>
       </table>
+      <div class="callout">
+        <strong>For developers.</strong> The block always carries a state class: <code>is-not-sticky</code> while in its natural position and <code>is-sticky</code> while stuck, so your theme CSS can target both states. It also fires bubbling JavaScript events on the block element: <code>wpwing:sticky</code> when it sticks, <code>wpwing:unsticky</code> when it releases, and <code>wpwing:dismiss</code> when a visitor closes a dismissible block.
+      </div>
     </section>
 
     <!-- Block Transforms -->

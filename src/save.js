@@ -35,6 +35,9 @@ export default function save( { attributes } ) {
 		dismissible,
 		dismissExpiry,
 		dismissButtonPosition,
+		scrollTriggerOffset,
+		stickyOpacity,
+		stickyBorderRadius,
 	} = attributes;
 
 	return (
@@ -74,6 +77,9 @@ export default function save( { attributes } ) {
 				'data-dismissible': dismissible || undefined,
 				'data-dismiss-expiry': dismissible ? dismissExpiry : undefined,
 				'data-dismiss-position': dismissible && dismissButtonPosition !== 'right' ? dismissButtonPosition : undefined,
+				'data-scroll-trigger-offset': scrollTriggerOffset || undefined,
+				'data-sticky-opacity': stickyOpacity !== 100 ? stickyOpacity : undefined,
+				'data-sticky-border-radius': stickyBorderRadius || undefined,
 			} ) }
 		>
 			{ dismissible && (

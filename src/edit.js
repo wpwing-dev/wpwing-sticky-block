@@ -60,6 +60,9 @@ export default function Edit( { attributes, setAttributes } ) {
 		dismissible,
 		dismissExpiry,
 		dismissButtonPosition,
+		scrollTriggerOffset,
+		stickyOpacity,
+		stickyBorderRadius,
 	} = attributes;
 
 	const [ previewSticky, setPreviewSticky ] = useState( false );
@@ -75,6 +78,8 @@ export default function Edit( { attributes, setAttributes } ) {
 		borderStyle: stickyBorderStyle !== 'none' ? stickyBorderStyle : undefined,
 		borderWidth: stickyBorderStyle !== 'none' ? `${ stickyBorderWidth }px` : undefined,
 		borderColor: stickyBorderStyle !== 'none' && stickyBorderColor ? stickyBorderColor : undefined,
+		borderRadius: stickyBorderRadius ? `${ stickyBorderRadius }px` : undefined,
+		opacity: stickyOpacity !== 100 ? stickyOpacity / 100 : undefined,
 		transform: stickyScale !== 100 ? `scale(${ stickyScale / 100 })` : undefined,
 	} : {};
 
@@ -180,6 +185,21 @@ export default function Edit( { attributes, setAttributes } ) {
 								}
 								help={ __(
 									"Hides the block until the scroll trigger is passed — useful for back-to-top buttons and floating CTAs.",
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
+						<PanelRow>
+							<RangeControl
+								label={ __( "Scroll trigger offset (px)", "wpwing-sticky-block" ) }
+								value={ scrollTriggerOffset }
+								min={ 0 }
+								max={ 2000 }
+								onChange={ ( value ) =>
+									setAttributes( { scrollTriggerOffset: value ?? 0 } )
+								}
+								help={ __(
+									"Stick only after the visitor has scrolled at least this many pixels. 0 = stick as soon as the block reaches the viewport edge.",
 									"wpwing-sticky-block"
 								) }
 							/>
@@ -376,6 +396,21 @@ export default function Edit( { attributes, setAttributes } ) {
 						</BaseControl>
 
 						<PanelRow>
+							<RangeControl
+								label={ __( "Opacity when sticky (%)", "wpwing-sticky-block" ) }
+								value={ stickyOpacity }
+								min={ 10 }
+								max={ 100 }
+								onChange={ ( value ) =>
+									setAttributes( { stickyOpacity: value ?? 100 } )
+								}
+								help={ __(
+									"Makes the block semi-transparent while it is sticky. 100 = fully opaque.",
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
+						<PanelRow>
 							<SelectControl
 								label={ __( "Shadow when sticky", "wpwing-sticky-block" ) }
 								value={ stickyShadow }
@@ -477,6 +512,21 @@ export default function Edit( { attributes, setAttributes } ) {
 								</BaseControl>
 							</>
 						) }
+						<PanelRow>
+							<RangeControl
+								label={ __( "Border radius when sticky (px)", "wpwing-sticky-block" ) }
+								value={ stickyBorderRadius }
+								min={ 0 }
+								max={ 50 }
+								onChange={ ( value ) =>
+									setAttributes( { stickyBorderRadius: value ?? 0 } )
+								}
+								help={ __(
+									"Rounds the block's corners only while it is sticky.",
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
 
 						<hr style={ { margin: '16px 0', borderColor: 'rgba(0,0,0,.1)', borderStyle: 'solid' } } />
 
