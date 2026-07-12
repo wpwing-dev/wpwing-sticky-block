@@ -3,13 +3,13 @@
 Weekly release cadence, every Sunday. Current version: 2.6.0 (released 05/07/2026).
 Priorities driven by [competitors.md](competitors.md) - close the container-confined sticky gap, add the reveal triggers competitors paywall, and invest in visibility (translations, presets, editor UX).
 
-## v2.7.0 - Sunday 12/07/2026
+## v2.7.0 - Sunday 12/07/2026 - SHIPPED
 
 Theme: dismiss button polish + editor preview (small scope, one day out)
 
-- New: Dismiss button styling controls - icon color, background color, and size, so the close button can match the block design
-- New: "Preview sticky state" toggle in the editor toolbar - applies the sticky-state styles (background, text color, shadow, border, radius, opacity, padding) to the block in the canvas so users can design the stuck look without leaving the editor. No competitor offers this
-- Fix pass: quick round of support-forum / testing issues from 2.6.0
+- [x] Dismiss button styling controls - icon color, background color, and size (`dismissButtonColor`, `dismissButtonBackground`, `dismissButtonSize` attributes, CSS vars on the button, defaults omit the style attribute so existing blocks stay valid)
+- [x] "Preview sticky styles" in the editor toolbar - the panel toggle already existed (shipped silently in 2.6.0, never announced); 2.7.0 adds a toolbar eye button for it and announces the feature in readme.txt
+- [ ] Fix pass: no support-forum reports existed for 2.6.0 - nothing to fix
 
 ## v2.8.0 - Sunday 19/07/2026
 

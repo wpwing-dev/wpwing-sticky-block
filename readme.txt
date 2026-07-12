@@ -5,7 +5,7 @@ Tags:              sticky, sticky block, gutenberg, block editor, fixed
 Requires at least: 5.8
 Tested up to:      7.0
 Requires PHP:      7.4
-Stable tag:        2.6.0
+Stable tag:        2.7.0
 License:           GPL-3.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -25,6 +25,8 @@ Unlike CSS `position: sticky` (which only works within its parent scroll contain
 * **Show only after scrolling** — hide the block entirely at page load and reveal it only after the visitor scrolls past the trigger point. Pairs naturally with an entry transition for a smooth appear effect.
 * **Scroll trigger offset** - make the block wait until the visitor has scrolled a set number of pixels before it sticks, instead of sticking the moment it reaches the viewport edge.
 * **Dismissible** — add a close button so visitors can dismiss the block, and optionally remember the dismissal for a set number of days. Perfect for cookie bars and floating CTAs.
+* **Dismiss button styling** - control the close button's icon color, background color, and size so it matches your design.
+* **Sticky style preview in the editor** - a toolbar toggle applies your sticky-state styles to the block in the canvas, so you can design the stuck look without leaving the editor.
 * **Top offset** — set how many pixels of space to leave between the sticky block and the top of the viewport.
 * **Admin toolbar aware** — automatically shifts down for logged-in users who have the WordPress admin bar visible.
 * **Z-index control** — fine-tune stacking order so the sticky block always sits above (or below) other elements.
@@ -102,6 +104,10 @@ It should not conflict, but if both your theme and the plugin apply `position: f
 4. The block in action on the frontend in sticky (fixed) position.
 
 == Changelog ==
+
+= 2.7.0 - 12/07/2026 =
+* New: Style the dismiss button - pick the icon color, background color, and size of the close button so it fits your design instead of the default grey ×.
+* New: Preview sticky styles without leaving the editor - a new eye toggle in the block toolbar (also available in the Sticky State Styles panel) applies your sticky-state background, text color, shadow, border, padding, opacity, and scale to the block in the canvas.
 
 = 2.6.0 - 05/07/2026 =
 * New: Choose how far the visitor must scroll before the block sticks. Set a pixel distance in the Behavior panel and the block waits until then - ideal for bars that should appear only after the intro has scrolled by.

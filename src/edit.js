@@ -1,6 +1,7 @@
 import { useState } from '@wordpress/element';
 import { __ } from "@wordpress/i18n";
 import {
+	BlockControls,
 	InspectorControls,
 	useBlockProps,
 	InnerBlocks,
@@ -13,6 +14,8 @@ import {
 	PanelRow,
 	TextControl,
 	ToggleControl,
+	ToolbarButton,
+	ToolbarGroup,
 	RangeControl,
 	SelectControl,
 	ColorPalette,
@@ -60,6 +63,9 @@ export default function Edit( { attributes, setAttributes } ) {
 		dismissible,
 		dismissExpiry,
 		dismissButtonPosition,
+		dismissButtonSize,
+		dismissButtonColor,
+		dismissButtonBackground,
 		scrollTriggerOffset,
 		stickyOpacity,
 		stickyBorderRadius,
@@ -85,8 +91,24 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	const blockProps = useBlockProps( { style: previewStyle } );
 
+	// CSS vars consumed by .wpwing-sticky-dismiss; only set when non-default.
+	const dismissStyle = {};
+	if ( dismissButtonSize !== 24 ) dismissStyle[ '--dismiss-size' ] = `${ dismissButtonSize }px`;
+	if ( dismissButtonColor ) dismissStyle[ '--dismiss-color' ] = dismissButtonColor;
+	if ( dismissButtonBackground ) dismissStyle[ '--dismiss-bg' ] = dismissButtonBackground;
+
 	return (
 		<div { ...blockProps }>
+			<BlockControls>
+				<ToolbarGroup>
+					<ToolbarButton
+						icon="visibility"
+						label={ __( "Preview sticky styles", "wpwing-sticky-block" ) }
+						isPressed={ previewSticky }
+						onClick={ () => setPreviewSticky( ! previewSticky ) }
+					/>
+				</ToolbarGroup>
+			</BlockControls>
 			<InspectorControls>
 				<Panel>
 					<PanelBody title={ __( "Sticky Options", "wpwing-sticky-block" ) }>
@@ -287,6 +309,41 @@ export default function Edit( { attributes, setAttributes } ) {
 										}
 									/>
 								</PanelRow>
+								<PanelRow>
+									<RangeControl
+										label={ __( "Dismiss button size (px)", "wpwing-sticky-block" ) }
+										value={ dismissButtonSize }
+										min={ 16 }
+										max={ 48 }
+										onChange={ ( value ) =>
+											setAttributes( { dismissButtonSize: value ?? 24 } )
+										}
+										help={ __(
+											"Diameter of the close button. The × icon scales with it.",
+											"wpwing-sticky-block"
+										) }
+									/>
+								</PanelRow>
+								<BaseControl
+									label={ __( "Dismiss icon color", "wpwing-sticky-block" ) }
+								>
+									<ColorPalette
+										value={ dismissButtonColor }
+										onChange={ ( value ) =>
+											setAttributes( { dismissButtonColor: value ?? "" } )
+										}
+									/>
+								</BaseControl>
+								<BaseControl
+									label={ __( "Dismiss button background", "wpwing-sticky-block" ) }
+								>
+									<ColorPalette
+										value={ dismissButtonBackground }
+										onChange={ ( value ) =>
+											setAttributes( { dismissButtonBackground: value ?? "" } )
+										}
+									/>
+								</BaseControl>
 							</>
 						) }
 					</PanelBody>
@@ -679,6 +736,7 @@ export default function Edit( { attributes, setAttributes } ) {
 				<button
 					type="button"
 					className={ `wpwing-sticky-dismiss wpwing-sticky-dismiss--${ dismissButtonPosition }` }
+					style={ Object.keys( dismissStyle ).length ? dismissStyle : undefined }
 					aria-label={ __( "Dismiss", "wpwing-sticky-block" ) }
 					onClick={ ( e ) => e.preventDefault() }
 				>

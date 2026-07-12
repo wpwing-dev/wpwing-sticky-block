@@ -26,13 +26,13 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 24px;
-	height: 24px;
+	width: var(--dismiss-size, 24px);
+	height: var(--dismiss-size, 24px);
 	padding: 0;
 	border: 0;
 	border-radius: 50%;
-	background: transparent;
-	color: inherit;
+	background: var(--dismiss-bg, transparent);
+	color: var(--dismiss-color, inherit);
 	cursor: pointer;
 	opacity: 0.6;
 	transition: opacity 0.15s ease;
@@ -40,6 +40,13 @@
 	&:hover,
 	&:focus {
 		opacity: 1;
+	}
+
+	// Icon scales with the button (24px button = 14px icon, overriding the
+	// fixed width/height attributes on the inline SVG).
+	svg {
+		width: calc(var(--dismiss-size, 24px) * 0.58);
+		height: calc(var(--dismiss-size, 24px) * 0.58);
 	}
 
 	&--right {

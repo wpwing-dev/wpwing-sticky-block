@@ -421,6 +421,21 @@
             <td>Off</td>
             <td>Adds a close button so visitors can dismiss the block. Set <strong>Remember dismissal for (days)</strong> to keep it hidden on future visits (<code>0</code> keeps it hidden only until the page is reloaded), and choose whether the button sits on the left or right. Ideal for cookie consent bars and floating call-to-action strips.</td>
           </tr>
+          <tr>
+            <td><strong>Dismiss button size (px)</strong></td>
+            <td>24</td>
+            <td>Only visible when the dismiss button is on. Sets the diameter of the close button; the × icon scales with it. Range: 16-48. Make it larger for touch-friendly cookie bars.</td>
+          </tr>
+          <tr>
+            <td><strong>Dismiss icon color</strong></td>
+            <td>Inherited</td>
+            <td>Only visible when the dismiss button is on. Sets the color of the × icon. By default it inherits the block's text color.</td>
+          </tr>
+          <tr>
+            <td><strong>Dismiss button background</strong></td>
+            <td>Transparent</td>
+            <td>Only visible when the dismiss button is on. Fills the circular button with a background color, so the close button stays visible on busy or image backgrounds.</td>
+          </tr>
         </tbody>
       </table>
       <div class="callout">
@@ -465,6 +480,8 @@
     <section id="colors-shadow">
       <h2>Colors &amp; Shadow</h2>
       <p>These styles are applied <em>only</em> while the block is in sticky position. They have no effect on the block's normal in-flow appearance.</p>
+      <div class="callout">
+        <strong>Preview without scrolling.</strong> Click the eye button in the block toolbar (or the <strong>Preview sticky styles in editor</strong> toggle at the top of the Sticky State Styles panel) to apply all sticky-state styles to the block right in the editor canvas. Toggle it off to see the block's normal appearance again - the preview is never saved to the page.</div>
       <table>
         <thead>
           <tr><th>Setting</th><th>Default</th><th>Description</th></tr>

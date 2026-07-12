@@ -35,10 +35,20 @@ export default function save( { attributes } ) {
 		dismissible,
 		dismissExpiry,
 		dismissButtonPosition,
+		dismissButtonSize,
+		dismissButtonColor,
+		dismissButtonBackground,
 		scrollTriggerOffset,
 		stickyOpacity,
 		stickyBorderRadius,
 	} = attributes;
+
+	// CSS vars consumed by .wpwing-sticky-dismiss; omitted at defaults so the
+	// saved HTML stays identical to the pre-2.7.0 format.
+	const dismissStyle = {};
+	if ( dismissButtonSize !== 24 ) dismissStyle[ '--dismiss-size' ] = `${ dismissButtonSize }px`;
+	if ( dismissButtonColor ) dismissStyle[ '--dismiss-color' ] = dismissButtonColor;
+	if ( dismissButtonBackground ) dismissStyle[ '--dismiss-bg' ] = dismissButtonBackground;
 
 	return (
 		<div
@@ -86,6 +96,7 @@ export default function save( { attributes } ) {
 				<button
 					type="button"
 					className={ `wpwing-sticky-dismiss wpwing-sticky-dismiss--${ dismissButtonPosition }` }
+					style={ Object.keys( dismissStyle ).length ? dismissStyle : undefined }
 					aria-label={ __( "Dismiss", "wpwing-sticky-block" ) }
 				>
 					<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
