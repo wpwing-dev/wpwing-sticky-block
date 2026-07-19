@@ -3,6 +3,7 @@ import { useBlockProps, InnerBlocks } from "@wordpress/block-editor";
 
 export default function save( { attributes } ) {
 	const {
+		stickyMode,
 		topSpace,
 		checkForAdmin,
 		zIndex,
@@ -53,6 +54,7 @@ export default function save( { attributes } ) {
 	return (
 		<div
 			{ ...useBlockProps.save( {
+				'data-sticky-mode': stickyMode !== 'viewport' ? stickyMode : undefined,
 				'data-top-space': topSpace,
 				'data-check-for-admin': checkForAdmin,
 				'data-z-index': zIndex,

@@ -11,13 +11,13 @@ Theme: dismiss button polish + editor preview (small scope, one day out)
 - [x] "Preview sticky styles" in the editor toolbar - the panel toggle already existed (shipped silently in 2.6.0, never announced); 2.7.0 adds a toolbar eye button for it and announces the feature in readme.txt
 - [ ] Fix pass: no support-forum reports existed for 2.6.0 - nothing to fix
 
-## v2.8.0 - Sunday 19/07/2026
+## v2.8.0 - Sunday 19/07/2026 - SHIPPED
 
 Theme: container-confined sticky (biggest feature gap)
 
-- New: "Stick within parent" mode - the block stays sticky only while its parent container is in view, then scrolls away with it. Covers the sticky-sidebar and side-by-side-content use cases (bPlugins pro feature, Fixed Widget's whole niche)
-- New: pick between viewport mode (current fixed behavior) and container mode per block
-- Ensure stop-before, offsets, and transitions behave sensibly in container mode (disable what does not apply)
+- [x] "Stick within parent" mode - `stickyMode` attribute, container mode uses CSS position:sticky confined to the parent; JS toggles sticky-state styles/classes/events on stuck detection. Covers the sticky-sidebar and side-by-side-content use cases (bPlugins pro feature, Fixed Widget's whole niche)
+- [x] Per-block mode select in Sticky Options - "Whole page (viewport)" (default, unchanged) vs "Within parent container"; existing blocks keep their saved HTML (data-sticky-mode omitted at default)
+- [x] Viewport-only controls (reveal triggers, scroll direction, stop-before, full width, transitions) hidden in container mode with an explanatory note; offsets, styles, dismiss, responsive, scale, events all work in both modes
 
 ## v2.9.0 - Sunday 26/07/2026
 

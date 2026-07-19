@@ -2,13 +2,17 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "wpwing/sticky-block",
-	"version": "2.7.0",
+	"version": "2.8.0",
 	"title": "Sticky Block for Gutenberg",
 	"category": "design",
 	"keywords": ["Sticky", "Sticky Block", "WPWing"],
 	"icon": "sticky",
 	"description": "A container block that sticks to the top of the viewport as visitors scroll — with entry/exit transitions, sticky-state styles, full-width mode, and more.",
 	"attributes": {
+		"stickyMode": {
+			"type": "string",
+			"default": "viewport"
+		},
 		"topSpace": {
 			"type": "integer",
 			"default": 0

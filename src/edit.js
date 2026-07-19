@@ -31,6 +31,7 @@ const SHADOWS = {
 
 export default function Edit( { attributes, setAttributes } ) {
 	const {
+		stickyMode,
 		topSpace,
 		checkForAdmin,
 		zIndex,
@@ -73,6 +74,9 @@ export default function Edit( { attributes, setAttributes } ) {
 
 	const [ previewSticky, setPreviewSticky ] = useState( false );
 
+	// Viewport-only controls are hidden in container mode.
+	const isContainerMode = stickyMode === 'container';
+
 	const previewStyle = previewSticky ? {
 		backgroundColor: stickyBackground || undefined,
 		color: stickyTextColor || undefined,
@@ -112,6 +116,21 @@ export default function Edit( { attributes, setAttributes } ) {
 			<InspectorControls>
 				<Panel>
 					<PanelBody title={ __( "Sticky Options", "wpwing-sticky-block" ) }>
+						<PanelRow>
+							<SelectControl
+								label={ __( "Sticky mode", "wpwing-sticky-block" ) }
+								value={ stickyMode }
+								options={ [
+									{ label: __( "Whole page (viewport)", "wpwing-sticky-block" ), value: "viewport" },
+									{ label: __( "Within parent container", "wpwing-sticky-block" ), value: "container" },
+								] }
+								onChange={ ( value ) => setAttributes( { stickyMode: value } ) }
+								help={ __(
+									'"Whole page" keeps the block on screen for the rest of the page. "Within parent container" keeps it sticky only while its parent container is in view, then lets it scroll away - ideal for sticky sidebars next to long content. The parent must be taller than the block.',
+									"wpwing-sticky-block"
+								) }
+							/>
+						</PanelRow>
 						<PanelRow>
 							<SelectControl
 								label={ __( "Sticky position", "wpwing-sticky-block" ) }
@@ -198,6 +217,16 @@ export default function Edit( { attributes, setAttributes } ) {
 						title={ __( "Behavior", "wpwing-sticky-block" ) }
 						initialOpen={ false }
 					>
+						{ isContainerMode && (
+							<p className="components-base-control__help">
+								{ __(
+									"Reveal, scroll direction, and stop-before options apply to whole-page mode only - in container mode the parent's edges already control when the block sticks and releases.",
+									"wpwing-sticky-block"
+								) }
+							</p>
+						) }
+						{ ! isContainerMode && (
+						<>
 						<PanelRow>
 							<ToggleControl
 								label={ __( "Show only after scrolling", "wpwing-sticky-block" ) }
@@ -266,6 +295,8 @@ export default function Edit( { attributes, setAttributes } ) {
 								) }
 							/>
 						</PanelRow>
+						</>
+						) }
 						<PanelRow>
 							<ToggleControl
 								label={ __( "Show a dismiss (×) button", "wpwing-sticky-block" ) }
@@ -587,19 +618,21 @@ export default function Edit( { attributes, setAttributes } ) {
 
 						<hr style={ { margin: '16px 0', borderColor: 'rgba(0,0,0,.1)', borderStyle: 'solid' } } />
 
-						<PanelRow>
-							<ToggleControl
-								label={ __( "Full width when sticky", "wpwing-sticky-block" ) }
-								checked={ fullWidthWhenSticky }
-								onChange={ () =>
-									setAttributes( { fullWidthWhenSticky: ! fullWidthWhenSticky } )
-								}
-								help={ __(
-									"Expands the block to span the full viewport width when sticky.",
-									"wpwing-sticky-block"
-								) }
-							/>
-						</PanelRow>
+						{ ! isContainerMode && (
+							<PanelRow>
+								<ToggleControl
+									label={ __( "Full width when sticky", "wpwing-sticky-block" ) }
+									checked={ fullWidthWhenSticky }
+									onChange={ () =>
+										setAttributes( { fullWidthWhenSticky: ! fullWidthWhenSticky } )
+									}
+									help={ __(
+										"Expands the block to span the full viewport width when sticky.",
+										"wpwing-sticky-block"
+									) }
+								/>
+							</PanelRow>
+						) }
 						<PanelRow>
 							<RangeControl
 								label={ __( "Scale when sticky (%)", "wpwing-sticky-block" ) }
@@ -615,6 +648,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								) }
 							/>
 						</PanelRow>
+						{ ! isContainerMode && (
 						<PanelRow>
 							<SelectControl
 								label={ __( "Entry & exit transition", "wpwing-sticky-block" ) }
@@ -646,7 +680,8 @@ export default function Edit( { attributes, setAttributes } ) {
 								) }
 							/>
 						</PanelRow>
-						{ stickyTransition !== "none" && (
+						) }
+						{ ! isContainerMode && stickyTransition !== "none" && (
 							<>
 								<PanelRow>
 									<RangeControl

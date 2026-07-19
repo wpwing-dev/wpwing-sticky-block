@@ -5,7 +5,7 @@ Tags:              sticky, sticky block, gutenberg, block editor, fixed
 Requires at least: 5.8
 Tested up to:      7.0
 Requires PHP:      7.4
-Stable tag:        2.7.0
+Stable tag:        2.8.0
 License:           GPL-3.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,13 +15,14 @@ Make any block sticky. A lightweight Gutenberg container block that fixes its co
 
 **Sticky Block for Gutenberg** is a container block that sticks to the top or bottom of the page once the visitor scrolls past it. Drop any blocks inside — a navigation menu, a call-to-action, a contact button, a sidebar widget — and they will follow the reader down the page.
 
-Unlike CSS `position: sticky` (which only works within its parent scroll container), Sticky Block for Gutenberg uses `position: fixed` with intelligent scroll detection, so it works reliably in any layout.
+Unlike CSS `position: sticky` (which only works within its parent scroll container), Sticky Block for Gutenberg uses `position: fixed` with intelligent scroll detection, so it works reliably in any layout. And when confinement is exactly what you want - a sidebar that follows the reader but stops at the end of its section - switch the block to the "Within parent container" mode.
 
 = Key Features =
 
 * **Multiple sticky blocks per page** — place as many sticky blocks as you need, each with its own settings.
 * **Container block** — nest any Gutenberg blocks inside: navigation, buttons, headings, images, widgets.
 * **Top or bottom sticky** — choose whether the block locks to the top or bottom of the viewport. Cookie bars, chat widgets, and floating CTAs belong at the bottom.
+* **Stick within parent container** - a per-block mode that keeps the block sticky only while its parent container is in view, then lets it scroll away with it. The classic sticky-sidebar pattern, no code required.
 * **Show only after scrolling** — hide the block entirely at page load and reveal it only after the visitor scrolls past the trigger point. Pairs naturally with an entry transition for a smooth appear effect.
 * **Scroll trigger offset** - make the block wait until the visitor has scrolled a set number of pixels before it sticks, instead of sticking the moment it reaches the viewport edge.
 * **Dismissible** — add a close button so visitors can dismiss the block, and optionally remember the dismissal for a set number of days. Perfect for cookie bars and floating CTAs.
@@ -88,6 +89,10 @@ If a parent element has `overflow: hidden` or `overflow: clip` set, `position: f
 
 Yes. Open the **Responsive** panel in the block settings. Enable "Disable sticky on mobile" to turn off sticky below a breakpoint (default: 768 px). Enable "Disable sticky on desktop" to turn it off above a breakpoint (default: 1024 px) — useful for elements that should only float on smaller screens.
 
+= How do I build a sticky sidebar next to a long article? =
+
+Place the Sticky Block inside the sidebar column, then set **Sticky mode** to "Within parent container" in the Sticky Options panel. The block follows the reader while the column is in view and scrolls away with it at the end - it never overlaps the content below. The parent column must be taller than the block itself.
+
 = How do I make the block stop before the footer? =
 
 Open the **Behavior** panel and enter a CSS selector in the "Stop before element" field — for example `#footer` or `.site-footer`. The block will un-stick before its bottom reaches that element.
@@ -104,6 +109,12 @@ It should not conflict, but if both your theme and the plugin apply `position: f
 4. The block in action on the frontend in sticky (fixed) position.
 
 == Changelog ==
+
+= 2.8.0 - 19/07/2026 =
+* New: "Within parent container" sticky mode - the block stays sticky only while its parent container is in view, then scrolls away with it. Build a sidebar that follows the reader alongside a long article and stops at the end of the section - no code, no overlap with the content below.
+* New: Pick the mode per block in the Sticky Options panel. The default "Whole page" mode behaves exactly as before, so existing blocks are unaffected.
+* Improvement: Settings that only make sense in whole-page mode (reveal triggers, scroll direction, stop-before element, full width, and transitions) now step aside while container mode is selected, with a short note explaining why - the parent's edges already decide when the block sticks and releases.
+* Fix: Blocks with a dismiss button enabled never actually stuck - a stylesheet rule that positions the close button was silently overriding the sticky positioning, so the block scrolled away with the page. Dismissible blocks now stick correctly in both modes.
 
 = 2.7.0 - 12/07/2026 =
 * New: Style the dismiss button - pick the icon color, background color, and size of the close button so it fits your design instead of the default grey ×.

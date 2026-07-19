@@ -46,6 +46,8 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const desktopBreakpoint = parseInt( dataEl.dataset.desktopBreakpoint ?? 1024, 10 );
 		// Minimum scroll distance before sticking; 0 = natural trigger only.
 		const scrollTriggerOffset = parseInt( dataEl.dataset.scrollTriggerOffset ?? 0, 10 );
+		// 'viewport' (position:fixed, default) or 'container' (position:sticky within parent).
+		const stickyMode = dataEl.dataset.stickyMode ?? 'viewport';
 
 		// Sticky-state styles (only present when non-default).
 		const stickyBg = dataEl.dataset.stickyBg ?? '';
@@ -119,49 +121,10 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			}
 		}
 
-		let stopEl = null;
-		if ( stopBefore ) {
-			try {
-				stopEl = document.querySelector( stopBefore );
-			} catch {
-				// invalid CSS selector — silently ignore the stop-before setting
-			}
-		}
-
 		// Top-sticky uses topSpace + optional admin bar. Bottom-sticky ignores admin bar.
 		const offset = isBottomSticky
 			? 0
 			: topSpace + ( checkForAdmin ? adminBarHeight : 0 );
-
-		// divTop is the scroll position at which the block leaves its natural position.
-		// It's a `let` so the resize handler can recalculate it after layout reflows.
-		let divTop = block.getBoundingClientRect().top + window.scrollY - offset;
-
-		// Write CSS custom properties once — scroll handler only toggles a class.
-		if ( isBottomSticky ) {
-			block.style.setProperty( '--sticky-bottom', `${ bottomSpace }px` );
-		} else {
-			block.style.setProperty( '--sticky-top', `${ offset }px` );
-		}
-		block.style.setProperty( '--sticky-z-index', String( zIndex ) );
-
-		// State class for CSS targeting; swapped with is-sticky as the block sticks.
-		block.classList.add( 'is-not-sticky' );
-
-		// Feature 6: hide the block in its natural position until the trigger fires.
-		if ( hideBeforeSticky ) {
-			block.style.visibility = 'hidden';
-			block.style.pointerEvents = 'none';
-		}
-
-		let isSticky = false;
-		let dismissed = false;
-		let ticking = false;
-		let lastScrollY = window.scrollY;
-		// Timer ID for the exit animation cleanup; non-null while an exit is in flight.
-		let exitTimer = null;
-		// Placeholder that holds the block's natural space while it is position:fixed.
-		let spacer = null;
 
 		// Feature 9: active when viewport is within the enabled range.
 		function isActive() {
@@ -192,6 +155,157 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			block.style.transformOrigin = '';
 			block.style.opacity = '';
 		}
+
+		// --- Container mode: CSS position:sticky confines the block to its parent,
+		// so it scrolls away with the container. JS only detects the stuck state to
+		// toggle sticky styles, classes, and events. Viewport-only features (stop
+		// before, trigger offset, direction, transitions, full width, hide before)
+		// do not apply here.
+		if ( stickyMode === 'container' ) {
+			if ( isBottomSticky ) {
+				block.style.setProperty( '--sticky-bottom', `${ bottomSpace }px` );
+			} else {
+				block.style.setProperty( '--sticky-top', `${ offset }px` );
+			}
+			block.style.setProperty( '--sticky-z-index', String( zIndex ) );
+			block.classList.add( 'is-not-sticky' );
+			if ( isActive() ) block.classList.add( 'is-mode-container' );
+
+			let stuck = false;
+			let containerTicking = false;
+			let containerDismissed = false;
+
+			function applyStuckStyles() {
+				if ( stickyBg ) block.style.backgroundColor = stickyBg;
+				if ( stickyShadow ) block.style.boxShadow = stickyShadow;
+				if ( stickyPaddingTop ) block.style.paddingTop = `${ stickyPaddingTop }px`;
+				if ( stickyPaddingBottom ) block.style.paddingBottom = `${ stickyPaddingBottom }px`;
+				if ( stickyPaddingLeft ) block.style.paddingLeft = `${ stickyPaddingLeft }px`;
+				if ( stickyPaddingRight ) block.style.paddingRight = `${ stickyPaddingRight }px`;
+				if ( hasBorder ) {
+					block.style.borderStyle = stickyBorderStyle;
+					block.style.borderWidth = `${ stickyBorderWidth }px`;
+					if ( stickyBorderColor ) block.style.borderColor = stickyBorderColor;
+				}
+				if ( stickyBorderRadius ) block.style.borderRadius = `${ stickyBorderRadius }px`;
+				if ( stickyTextColor ) block.style.color = stickyTextColor;
+				if ( hasScale ) {
+					block.style.transformOrigin = isBottomSticky ? 'bottom center' : 'top center';
+					block.style.transform = `scale(${ scaleVal })`;
+				}
+				block.style.opacity = opacityTarget;
+			}
+
+			function containerUpdate() {
+				if ( containerDismissed ) {
+					containerTicking = false;
+					return;
+				}
+				// Responsive disable: drop position:sticky entirely when out of range.
+				const active = isActive();
+				block.classList.toggle( 'is-mode-container', active );
+
+				let shouldStick = false;
+				if ( active ) {
+					const rect = block.getBoundingClientRect();
+					// Pinned at the sticky edge (or being carried away by the parent's
+					// far edge) and at least partially on screen.
+					shouldStick = isBottomSticky
+						? rect.bottom >= window.innerHeight - bottomSpace - 0.5 &&
+						  rect.top < window.innerHeight
+						: rect.top <= offset + 0.5 && rect.bottom > 0;
+				}
+
+				if ( shouldStick && ! stuck ) {
+					stuck = true;
+					applyStuckStyles();
+					block.classList.remove( 'is-not-sticky' );
+					block.classList.add( 'is-sticky' );
+					if ( isBottomSticky ) block.classList.add( 'is-sticky--bottom' );
+					if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.add( cls ) );
+					block.dispatchEvent( new CustomEvent( 'wpwing:sticky', { bubbles: true } ) );
+				} else if ( ! shouldStick && stuck ) {
+					stuck = false;
+					clearStickyStyles();
+					block.classList.remove( 'is-sticky', 'is-sticky--bottom' );
+					block.classList.add( 'is-not-sticky' );
+					if ( extraClasses.length ) extraClasses.forEach( ( cls ) => block.classList.remove( cls ) );
+					block.dispatchEvent( new CustomEvent( 'wpwing:unsticky', { bubbles: true } ) );
+				}
+
+				containerTicking = false;
+			}
+
+			function onContainerScroll() {
+				if ( ! containerTicking ) {
+					requestAnimationFrame( containerUpdate );
+					containerTicking = true;
+				}
+			}
+
+			if ( dismissible ) {
+				const dismissBtn = block.querySelector( '.wpwing-sticky-dismiss' );
+				if ( dismissBtn ) {
+					dismissBtn.addEventListener( 'click', () => {
+						containerDismissed = true;
+						try {
+							dismissStore.setItem(
+								dismissKey,
+								dismissExpiry === 0 ? '1' : String( Date.now() + dismissExpiry * 86400000 )
+							);
+						} catch {
+							// storage unavailable — dismissal just won't persist
+						}
+						block.style.display = 'none';
+						block.dispatchEvent( new CustomEvent( 'wpwing:dismiss', { bubbles: true } ) );
+					} );
+				}
+			}
+
+			window.addEventListener( 'scroll', onContainerScroll, { passive: true } );
+			window.addEventListener( 'resize', onContainerScroll, { passive: true } );
+			containerUpdate();
+			return;
+		}
+
+		let stopEl = null;
+		if ( stopBefore ) {
+			try {
+				stopEl = document.querySelector( stopBefore );
+			} catch {
+				// invalid CSS selector — silently ignore the stop-before setting
+			}
+		}
+
+		// divTop is the scroll position at which the block leaves its natural position.
+		// It's a `let` so the resize handler can recalculate it after layout reflows.
+		let divTop = block.getBoundingClientRect().top + window.scrollY - offset;
+
+		// Write CSS custom properties once — scroll handler only toggles a class.
+		if ( isBottomSticky ) {
+			block.style.setProperty( '--sticky-bottom', `${ bottomSpace }px` );
+		} else {
+			block.style.setProperty( '--sticky-top', `${ offset }px` );
+		}
+		block.style.setProperty( '--sticky-z-index', String( zIndex ) );
+
+		// State class for CSS targeting; swapped with is-sticky as the block sticks.
+		block.classList.add( 'is-not-sticky' );
+
+		// Feature 6: hide the block in its natural position until the trigger fires.
+		if ( hideBeforeSticky ) {
+			block.style.visibility = 'hidden';
+			block.style.pointerEvents = 'none';
+		}
+
+		let isSticky = false;
+		let dismissed = false;
+		let ticking = false;
+		let lastScrollY = window.scrollY;
+		// Timer ID for the exit animation cleanup; non-null while an exit is in flight.
+		let exitTimer = null;
+		// Placeholder that holds the block's natural space while it is position:fixed.
+		let spacer = null;
 
 		function applySticky() {
 			// If an exit animation is in flight, cancel it and snap back — no re-entry

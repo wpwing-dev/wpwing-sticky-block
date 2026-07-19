@@ -3,6 +3,13 @@
  * and in the editor.
  */
 
+// Positioning context for the dismiss button in the block's natural state.
+// Must come before the sticky rules: it ties them on specificity, so source
+// order decides — later sticky/fixed rules win while the block is stuck.
+.wp-block-wpwing-sticky-block:has(> .wpwing-sticky-dismiss) {
+	position: relative;
+}
+
 .wp-block-wpwing-sticky-block.is-sticky {
 	position: fixed;
 	top: var(--sticky-top, 0px);
@@ -14,9 +21,14 @@
 	bottom: var(--sticky-bottom, 0px);
 }
 
-// Positioning context for the dismiss button in the block's natural state.
-.wp-block-wpwing-sticky-block:has(> .wpwing-sticky-dismiss) {
-	position: relative;
+// Container mode: CSS sticky confines the block to its parent. The .is-sticky
+// variant outranks the position:fixed rule above, so the fixed styles never apply.
+.wp-block-wpwing-sticky-block.is-mode-container,
+.wp-block-wpwing-sticky-block.is-mode-container.is-sticky {
+	position: sticky;
+	top: var(--sticky-top, auto);
+	bottom: var(--sticky-bottom, auto);
+	z-index: var(--sticky-z-index, 1);
 }
 
 .wpwing-sticky-dismiss {
