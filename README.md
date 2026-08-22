@@ -13,24 +13,73 @@ A Gutenberg container block that sticks to the top or bottom of the viewport as 
 - PHP 7.4 or higher
 - WordPress 5.8 or higher
 - Node.js + npm
+- Docker and Docker Compose
+
 
 ---
 
 ## Local development setup
 
-### 1. Install dependencies
+### 1. Add the local domain to your hosts file
+
+```bash
+echo "127.0.0.1 sticky-block.local" | sudo tee -a /etc/hosts
+```
+
+### 2. Configure the database (optional)
+
+```bash
+cp .env.example .env
+```
+
+The defaults work out of the box.
+
+### 3. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Start the dev build watcher
+### 4. Build the block
+
+```bash
+npm run build
+```
+
+### 5. Start WordPress
+
+```bash
+make dev
+```
+
+Docker starts MySQL, WordPress, WP-CLI, and Caddy. The plugin source, compiled build, documentation, and entry file are bind-mounted into WordPress, so changes are available without rebuilding the containers.
+
+Open:
+
+- **Site:** https://sticky-block.local
+- **Admin:** https://sticky-block.local/wp-admin
+- **Credentials:** `admin` / `password`
+
+On the first visit, the browser may warn about Caddy's local certificate. Run `make caddy-trust` once to trust it on the host.
+
+### 6. Start the dev build watcher
 
 ```bash
 npm run start
 ```
 
 The block is compiled to `build/` and recompiled on every file change. Activate the plugin in WordPress and the changes are live immediately.
+
+Stop the stack with `make dev-stop`. To remove the containers and database volume, run `make env-reset`.
+
+## Docker commands
+
+| Command | Description |
+|---|---|
+| `make dev` | Start the local WordPress environment |
+| `make caddy-trust` | Trust Caddy's local HTTPS certificate |
+| `make dev-stop` | Stop the Docker services |
+| `make env-reset` | Stop services and remove Docker volumes |
 
 ---
 
@@ -54,7 +103,7 @@ The block is compiled to `build/` and recompiled on every file change. Activate 
 ├── src/                    - block source
 │   ├── block.json          - block metadata and attributes
 │   ├── index.js            - block registration
-│   ├── edit.js             - editor UI and sidebar controls
+│   ├── edit.js             - block editor UI and sidebar controls
 │   ├── save.js             - saved markup
 │   ├── frontend.js         - sticky logic (plain JS, no jQuery)
 │   ├── editor.scss         - editor-only styles
@@ -62,6 +111,9 @@ The block is compiled to `build/` and recompiled on every file change. Activate 
 ├── build/                  - compiled output (committed)
 ├── docs/                   - in-plugin documentation page
 ├── dist/                   - release zip (git-ignored)
+├── docker/                 - Caddy and WordPress bootstrap configuration
+├── docker-compose.yml      - local WordPress development stack
+├── Makefile                - Docker convenience commands
 └── wpwing-sticky-block.php - plugin entry point
 ```
 

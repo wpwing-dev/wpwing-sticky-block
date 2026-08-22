@@ -1,0 +1,8 @@
+{
+	admin off
+}
+
+sticky-block.local {
+	tls internal
+	reverse_proxy wordpress:80
+}
