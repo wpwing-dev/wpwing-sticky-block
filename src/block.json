@@ -9,6 +9,10 @@
 	"icon": "sticky",
 	"description": "A container block that sticks to the top of the viewport as visitors scroll — with entry/exit transitions, sticky-state styles, full-width mode, and more.",
 	"attributes": {
+		"revealMode": {
+			"type": "string",
+			"default": "immediate"
+		},
 		"stickyMode": {
 			"type": "string",
 			"default": "viewport"

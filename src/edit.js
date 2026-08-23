@@ -31,6 +31,7 @@ const SHADOWS = {
 
 export default function Edit( { attributes, setAttributes } ) {
 	const {
+		revealMode,
 		stickyMode,
 		topSpace,
 		checkForAdmin,
@@ -56,7 +57,6 @@ export default function Edit( { attributes, setAttributes } ) {
 		stickyBorderWidth,
 		stickyBorderColor,
 		stickyExtraClass,
-		hideBeforeSticky,
 		stickyPosition,
 		bottomSpace,
 		disableOnDesktop,
@@ -227,19 +227,32 @@ export default function Edit( { attributes, setAttributes } ) {
 						) }
 						{ ! isContainerMode && (
 						<>
-						<PanelRow>
-							<ToggleControl
-								label={ __( "Show only after scrolling", "wpwing-sticky-block" ) }
-								checked={ hideBeforeSticky }
-								onChange={ () =>
-									setAttributes( { hideBeforeSticky: ! hideBeforeSticky } )
-								}
-								help={ __(
-									"Hides the block until the scroll trigger is passed — useful for back-to-top buttons and floating CTAs.",
-									"wpwing-sticky-block"
-								) }
-							/>
-						</PanelRow>
+							<PanelRow>
+								<SelectControl
+									label={ __( "Reveal", "wpwing-sticky-block" ) }
+									value={ revealMode }
+									options={ [
+										{
+											label: __( "Immediately", "wpwing-sticky-block" ),
+											value: "immediate",
+										},
+										{
+											label: __( "After scrolling", "wpwing-sticky-block" ),
+											value: "scroll",
+										},
+									] }
+									onChange={ ( value ) =>
+										setAttributes( {
+											revealMode: value,
+											hideBeforeSticky: value === "scroll",
+										} )
+									}
+									help={ __(
+										"Choose when the block becomes visible and sticky.",
+										"wpwing-sticky-block"
+									) }
+								/>
+							</PanelRow>
 						<PanelRow>
 							<RangeControl
 								label={ __( "Scroll trigger offset (px)", "wpwing-sticky-block" ) }

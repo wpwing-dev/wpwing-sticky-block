@@ -44,6 +44,8 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const mobileBreakpoint = parseInt( dataEl.dataset.mobileBreakpoint ?? 768, 10 );
 		const disableOnDesktop = dataEl.dataset.disableOnDesktop === 'true';
 		const desktopBreakpoint = parseInt( dataEl.dataset.desktopBreakpoint ?? 1024, 10 );
+		const revealMode = dataEl.dataset.revealMode ??
+			( dataEl.dataset.hideBeforeSticky === 'true' ? 'scroll' : 'immediate' );
 		// Minimum scroll distance before sticking; 0 = natural trigger only.
 		const scrollTriggerOffset = parseInt( dataEl.dataset.scrollTriggerOffset ?? 0, 10 );
 		// 'viewport' (position:fixed, default) or 'container' (position:sticky within parent).
@@ -89,7 +91,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const hasScale = stickyScale !== 100;
 
 		// --- Feature 6: show only after scrolling ---
-		const hideBeforeSticky = dataEl.dataset.hideBeforeSticky === 'true';
+		const hideBeforeSticky = revealMode === 'scroll';
 
 		// --- Feature 8: sticky position (top / bottom) ---
 		const stickyPosition = dataEl.dataset.stickyPosition ?? 'top';
