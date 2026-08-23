@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../../build/style-index.css">
+</head>
+<body>
+	<div style="height: 600px"></div>
+	<div class="wp-block-wpwing-sticky-block" data-top-space="0">
+		<p>Sticky test block</p>
+	</div>
+	<div style="height: 2400px"></div>
+	<script>
+		window.__events = [];
+		document.addEventListener( 'wpwing:sticky', () => window.__events.push( 'sticky' ) );
+		document.addEventListener( 'wpwing:unsticky', () => window.__events.push( 'unsticky' ) );
+	</script>
+	<script src="../../build/frontend.js"></script>
+</body>
+</html>

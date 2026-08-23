@@ -12,9 +12,11 @@
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
+		"test:e2e": "playwright test",
 		"start": "wp-scripts start"
 	},
 	"devDependencies": {
+		"@playwright/test": "^1.49.1",
 		"@wordpress/scripts": "^32.2.0"
 	}
 }
