@@ -5,6 +5,8 @@ export default function save( { attributes } ) {
 	const {
 		revealMode,
 		revealDelay,
+		scrollTriggerType,
+		scrollTriggerPercent,
 		stickyMode,
 		topSpace,
 		checkForAdmin,
@@ -58,6 +60,8 @@ export default function save( { attributes } ) {
 			{ ...useBlockProps.save( {
 				'data-reveal-mode': revealMode !== 'immediate' ? revealMode : undefined,
 				'data-reveal-delay': revealMode === 'delay' && revealDelay > 0 ? revealDelay : undefined,
+				'data-scroll-trigger-type': revealMode === 'scroll' && scrollTriggerType !== 'pixels' ? scrollTriggerType : undefined,
+				'data-scroll-trigger-percent': revealMode === 'scroll' && scrollTriggerType === 'percent' && scrollTriggerPercent > 0 ? scrollTriggerPercent : undefined,
 				'data-sticky-mode': stickyMode !== 'viewport' ? stickyMode : undefined,
 				'data-top-space': topSpace,
 				'data-check-for-admin': checkForAdmin,

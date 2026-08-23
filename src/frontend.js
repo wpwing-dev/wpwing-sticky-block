@@ -47,6 +47,10 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const revealMode = dataEl.dataset.revealMode ??
 			( dataEl.dataset.hideBeforeSticky === 'true' ? 'scroll' : 'immediate' );
 		const revealDelay = Math.max( 0, parseInt( dataEl.dataset.revealDelay ?? 0, 10 ) );
+		const scrollTriggerType = dataEl.dataset.scrollTriggerType ?? 'pixels';
+		const scrollTriggerPercent = Math.min( 100, Math.max( 0,
+			parseInt( dataEl.dataset.scrollTriggerPercent ?? 0, 10 )
+		) );
 		// Minimum scroll distance before sticking; 0 = natural trigger only.
 		const scrollTriggerOffset = parseInt( dataEl.dataset.scrollTriggerOffset ?? 0, 10 );
 		// 'viewport' (position:fixed, default) or 'container' (position:sticky within parent).
@@ -486,7 +490,11 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 			// max() so the offset can only delay sticking, never fire while the
 			// block is still in view above its natural position.
-			const belowTrigger = scrollY >= Math.max( divTop, scrollTriggerOffset );
+			const pageScrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+			const scrollTrigger = scrollTriggerType === 'percent'
+				? pageScrollHeight * scrollTriggerPercent / 100
+				: scrollTriggerOffset;
+			const belowTrigger = scrollY >= Math.max( divTop, scrollTrigger );
 			const directionOk = scrollDirection === 'always' || scrollingUp;
 
 			// Check stopEl regardless of isSticky to prevent a one-frame flicker

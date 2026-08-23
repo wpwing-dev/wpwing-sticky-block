@@ -33,6 +33,8 @@ export default function Edit( { attributes, setAttributes } ) {
 	const {
 		revealMode,
 		revealDelay,
+		scrollTriggerType,
+		scrollTriggerPercent,
 		stickyMode,
 		topSpace,
 		checkForAdmin,
@@ -276,6 +278,43 @@ export default function Edit( { attributes, setAttributes } ) {
 								</PanelRow>
 							) }
 							{ revealMode === "scroll" && (
+								<PanelRow>
+									<SelectControl
+										label={ __( "Trigger unit", "wpwing-sticky-block" ) }
+										value={ scrollTriggerType }
+										options={ [
+											{
+												label: __( "Pixels", "wpwing-sticky-block" ),
+												value: "pixels",
+											},
+											{
+												label: __( "Percentage of page", "wpwing-sticky-block" ),
+												value: "percent",
+											},
+										] }
+										onChange={ ( value ) =>
+											setAttributes( { scrollTriggerType: value } )
+										}
+									/>
+								</PanelRow>
+							) }
+							{ revealMode === "scroll" && scrollTriggerType === "percent" ? (
+								<PanelRow>
+									<RangeControl
+										label={ __( "Scroll trigger (%)", "wpwing-sticky-block" ) }
+										value={ scrollTriggerPercent }
+										min={ 1 }
+										max={ 100 }
+										onChange={ ( value ) =>
+											setAttributes( { scrollTriggerPercent: value ?? 1 } )
+										}
+										help={ __(
+											"Reveal after this percentage of the page has been scrolled.",
+											"wpwing-sticky-block"
+										) }
+									/>
+								</PanelRow>
+							) : revealMode === "scroll" && (
 						<PanelRow>
 							<RangeControl
 								label={ __( "Scroll trigger offset (px)", "wpwing-sticky-block" ) }
@@ -291,6 +330,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								) }
 							/>
 						</PanelRow>
+							) }
 							) }
 						<PanelRow>
 							<SelectControl
