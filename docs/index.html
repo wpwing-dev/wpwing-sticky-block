@@ -402,14 +402,24 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><strong>Show only after scrolling</strong></td>
-						<td>Off</td>
-						<td>Hides the block entirely at page load and reveals it only once the scroll trigger is passed. Pair it with an entry transition for a smooth appear effect - ideal for back-to-top buttons and floating CTAs.</td>
+						<td><strong>Reveal</strong></td>
+						<td>Immediately</td>
+						<td>Choose whether the block appears immediately, after scrolling, or after a time delay. A delayed reveal waits from page load, then uses the normal sticky position rules.</td>
 					</tr>
 					<tr>
-						<td><strong>Scroll trigger offset (px)</strong></td>
+						<td><strong>Trigger unit</strong></td>
 						<td>0</td>
-						<td>Makes the block wait until the visitor has scrolled at least this many pixels before it sticks. With the default of <code>0</code> the block sticks as soon as it reaches the viewport edge. Use this for bars that should appear only after the intro section has scrolled by.</td>
+						<td>When Reveal is set to <strong>After scrolling</strong>, choose a pixel distance or a percentage of the page.</td>
+					</tr>
+					<tr>
+						<td><strong>Scroll trigger</strong></td>
+						<td>0 px</td>
+						<td>Set how far the visitor must scroll before the block appears and sticks. Percentage mode adapts to the page length; pixel mode is useful for a fixed intro offset.</td>
+					</tr>
+					<tr>
+						<td><strong>Delay (seconds)</strong></td>
+						<td>0</td>
+						<td>When Reveal is set to <strong>After time delay</strong>, reveal the block after this many seconds. The editor accepts values from 1 to 60 seconds.</td>
 					</tr>
 					<tr>
 						<td><strong>Stick when</strong></td>

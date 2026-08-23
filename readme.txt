@@ -23,8 +23,7 @@ Unlike CSS `position: sticky` (which only works within its parent scroll contain
 * **Container block** — nest any Gutenberg blocks inside: navigation, buttons, headings, images, widgets.
 * **Top or bottom sticky** — choose whether the block locks to the top or bottom of the viewport. Cookie bars, chat widgets, and floating CTAs belong at the bottom.
 * **Stick within parent container** - a per-block mode that keeps the block sticky only while its parent container is in view, then lets it scroll away with it. The classic sticky-sidebar pattern, no code required.
-* **Show only after scrolling** — hide the block entirely at page load and reveal it only after the visitor scrolls past the trigger point. Pairs naturally with an entry transition for a smooth appear effect.
-* **Scroll trigger offset** - make the block wait until the visitor has scrolled a set number of pixels before it sticks, instead of sticking the moment it reaches the viewport edge.
+* **Flexible reveal triggers** - show the block immediately, after a pixel or percentage scroll threshold, or after a time delay. Pairs naturally with an entry transition for a smooth appear effect.
 * **Dismissible** — add a close button so visitors can dismiss the block, and optionally remember the dismissal for a set number of days. Perfect for cookie bars and floating CTAs.
 * **Dismiss button styling** - control the close button's icon color, background color, and size so it matches your design.
 * **Sticky style preview in the editor** - a toolbar toggle applies your sticky-state styles to the block in the canvas, so you can design the stuck look without leaving the editor.
@@ -109,6 +108,10 @@ It should not conflict, but if both your theme and the plugin apply `position: f
 4. The block in action on the frontend in sticky (fixed) position.
 
 == Changelog ==
+
+= 2.9.0 - 25/08/2026 =
+* New: Choose when the block is revealed - immediately, after scrolling, or after a time delay.
+* New: Set the scroll trigger in pixels or as a percentage of the page, useful for back-to-top buttons and floating CTAs.
 
 = 2.8.0 - 19/07/2026 =
 * New: "Within parent container" sticky mode - the block stays sticky only while its parent container is in view, then scrolls away with it. Build a sidebar that follows the reader alongside a long article and stops at the end of the section - no code, no overlap with the content below.

@@ -16,20 +16,20 @@ Keep this release focused on extending the existing `scrollTriggerOffset` and `h
 
 ### Must ship
 
-- [ ] Add a reveal trigger mode: immediately, after scrolling, or after a time delay
-- [ ] Add time-delay seconds for the delayed mode
-- [ ] Keep the existing default behavior unchanged for existing blocks
-- [ ] Hide reveal controls in container mode, as they are already viewport-only
-- [ ] Add editor help text and validate zero/negative/invalid values at the control boundary
+- [x] Add a reveal trigger mode: immediately, after scrolling, or after a time delay
+- [x] Add time-delay seconds for the delayed mode
+- [x] Keep the existing default behavior unchanged for existing blocks
+- [x] Hide reveal controls in container mode, as they are already viewport-only
+- [x] Add editor help text and validate zero/negative/invalid values at the control boundary
 
 ### Stretch
 
-- [ ] Add percentage-based scrolling as an alternative to the current pixel offset
+- [x] Add percentage-based scrolling as an alternative to the current pixel offset
 
 ### Before release
 
-- [ ] Update `readme.txt` and in-plugin docs with examples for a back-to-top button and floating CTA
-- [ ] Run build, JS/CSS lint, and manual desktop/mobile checks for top and bottom sticky positions
+- [x] Update `readme.txt` and in-plugin docs with examples for a back-to-top button and floating CTA
+- [ ] Run build and manual desktop/mobile checks for top and bottom sticky positions
 
 ### Release gate
 
