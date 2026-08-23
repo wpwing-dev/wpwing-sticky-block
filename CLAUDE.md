@@ -1,5 +1,9 @@
 # Claude Code Instructions
 
+## Shared Rules
+
+- Read and follow the repository root `AGENTS.md`.
+
 ## Code Comments
 
 - Keep comments **minimal** — only add them when the intent is not obvious from the code itself.
