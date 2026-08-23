@@ -10,6 +10,7 @@ assets: ## Build the block assets
 .PHONY: assets
 
 dev: ## Start local WordPress development environment
+	docker network inspect wpwing-proxy >/dev/null 2>&1 || docker network create wpwing-proxy
 	docker compose up -d --wait db wordpress
 	docker compose run --rm wpcli
 	docker compose up -d caddy

@@ -4,5 +4,10 @@
 
 sticky-block.local {
 	tls internal
-	reverse_proxy wordpress:80
+	reverse_proxy sticky-wordpress:80
+}
+
+toc.local {
+	tls internal
+	reverse_proxy toc-wordpress:80
 }

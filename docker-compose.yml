@@ -41,6 +41,11 @@ services:
       - ./docs:/var/www/html/wp-content/plugins/wpwing-sticky-block/docs
       - ./wpwing-sticky-block.php:/var/www/html/wp-content/plugins/wpwing-sticky-block/wpwing-sticky-block.php
       - wp_data:/var/www/html
+    networks:
+      default:
+      proxy:
+        aliases:
+          - sticky-wordpress
     healthcheck:
       test: ["CMD", "curl", "-sf", "http://localhost/wp-login.php"]
       interval: 10s
@@ -82,9 +87,16 @@ services:
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
+    networks:
+      - proxy
 
 volumes:
   db_data:
   wp_data:
   caddy_data:
   caddy_config:
+
+networks:
+  proxy:
+    name: wpwing-proxy
+    external: true
