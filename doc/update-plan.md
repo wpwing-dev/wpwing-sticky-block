@@ -1,6 +1,6 @@
 # Update Plan - August 2026
 
-Current version: 2.8.0. The next release is planned for Tuesday 25/08/2026.
+Current version: 2.8.0. The next release is planned for Monday 24/08/2026.
 Priorities are driven by [competitors.md](competitors.md): improve reveal behavior first, then invest in visibility through presets, translations, and editor UX.
 
 ## Shipped
@@ -8,7 +8,7 @@ Priorities are driven by [competitors.md](competitors.md): improve reveal behavi
 - v2.7.0 - dismiss button styling controls and the editor sticky-style preview toolbar
 - v2.8.0 - container-confined sticky mode with viewport-only controls handled correctly
 
-## v2.9.0 - Tuesday 25/08/2026 - NEXT
+## v2.9.0 - Monday 24/08/2026 - NEXT
 
 Theme: flexible reveal triggers
 
