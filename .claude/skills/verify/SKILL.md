@@ -5,7 +5,7 @@ description: Verify frontend changes to the sticky block by driving the built as
 
 # Verifying wpwing-sticky-block changes
 
-The block's frontend surface is stored HTML + `build/frontend.js` + `build/style-index.css` - WordPress only serves them, so a static harness page is the real runtime surface. The Local WP site (plugins-dev.local) is usually not running; don't start it.
+The block's frontend surface is stored HTML + `build/frontend.js` + `build/style-index.css` - WordPress only serves them, so a static harness page is the real runtime surface. The Local WP site is `sticky-block.local`; a static harness is still preferred for focused frontend checks.
 
 ## Recipe
 
