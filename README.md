@@ -80,9 +80,17 @@ Stop the stack with `make dev-stop`. To remove the containers and database volum
 | `make caddy-trust` | Trust Caddy's local HTTPS certificate |
 | `make dev-stop` | Stop the Docker services |
 | `make env-reset` | Stop services and remove Docker volumes |
-
+| `make demo-content` | Create any missing sticky behavior demo pages |
+| `make demo-reset` | Delete and recreate all sticky behavior demo pages |
 ---
 
+
+On startup, WP-CLI creates four ready-to-test pages if they do not already exist:
+
+- `sticky-demo-article` - long article with a percentage-triggered top block
+- `sticky-demo-sidebar` - two-column layout with a parent-confined sidebar block
+- `sticky-demo-reveal` - delayed bottom block with enough content to scroll
+- `sticky-demo-multiple` - independent top and bottom blocks on one page
 ## npm scripts
 
 | Command | Description |
