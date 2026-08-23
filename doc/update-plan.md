@@ -1,40 +1,47 @@
-# Update Plan - July/August 2026
+# Update Plan - August 2026
 
-Weekly release cadence, every Sunday. Current version: 2.6.0 (released 05/07/2026).
-Priorities driven by [competitors.md](competitors.md) - close the container-confined sticky gap, add the reveal triggers competitors paywall, and invest in visibility (translations, presets, editor UX).
+Current version: 2.8.0. The next release is planned for Tuesday 25/08/2026.
+Priorities are driven by [competitors.md](competitors.md): improve reveal behavior first, then invest in visibility through presets, translations, and editor UX.
 
-## v2.7.0 - Sunday 12/07/2026 - SHIPPED
+## Shipped
 
-Theme: dismiss button polish + editor preview (small scope, one day out)
+- v2.7.0 - dismiss button styling controls and the editor sticky-style preview toolbar
+- v2.8.0 - container-confined sticky mode with viewport-only controls handled correctly
 
-- [x] Dismiss button styling controls - icon color, background color, and size (`dismissButtonColor`, `dismissButtonBackground`, `dismissButtonSize` attributes, CSS vars on the button, defaults omit the style attribute so existing blocks stay valid)
-- [x] "Preview sticky styles" in the editor toolbar - the panel toggle already existed (shipped silently in 2.6.0, never announced); 2.7.0 adds a toolbar eye button for it and announces the feature in readme.txt
-- [ ] Fix pass: no support-forum reports existed for 2.6.0 - nothing to fix
+## v2.9.0 - Tuesday 25/08/2026 - NEXT
 
-## v2.8.0 - Sunday 19/07/2026 - SHIPPED
+Theme: flexible reveal triggers
 
-Theme: container-confined sticky (biggest feature gap)
+Keep this release focused on extending the existing `scrollTriggerOffset` and `hideBeforeSticky` behavior. Do not include presets, translations, or unrelated styling changes in this release.
 
-- [x] "Stick within parent" mode - `stickyMode` attribute, container mode uses CSS position:sticky confined to the parent; JS toggles sticky-state styles/classes/events on stuck detection. Covers the sticky-sidebar and side-by-side-content use cases (bPlugins pro feature, Fixed Widget's whole niche)
-- [x] Per-block mode select in Sticky Options - "Whole page (viewport)" (default, unchanged) vs "Within parent container"; existing blocks keep their saved HTML (data-sticky-mode omitted at default)
-- [x] Viewport-only controls (reveal triggers, scroll direction, stop-before, full width, transitions) hidden in container mode with an explanatory note; offsets, styles, dismiss, responsive, scale, events all work in both modes
+### Must ship
 
-## v2.9.0 - Sunday 26/07/2026
+- [ ] Add a reveal trigger mode: immediately, after scrolling, or after a time delay
+- [ ] Add time-delay seconds for the delayed mode
+- [ ] Keep the existing default behavior unchanged for existing blocks
+- [ ] Hide reveal controls in container mode, as they are already viewport-only
+- [ ] Add editor help text and validate zero/negative/invalid values at the control boundary
 
-Theme: reveal triggers (what My Sticky Bar sells as pro)
+### Stretch
 
-- New: "Show after time delay" - reveal the sticky block N seconds after page load
-- New: "Show after scrolling X% of the page" - percentage-based alternative to the existing pixel trigger offset
-- New: optional "hide again when scrolled back above trigger" refinement for show-only-after-scrolling
-- Improvement: consolidate the trigger controls into one clear "Reveal" panel (pixels / percent / time)
+- [ ] Add percentage-based scrolling as an alternative to the current pixel offset
 
-## v2.10.0 - Sunday 02/08/2026
+### Before release
 
-Theme: presets + visibility push
+- [ ] Update `readme.txt` and in-plugin docs with examples for a back-to-top button and floating CTA
+- [ ] Run build, JS/CSS lint, and manual desktop/mobile checks for top and bottom sticky positions
 
-- New: block variations/patterns shipped with the plugin - "Sticky Nav Bar", "Cookie Notice Bar" (bottom + dismissible), "Floating CTA" (bottom + show after scroll), "Back to Top" - one-click starting points that showcase existing features
-- New: generate .pot file and set up translations; seed 2-3 locales (competitor sticky-block ships 7 languages)
-- Improvement: refresh readme.txt feature list and screenshots to cover 2.7-2.10 features
+### Release gate
+
+Ship only if existing blocks render unchanged, default attributes do not add unnecessary saved markup, delayed and percentage reveals work after resize, and container mode remains unaffected.
+
+## Later
+
+### v2.10.0 - presets + visibility
+
+- Block variations/patterns: Sticky Nav Bar, Cookie Notice Bar, Floating CTA, and Back to Top
+- Generate a `.pot` file and seed 2-3 locales
+- Refresh `readme.txt` feature list and screenshots
 
 ## Ongoing (not release-gated)
 
