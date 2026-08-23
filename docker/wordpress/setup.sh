@@ -25,4 +25,5 @@ fi
 
 echo "Activating plugin..."
 wp --path="$WP_PATH" plugin activate wpwing-sticky-block --allow-root
+sh /docker/wordpress/demo-content.sh
 echo "Done. Visit https://sticky-block.local/wp-admin (admin / password)"

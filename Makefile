@@ -21,6 +21,15 @@ dev: ## Start local WordPress development environment
 	@echo "First time? Run: make caddy-trust"
 .PHONY: dev
 
+demo-content: ## Create missing sticky behavior demo pages
+	docker compose run --rm wpcli sh /docker/wordpress/demo-content.sh
+.PHONY: demo-content
+
+demo-reset: ## Delete and recreate sticky behavior demo pages
+	docker compose run --rm wpcli sh /docker/wordpress/demo-content.sh reset
+	docker compose run --rm wpcli sh /docker/wordpress/demo-content.sh
+.PHONY: demo-reset
+
 caddy-trust: ## Trust Caddy's local CA (run once per machine, requires sudo)
 	@echo "Waiting for Caddy to generate its CA..."
 	@sleep 3
