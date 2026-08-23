@@ -46,6 +46,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const desktopBreakpoint = parseInt( dataEl.dataset.desktopBreakpoint ?? 1024, 10 );
 		const revealMode = dataEl.dataset.revealMode ??
 			( dataEl.dataset.hideBeforeSticky === 'true' ? 'scroll' : 'immediate' );
+		const revealDelay = Math.max( 0, parseInt( dataEl.dataset.revealDelay ?? 0, 10 ) );
 		// Minimum scroll distance before sticking; 0 = natural trigger only.
 		const scrollTriggerOffset = parseInt( dataEl.dataset.scrollTriggerOffset ?? 0, 10 );
 		// 'viewport' (position:fixed, default) or 'container' (position:sticky within parent).
@@ -91,7 +92,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const hasScale = stickyScale !== 100;
 
 		// --- Feature 6: show only after scrolling ---
-		const hideBeforeSticky = revealMode === 'scroll';
+		const hideBeforeSticky = revealMode === 'scroll' || revealMode === 'delay';
 
 		// --- Feature 8: sticky position (top / bottom) ---
 		const stickyPosition = dataEl.dataset.stickyPosition ?? 'top';
@@ -302,12 +303,20 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 		let isSticky = false;
 		let dismissed = false;
+		let revealReady = revealMode !== 'delay' || revealDelay === 0;
 		let ticking = false;
 		let lastScrollY = window.scrollY;
 		// Timer ID for the exit animation cleanup; non-null while an exit is in flight.
 		let exitTimer = null;
 		// Placeholder that holds the block's natural space while it is position:fixed.
 		let spacer = null;
+
+		if ( revealMode === 'delay' && revealDelay > 0 ) {
+			window.setTimeout( () => {
+				revealReady = true;
+				onScroll();
+			}, revealDelay * 1000 );
+		}
 
 		function applySticky() {
 			// If an exit animation is in flight, cancel it and snap back — no re-entry
@@ -499,7 +508,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			}
 
 			const shouldStick =
-				belowTrigger && isActive() && directionOk && ! stopReached;
+				revealReady && belowTrigger && isActive() && directionOk && ! stopReached;
 
 			if ( shouldStick && ! isSticky ) {
 				applySticky();

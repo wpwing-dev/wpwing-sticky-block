@@ -4,6 +4,7 @@ import { useBlockProps, InnerBlocks } from "@wordpress/block-editor";
 export default function save( { attributes } ) {
 	const {
 		revealMode,
+		revealDelay,
 		stickyMode,
 		topSpace,
 		checkForAdmin,
@@ -56,6 +57,7 @@ export default function save( { attributes } ) {
 		<div
 			{ ...useBlockProps.save( {
 				'data-reveal-mode': revealMode !== 'immediate' ? revealMode : undefined,
+				'data-reveal-delay': revealMode === 'delay' && revealDelay > 0 ? revealDelay : undefined,
 				'data-sticky-mode': stickyMode !== 'viewport' ? stickyMode : undefined,
 				'data-top-space': topSpace,
 				'data-check-for-admin': checkForAdmin,

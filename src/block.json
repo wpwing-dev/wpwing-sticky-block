@@ -13,6 +13,10 @@
 			"type": "string",
 			"default": "immediate"
 		},
+		"revealDelay": {
+			"type": "integer",
+			"default": 0
+		},
 		"stickyMode": {
 			"type": "string",
 			"default": "viewport"

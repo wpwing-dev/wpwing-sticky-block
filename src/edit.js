@@ -32,6 +32,7 @@ const SHADOWS = {
 export default function Edit( { attributes, setAttributes } ) {
 	const {
 		revealMode,
+		revealDelay,
 		stickyMode,
 		topSpace,
 		checkForAdmin,
@@ -240,6 +241,10 @@ export default function Edit( { attributes, setAttributes } ) {
 											label: __( "After scrolling", "wpwing-sticky-block" ),
 											value: "scroll",
 										},
+										{
+											label: __( "After time delay", "wpwing-sticky-block" ),
+											value: "delay",
+										},
 									] }
 									onChange={ ( value ) =>
 										setAttributes( {
@@ -253,6 +258,24 @@ export default function Edit( { attributes, setAttributes } ) {
 									) }
 								/>
 							</PanelRow>
+							{ revealMode === "delay" && (
+								<PanelRow>
+									<RangeControl
+										label={ __( "Delay (seconds)", "wpwing-sticky-block" ) }
+										value={ revealDelay }
+										min={ 1 }
+										max={ 60 }
+										onChange={ ( value ) =>
+											setAttributes( { revealDelay: value ?? 1 } )
+										}
+										help={ __(
+											"Reveal the block after this many seconds.",
+											"wpwing-sticky-block"
+										) }
+									/>
+								</PanelRow>
+							) }
+							{ revealMode === "scroll" && (
 						<PanelRow>
 							<RangeControl
 								label={ __( "Scroll trigger offset (px)", "wpwing-sticky-block" ) }
@@ -268,6 +291,7 @@ export default function Edit( { attributes, setAttributes } ) {
 								) }
 							/>
 						</PanelRow>
+							) }
 						<PanelRow>
 							<SelectControl
 								label={ __( "Stick when", "wpwing-sticky-block" ) }
