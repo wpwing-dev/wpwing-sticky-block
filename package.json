@@ -13,6 +13,7 @@
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
 		"test:e2e": "playwright test",
+		"test:e2e:backend": "playwright test --project=backend",
 		"start": "wp-scripts start"
 	},
 	"devDependencies": {

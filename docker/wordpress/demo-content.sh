@@ -44,7 +44,7 @@ ensure_page() {
 
 article_content=$(cat <<'EOF'
 <!-- wp:wpwing/sticky-block {"stickyPosition":"top","revealMode":"scroll","scrollTriggerType":"percent","scrollTriggerPercent":20,"stickyBackground":"#17324d","stickyTextColor":"#ffffff","stickyPaddingTop":12,"stickyPaddingBottom":12,"stickyPaddingLeft":20,"stickyPaddingRight":20,"stickyShadow":"md","dismissible":true} -->
-<p><strong>Reading progress bar</strong> - Scroll past 20 percent to reveal this top sticky block.</p>
+<div class="wp-block-wpwing-sticky-block" data-top-space="0" data-reveal-mode="scroll" data-scroll-trigger-type="percent" data-scroll-trigger-percent="20" data-sticky-bg="#17324d" data-sticky-text-color="#ffffff" data-sticky-padding-top="12" data-sticky-padding-bottom="12" data-sticky-padding-left="20" data-sticky-padding-right="20" data-sticky-shadow="md" data-dismissible="true"><button type="button" class="wpwing-sticky-dismiss wpwing-sticky-dismiss--right" aria-label="Dismiss"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path></svg></button><p><strong>Reading progress bar</strong> - Scroll past 20 percent to reveal this top sticky block.</p></div>
 <!-- /wp:wpwing/sticky-block -->
 
 <!-- wp:heading {"level":1} -->
@@ -82,7 +82,7 @@ sidebar_content=$(cat <<'EOF'
 <!-- wp:paragraph --><p>Additional content helps expose overflow and positioning issues in themes and nested layout blocks.</p><!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 <!-- wp:column {"width":"32%"} -->
-<div class="wp-block-column" style="flex-basis:32%"><!-- wp:wpwing/sticky-block {"stickyMode":"container","stickyBackground":"#f0b429","stickyPaddingTop":16,"stickyPaddingBottom":16,"stickyPaddingLeft":16,"stickyPaddingRight":16,"stickyShadow":"md"} --><p><strong>Sidebar block</strong></p><p>Confined to the parent.</p><!-- /wp:wpwing/sticky-block --></div>
+<div class="wp-block-column" style="flex-basis:32%"><!-- wp:wpwing/sticky-block {"stickyMode":"container","stickyBackground":"#f0b429","stickyPaddingTop":16,"stickyPaddingBottom":16,"stickyPaddingLeft":16,"stickyPaddingRight":16,"stickyShadow":"md"} --><div class="wp-block-wpwing-sticky-block" data-top-space="0" data-sticky-mode="container" data-sticky-bg="#f0b429" data-sticky-padding-top="16" data-sticky-padding-bottom="16" data-sticky-padding-left="16" data-sticky-padding-right="16" data-sticky-shadow="md"><p><strong>Sidebar block</strong></p><p>Confined to the parent.</p></div><!-- /wp:wpwing/sticky-block --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 EOF
@@ -96,7 +96,7 @@ reveal_content=$(cat <<'EOF'
 <p>Use the editor to switch this block between immediate, scroll, percentage, and delayed reveal modes.</p>
 <!-- /wp:paragraph -->
 <!-- wp:wpwing/sticky-block {"stickyPosition":"bottom","revealMode":"delay","revealDelay":3,"stickyBackground":"#23645a","stickyTextColor":"#ffffff","stickyPaddingTop":12,"stickyPaddingBottom":12,"stickyPaddingLeft":20,"stickyPaddingRight":20,"stickyShadow":"lg"} -->
-<p><strong>Delayed bottom CTA</strong> - this appears three seconds after page load.</p>
+<div class="wp-block-wpwing-sticky-block" data-top-space="0" data-sticky-position="bottom" data-reveal-mode="delay" data-reveal-delay="3" data-sticky-bg="#23645a" data-sticky-text-color="#ffffff" data-sticky-padding-top="12" data-sticky-padding-bottom="12" data-sticky-padding-left="20" data-sticky-padding-right="20" data-sticky-shadow="lg"><p><strong>Delayed bottom CTA</strong> - this appears three seconds after page load.</p></div>
 <!-- /wp:wpwing/sticky-block -->
 <!-- wp:spacer {"height":"900px"} -->
 <div style="height:900px" aria-hidden="true" class="wp-block-spacer"></div>
@@ -112,7 +112,7 @@ multiple_content=$(cat <<'EOF'
 <h1>Multiple Sticky Blocks Demo</h1>
 <!-- /wp:heading -->
 <!-- wp:wpwing/sticky-block {"stickyPosition":"top","revealMode":"scroll","scrollTriggerOffset":300,"stickyBackground":"#17324d","stickyTextColor":"#ffffff","stickyPaddingTop":10,"stickyPaddingBottom":10,"stickyPaddingLeft":16,"stickyPaddingRight":16} -->
-<p><strong>Top block</strong> - reveals after 300 pixels.</p>
+<div class="wp-block-wpwing-sticky-block" data-top-space="0" data-scroll-trigger-offset="300" data-sticky-bg="#17324d" data-sticky-text-color="#ffffff" data-sticky-padding-top="10" data-sticky-padding-bottom="10" data-sticky-padding-left="16" data-sticky-padding-right="16"><p><strong>Top block</strong> - reveals after 300 pixels.</p></div>
 <!-- /wp:wpwing/sticky-block -->
 <!-- wp:paragraph -->
 <p>Scroll through this page to test multiple independent blocks. Each block should maintain its own trigger, position, styles, and sticky events.</p>
@@ -121,7 +121,7 @@ multiple_content=$(cat <<'EOF'
 <div style="height:700px" aria-hidden="true" class="wp-block-spacer"></div>
 <!-- /wp:spacer -->
 <!-- wp:wpwing/sticky-block {"stickyPosition":"bottom","stickyBackground":"#8f3b3b","stickyTextColor":"#ffffff","stickyPaddingTop":10,"stickyPaddingBottom":10,"stickyPaddingLeft":16,"stickyPaddingRight":16,"dismissible":true} -->
-<p><strong>Bottom block</strong> - dismiss me and reload the page.</p>
+<div class="wp-block-wpwing-sticky-block" data-top-space="0" data-sticky-position="bottom" data-sticky-bg="#8f3b3b" data-sticky-text-color="#ffffff" data-sticky-padding-top="10" data-sticky-padding-bottom="10" data-sticky-padding-left="16" data-sticky-padding-right="16" data-dismissible="true"><button type="button" class="wpwing-sticky-dismiss wpwing-sticky-dismiss--right" aria-label="Dismiss"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="2" fill="none"></path></svg></button><p><strong>Bottom block</strong> - dismiss me and reload the page.</p></div>
 <!-- /wp:wpwing/sticky-block -->
 <!-- wp:paragraph -->
 <p>Keep scrolling and resize the browser. This page is intended for checking interactions between more than one sticky block on the same document.</p>
