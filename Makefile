@@ -9,6 +9,12 @@ assets: ## Build the block assets
 	npm run build
 .PHONY: assets
 
+version-bump: ## Update plugin metadata and rebuild assets (VERSION=x.y.z)
+	@if [ -z "$(VERSION)" ]; then echo "Usage: make version-bump VERSION=x.y.z"; exit 1; fi
+	node scripts/version-bump.js "$(VERSION)"
+	npm run build
+.PHONY: version-bump
+
 dev: ## Start local WordPress development environment
 	docker network inspect wpwing-proxy >/dev/null 2>&1 || docker network create wpwing-proxy
 	docker compose up -d --wait db wordpress
