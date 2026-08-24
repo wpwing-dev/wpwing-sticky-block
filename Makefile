@@ -5,9 +5,32 @@ help: ## Show available commands
 		awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 .PHONY: help
 
-assets: ## Build the block assets
+build: ## Build the block assets
 	npm run build
+.PHONY: build
+
+assets: build ## Build the block assets (alias for build)
 .PHONY: assets
+
+dist: ## Build the plugin distribution zip
+	npm run dist
+.PHONY: dist
+
+test-e2e: ## Run all Playwright tests
+	npm run test:e2e
+.PHONY: test-e2e
+
+test-e2e-backend: ## Run WordPress backend Playwright tests
+	npm run test:e2e:backend
+.PHONY: test-e2e-backend
+
+lint-js: ## Lint JavaScript
+	npm run lint:js
+.PHONY: lint-js
+
+lint-css: ## Lint CSS
+	npm run lint:css
+.PHONY: lint-css
 
 version-bump: ## Update plugin metadata and rebuild assets (VERSION=x.y.z)
 	@if [ -z "$(VERSION)" ]; then echo "Usage: make version-bump VERSION=x.y.z"; exit 1; fi

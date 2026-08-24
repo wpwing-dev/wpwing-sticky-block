@@ -77,6 +77,12 @@ Stop the stack with `make dev-stop`. To remove the containers and database volum
 | Command | Description |
 |---|---|
 | `make dev` | Start the local WordPress environment |
+| `make build` | Build the block assets |
+| `make dist` | Build the plugin distribution zip |
+| `make test-e2e` | Run all Playwright tests |
+| `make test-e2e-backend` | Run WordPress backend Playwright tests |
+| `make lint-js` | Lint JavaScript |
+| `make lint-css` | Lint CSS |
 | `make version-bump VERSION=x.y.z` | Update plugin metadata and rebuild assets |
 | `make caddy-trust` | Trust Caddy's local HTTPS certificate |
 | `make dev-stop` | Stop the Docker services |
