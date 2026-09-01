@@ -31,6 +31,17 @@
 	z-index: var(--sticky-z-index, 1);
 }
 
+// Corner-anchored layout for the Floating CTA and Back to Top presets
+// (see src/variations.js). frontend.js locks an inline width on non-full-width
+// sticky blocks to prevent reflow, so !important is needed to shrink these back
+// to their content size instead of the full column width.
+.wp-block-wpwing-sticky-block.is-sticky.wpwing-pattern-floating-cta,
+.wp-block-wpwing-sticky-block.is-sticky.wpwing-pattern-back-to-top {
+	right: 24px;
+	left: auto;
+	width: fit-content !important;
+}
+
 .wpwing-sticky-dismiss {
 	position: absolute;
 	top: 8px;

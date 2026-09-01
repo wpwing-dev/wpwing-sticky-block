@@ -6,6 +6,7 @@ import './style.scss';
 import Edit from './edit';
 import save from './save';
 import metadata from './block.json';
+import './variations';
 
 const deprecated = [
 	// v2 (Phase 1): data-* on block root, no new Phase 2 attributes.
