@@ -1,11 +1,11 @@
 === Sticky Block for Gutenberg ===
 
 Contributors:      wpwing, voboghure
-Tags:              sticky, sticky block, gutenberg, block editor, fixed
+Tags:              sticky, sticky block, gutenberg, block editor, fixed, patterns
 Requires at least: 5.8
 Tested up to:      7.0
 Requires PHP:      7.4
-Stable tag:        2.9.0
+Stable tag:        2.10.0
 License:           GPL-3.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -19,6 +19,8 @@ Unlike CSS `position: sticky` (which only works within its parent scroll contain
 
 = Key Features =
 
+* **Ready-made patterns** — insert a Sticky Nav Bar, Cookie Notice Bar, Floating CTA, or Back to Top button pre-configured with sensible defaults, right from the block inserter.
+* **Translations** — the editor UI is available in Spanish, French, and German, with more locales welcome via translate.wordpress.org.
 * **Multiple sticky blocks per page** — place as many sticky blocks as you need, each with its own settings.
 * **Container block** — nest any Gutenberg blocks inside: navigation, buttons, headings, images, widgets.
 * **Top or bottom sticky** — choose whether the block locks to the top or bottom of the viewport. Cookie bars, chat widgets, and floating CTAs belong at the bottom.
@@ -51,7 +53,7 @@ Unlike CSS `position: sticky` (which only works within its parent scroll contain
 
 = How to use =
 
-1. In the block editor, search for **Sticky Block** and insert it anywhere on your page.
+1. In the block editor, search for **Sticky Block** and insert it anywhere on your page - or search for **Sticky Nav Bar**, **Cookie Notice Bar**, **Floating CTA**, or **Back to Top** to start from a ready-made preset.
 2. Add blocks inside it — a Navigation block, a Button, a Group, anything you like.
 3. Open the block settings panel on the right and adjust offset, z-index, scroll behaviour, and sticky-state styles.
 4. Preview your page and scroll — the block will stick to the top (or bottom) of the viewport.
@@ -102,12 +104,16 @@ It should not conflict, but if both your theme and the plugin apply `position: f
 
 == Screenshots ==
 
-1. Sticky Block for Gutenberg in the block inserter.
+1. Sticky Block for Gutenberg and its four ready-made patterns in the block inserter.
 2. A sticky block with inner content shown in the editor.
 3. The block settings sidebar — Sticky Options, Behavior, Responsive, Accessibility, and Sticky State Styles panels.
 4. The block in action on the frontend in sticky (fixed) position.
 
 == Changelog ==
+
+= 2.10.0 - 01/09/2026 =
+* New: Four ready-made patterns - Sticky Nav Bar, Cookie Notice Bar, Floating CTA, and Back to Top - insertable from the block inserter, pre-configured with sensible defaults.
+* New: Spanish, French, and German translations for the editor UI.
 
 = 2.9.0 - 25/08/2026 =
 * New: Choose when the block is revealed - immediately, after scrolling, or after a time delay.
