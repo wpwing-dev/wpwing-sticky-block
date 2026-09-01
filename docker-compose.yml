@@ -39,6 +39,7 @@ services:
       - ./src:/var/www/html/wp-content/plugins/wpwing-sticky-block/src
       - ./build:/var/www/html/wp-content/plugins/wpwing-sticky-block/build
       - ./docs:/var/www/html/wp-content/plugins/wpwing-sticky-block/docs
+      - ./languages:/var/www/html/wp-content/plugins/wpwing-sticky-block/languages
       - ./wpwing-sticky-block.php:/var/www/html/wp-content/plugins/wpwing-sticky-block/wpwing-sticky-block.php
       - wp_data:/var/www/html
     networks:
@@ -65,6 +66,7 @@ services:
       - ./src:/var/www/html/wp-content/plugins/wpwing-sticky-block/src
       - ./build:/var/www/html/wp-content/plugins/wpwing-sticky-block/build
       - ./docs:/var/www/html/wp-content/plugins/wpwing-sticky-block/docs
+      - ./languages:/var/www/html/wp-content/plugins/wpwing-sticky-block/languages
       - ./wpwing-sticky-block.php:/var/www/html/wp-content/plugins/wpwing-sticky-block/wpwing-sticky-block.php
       - ./docker/wordpress:/docker/wordpress:ro
       - wp_data:/var/www/html

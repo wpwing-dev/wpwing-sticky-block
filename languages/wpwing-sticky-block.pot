@@ -1,0 +1,667 @@
+# Copyright (C) 2026 WPWing
+# This file is distributed under the GPL-3.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Sticky Block for Gutenberg 2.9.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpwing-sticky-block\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-01T05:24:21+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: wpwing-sticky-block\n"
+
+#. Plugin Name of the plugin
+#: wpwing-sticky-block.php
+msgid "Sticky Block for Gutenberg"
+msgstr ""
+
+#. Description of the plugin
+#: wpwing-sticky-block.php
+msgid "Sticky Block for Gutenberg — make any content follow your visitors as they scroll."
+msgstr ""
+
+#. Author of the plugin
+#: wpwing-sticky-block.php
+msgid "WPWing"
+msgstr ""
+
+#. Author URI of the plugin
+#: wpwing-sticky-block.php
+msgid "https://wpwing.com/"
+msgstr ""
+
+#: wpwing-sticky-block.php:31
+msgid "Documentation"
+msgstr ""
+
+#: build/index.js:1
+#: src/variations.js:7
+msgid "Sticky Nav Bar"
+msgstr ""
+
+#: build/index.js:1
+#: src/variations.js:8
+msgid "A site title and navigation menu that sticks to the top of the viewport."
+msgstr ""
+
+#: build/index.js:1
+#: src/variations.js:32
+msgid "Cookie Notice Bar"
+msgstr ""
+
+#: build/index.js:1
+#: src/variations.js:33
+msgid "A dismissible bar anchored to the bottom of the viewport, with an accept button."
+msgstr ""
+
+#: build/index.js:1
+#: src/variations.js:50
+msgid "We use cookies to improve your experience on this site. By continuing to browse, you agree to our use of cookies."
+msgstr ""
+
+#: build/index.js:1
+#: src/variations.js:56
+msgid "Accept"
+msgstr ""
+
+#: build/index.js:1
+#: src/variations.js:63
+msgid "Floating CTA"
+msgstr ""
+
+#: build/index.js:1
+#: src/variations.js:64
+msgid "A corner-anchored call-to-action button that reveals after the visitor scrolls."
+msgstr ""
+
+#: build/index.js:1
+#: src/variations.js:77
+msgid "Get Started"
+msgstr ""
+
+#: build/index.js:1
+#: src/variations.js:82
+msgid "Back to Top"
+msgstr ""
+
+#: build/index.js:1
+#: src/variations.js:83
+msgid "A pill-shaped button that appears after scrolling and returns the visitor to the top of the page."
+msgstr ""
+
+#: build/index.js:1
+#: src/variations.js:98
+msgid "↑ Back to top"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:113
+msgid "Preview sticky styles"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:121
+msgid "Sticky Options"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:124
+msgid "Sticky mode"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:127
+msgid "Whole page (viewport)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:128
+msgid "Within parent container"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:131
+msgid "\"Whole page\" keeps the block on screen for the rest of the page. \"Within parent container\" keeps it sticky only while its parent container is in view, then lets it scroll away - ideal for sticky sidebars next to long content. The parent must be taller than the block."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:139
+msgid "Sticky position"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:142
+msgid "Top"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:143
+msgid "Bottom"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:146
+msgid "Stick the block to the top or bottom of the viewport."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:155
+msgid "Space from top (px)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:162
+msgid "Gap between the top of the viewport and the sticky block."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:172
+msgid "Space from bottom (px)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:179
+msgid "Gap between the bottom of the viewport and the sticky block."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:189
+msgid "Account for admin toolbar"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:193
+msgid "Shifts the block down by the admin bar height for logged-in users."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:206
+msgid "Z-index"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:211
+msgid "Stack order when the block is sticky."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:220
+msgid "Behavior"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:225
+msgid "Reveal, scroll direction, and stop-before options apply to whole-page mode only - in container mode the parent's edges already control when the block sticks and releases."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:235
+msgid "Reveal"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:239
+msgid "Immediately"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:243
+msgid "After scrolling"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:247
+msgid "After time delay"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:257
+msgid "Choose when the block becomes visible and sticky."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:266
+msgid "Delay (seconds)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:273
+msgid "Reveal the block after this many seconds."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:283
+msgid "Trigger unit"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:287
+msgid "Pixels"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:291
+msgid "Percentage of page"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:304
+msgid "Scroll trigger (%)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:311
+msgid "Reveal after this percentage of the page has been scrolled."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:320
+msgid "Scroll trigger offset (px)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:327
+msgid "Stick only after the visitor has scrolled at least this many pixels. 0 = stick as soon as the block reaches the viewport edge."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:337
+msgid "Stick when"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:341
+msgid "Always"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:345
+msgid "Only while scrolling up"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:355
+msgid "\"Only while scrolling up\" hides the block when scrolling down and reveals it on scroll up — a common pattern for sticky headers."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:363
+msgid "Stop before element (CSS selector)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:369
+msgid "Un-sticks the block when it reaches this element. E.g. #footer"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:379
+msgid "Show a dismiss (×) button"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:384
+msgid "Adds a close button so visitors can dismiss the block. Ideal for cookie bars and floating CTAs."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:394
+msgid "Remember dismissal for (days)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:401
+msgid "How long to keep the block hidden after a visitor dismisses it. 0 = until the page is reloaded."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:409
+msgid "Dismiss button position"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:412
+msgid "Right"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:413
+msgid "Left"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:422
+msgid "Dismiss button size (px)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:429
+msgid "Diameter of the close button. The × icon scales with it."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:436
+msgid "Dismiss icon color"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:446
+msgid "Dismiss button background"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:460
+msgid "Responsive"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:465
+msgid "Disable sticky on mobile"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:475
+msgid "Mobile breakpoint (px)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:485
+msgid "Sticky is disabled when the viewport is narrower than this value."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:494
+msgid "Disable sticky on desktop"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:504
+msgid "Desktop breakpoint (px)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:514
+msgid "Sticky is disabled when the viewport is wider than this value."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:524
+msgid "Sticky State Styles"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:529
+msgid "Preview sticky styles in editor"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:530
+msgid "Apply sticky-state colours, shadow, and padding to the block canvas so you can see how it will look when stuck."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:542
+msgid "Background color when sticky"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:553
+msgid "Text color when sticky"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:565
+msgid "Opacity when sticky (%)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:572
+msgid "Makes the block semi-transparent while it is sticky. 100 = fully opaque."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:580
+msgid "Shadow when sticky"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:584
+#: src/edit.js:642
+#: src/edit.js:735
+msgid "None"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:588
+msgid "Small"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:592
+msgid "Medium"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:596
+msgid "Large"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:603
+msgid "Adds a drop shadow beneath the block once it becomes sticky."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:613
+msgid "Padding when sticky (px)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:629
+msgid "Padding applied to all sides only while the block is sticky."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:639
+msgid "Border when sticky"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:643
+msgid "Solid"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:644
+msgid "Dashed"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:649
+msgid "Adds a border only while the block is sticky."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:659
+msgid "Border width (px)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:669
+msgid "Border color when sticky"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:682
+msgid "Border radius when sticky (px)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:689
+msgid "Rounds the block's corners only while it is sticky."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:701
+msgid "Full width when sticky"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:706
+msgid "Expands the block to span the full viewport width when sticky."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:715
+msgid "Scale when sticky (%)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:722
+msgid "Shrinks the block to this percentage of its size when sticky. Useful for logos or nav bars that scale down on scroll."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:731
+msgid "Entry & exit transition"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:739
+msgid "Fade"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:743
+msgid "Slide"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:747
+msgid "Fade + Slide"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:754
+msgid "Animation played when the block enters and exits the sticky state."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:765
+msgid "Transition duration (ms)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:775
+msgid "How long the entry animation takes in milliseconds."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:783
+msgid "Transition easing"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:786
+msgid "Ease (default)"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:787
+msgid "Ease in"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:788
+msgid "Ease out"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:789
+msgid "Ease in-out"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:790
+msgid "Linear"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:795
+msgid "Controls the acceleration curve of the animation."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:806
+msgid "Accessibility"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:811
+msgid "ARIA label"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:813
+msgid "e.g. Site navigation"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:817
+msgid "Adds an aria-label attribute to the sticky wrapper, improving screen reader context. Leave blank to omit."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:826
+msgid "Advanced"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:831
+msgid "CSS class when sticky"
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:837
+msgid "Extra CSS classes added to the block when it is sticky. Separate multiple classes with spaces."
+msgstr ""
+
+#: build/index.js:1
+#: src/edit.js:852
+#: src/save.js:110
+msgid "Dismiss"
+msgstr ""
+
+#: build/block.json
+#: src/block.json
+msgctxt "block title"
+msgid "Sticky Block for Gutenberg"
+msgstr ""
+
+#: build/block.json
+#: src/block.json
+msgctxt "block keyword"
+msgid "Sticky"
+msgstr ""
+
+#: build/block.json
+#: src/block.json
+msgctxt "block keyword"
+msgid "Sticky Block"
+msgstr ""
+
+#: build/block.json
+#: src/block.json
+msgctxt "block keyword"
+msgid "WPWing"
+msgstr ""
+
+#: build/block.json
+#: src/block.json
+msgctxt "block description"
+msgid "A container block that sticks to the top of the viewport as visitors scroll — with entry/exit transitions, sticky-state styles, full-width mode, and more."
+msgstr ""

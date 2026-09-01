@@ -1,0 +1,670 @@
+# Copyright (C) 2026 WPWing
+# This file is distributed under the GPL-3.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Sticky Block for Gutenberg 2.9.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wpwing-sticky-block\n"
+"Last-Translator: WPWing <hello@wpwing.com>\n"
+"Language-Team: fr_FR <fr_FR@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-01T05:19:48+00:00\n"
+"PO-Revision-Date: 2026-09-01T00:00:00+00:00\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: wpwing-sticky-block\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. Plugin Name of the plugin
+#: wpwing-sticky-block.php
+msgid "Sticky Block for Gutenberg"
+msgstr "Bloc Collant pour Gutenberg"
+
+#. Description of the plugin
+#: wpwing-sticky-block.php
+msgid "Sticky Block for Gutenberg — make any content follow your visitors as they scroll."
+msgstr "Bloc Collant pour Gutenberg — faites en sorte que n'importe quel contenu suive vos visiteurs lors du défilement."
+
+#. Author of the plugin
+#: wpwing-sticky-block.php
+msgid "WPWing"
+msgstr "WPWing"
+
+#. Author URI of the plugin
+#: wpwing-sticky-block.php
+msgid "https://wpwing.com/"
+msgstr "https://wpwing.com/"
+
+#: wpwing-sticky-block.php:31
+msgid "Documentation"
+msgstr "Documentation"
+
+#: build/index.js:1
+#: src/variations.js:7
+msgid "Sticky Nav Bar"
+msgstr "Barre de Navigation Collante"
+
+#: build/index.js:1
+#: src/variations.js:8
+msgid "A site title and navigation menu that sticks to the top of the viewport."
+msgstr "Un titre de site et un menu de navigation qui restent fixés en haut de la fenêtre."
+
+#: build/index.js:1
+#: src/variations.js:32
+msgid "Cookie Notice Bar"
+msgstr "Barre d'Avis sur les Cookies"
+
+#: build/index.js:1
+#: src/variations.js:33
+msgid "A dismissible bar anchored to the bottom of the viewport, with an accept button."
+msgstr "Une barre que l'on peut fermer, ancrée en bas de la fenêtre, avec un bouton d'acceptation."
+
+#: build/index.js:1
+#: src/variations.js:50
+msgid "We use cookies to improve your experience on this site. By continuing to browse, you agree to our use of cookies."
+msgstr "Nous utilisons des cookies pour améliorer votre expérience sur ce site. En continuant à naviguer, vous acceptez notre utilisation des cookies."
+
+#: build/index.js:1
+#: src/variations.js:56
+msgid "Accept"
+msgstr "Accepter"
+
+#: build/index.js:1
+#: src/variations.js:63
+msgid "Floating CTA"
+msgstr "CTA Flottant"
+
+#: build/index.js:1
+#: src/variations.js:64
+msgid "A corner-anchored call-to-action button that reveals after the visitor scrolls."
+msgstr "Un bouton d'appel à l'action ancré dans un coin qui apparaît après que le visiteur ait fait défiler la page."
+
+#: build/index.js:1
+#: src/variations.js:77
+msgid "Get Started"
+msgstr "Commencer"
+
+#: build/index.js:1
+#: src/variations.js:82
+msgid "Back to Top"
+msgstr "Retour en Haut"
+
+#: build/index.js:1
+#: src/variations.js:83
+msgid "A pill-shaped button that appears after scrolling and returns the visitor to the top of the page."
+msgstr "Un bouton en forme de pilule qui apparaît après le défilement et ramène le visiteur en haut de la page."
+
+#: build/index.js:1
+#: src/variations.js:98
+msgid "↑ Back to top"
+msgstr "↑ Retour en haut"
+
+#: build/index.js:1
+#: src/edit.js:113
+msgid "Preview sticky styles"
+msgstr "Aperçu des styles collants"
+
+#: build/index.js:1
+#: src/edit.js:121
+msgid "Sticky Options"
+msgstr "Options Collantes"
+
+#: build/index.js:1
+#: src/edit.js:124
+msgid "Sticky mode"
+msgstr "Mode collant"
+
+#: build/index.js:1
+#: src/edit.js:127
+msgid "Whole page (viewport)"
+msgstr "Page entière (fenêtre)"
+
+#: build/index.js:1
+#: src/edit.js:128
+msgid "Within parent container"
+msgstr "Dans le conteneur parent"
+
+#: build/index.js:1
+#: src/edit.js:131
+msgid "\"Whole page\" keeps the block on screen for the rest of the page. \"Within parent container\" keeps it sticky only while its parent container is in view, then lets it scroll away - ideal for sticky sidebars next to long content. The parent must be taller than the block."
+msgstr "« Page entière » garde le bloc à l'écran pour le reste de la page. « Dans le conteneur parent » le garde fixe uniquement tant que son conteneur parent est visible, puis le laisse défiler - idéal pour les barres latérales collantes à côté d'un contenu long. Le conteneur parent doit être plus haut que le bloc."
+
+#: build/index.js:1
+#: src/edit.js:139
+msgid "Sticky position"
+msgstr "Position collante"
+
+#: build/index.js:1
+#: src/edit.js:142
+msgid "Top"
+msgstr "Haut"
+
+#: build/index.js:1
+#: src/edit.js:143
+msgid "Bottom"
+msgstr "Bas"
+
+#: build/index.js:1
+#: src/edit.js:146
+msgid "Stick the block to the top or bottom of the viewport."
+msgstr "Fixe le bloc en haut ou en bas de la fenêtre."
+
+#: build/index.js:1
+#: src/edit.js:155
+msgid "Space from top (px)"
+msgstr "Espace depuis le haut (px)"
+
+#: build/index.js:1
+#: src/edit.js:162
+msgid "Gap between the top of the viewport and the sticky block."
+msgstr "Espace entre le haut de la fenêtre et le bloc collant."
+
+#: build/index.js:1
+#: src/edit.js:172
+msgid "Space from bottom (px)"
+msgstr "Espace depuis le bas (px)"
+
+#: build/index.js:1
+#: src/edit.js:179
+msgid "Gap between the bottom of the viewport and the sticky block."
+msgstr "Espace entre le bas de la fenêtre et le bloc collant."
+
+#: build/index.js:1
+#: src/edit.js:189
+msgid "Account for admin toolbar"
+msgstr "Tenir compte de la barre d'administration"
+
+#: build/index.js:1
+#: src/edit.js:193
+msgid "Shifts the block down by the admin bar height for logged-in users."
+msgstr "Décale le bloc vers le bas de la hauteur de la barre d'administration pour les utilisateurs connectés."
+
+#: build/index.js:1
+#: src/edit.js:206
+msgid "Z-index"
+msgstr "Index Z"
+
+#: build/index.js:1
+#: src/edit.js:211
+msgid "Stack order when the block is sticky."
+msgstr "Ordre d'empilement lorsque le bloc est collant."
+
+#: build/index.js:1
+#: src/edit.js:220
+msgid "Behavior"
+msgstr "Comportement"
+
+#: build/index.js:1
+#: src/edit.js:225
+msgid "Reveal, scroll direction, and stop-before options apply to whole-page mode only - in container mode the parent's edges already control when the block sticks and releases."
+msgstr "Les options d'apparition, de direction de défilement et d'arrêt avant s'appliquent uniquement au mode page entière - en mode conteneur, les bords du parent contrôlent déjà quand le bloc se fixe et se libère."
+
+#: build/index.js:1
+#: src/edit.js:235
+msgid "Reveal"
+msgstr "Apparition"
+
+#: build/index.js:1
+#: src/edit.js:239
+msgid "Immediately"
+msgstr "Immédiatement"
+
+#: build/index.js:1
+#: src/edit.js:243
+msgid "After scrolling"
+msgstr "Après défilement"
+
+#: build/index.js:1
+#: src/edit.js:247
+msgid "After time delay"
+msgstr "Après un délai"
+
+#: build/index.js:1
+#: src/edit.js:257
+msgid "Choose when the block becomes visible and sticky."
+msgstr "Choisissez quand le bloc devient visible et collant."
+
+#: build/index.js:1
+#: src/edit.js:266
+msgid "Delay (seconds)"
+msgstr "Délai (secondes)"
+
+#: build/index.js:1
+#: src/edit.js:273
+msgid "Reveal the block after this many seconds."
+msgstr "Affiche le bloc après ce nombre de secondes."
+
+#: build/index.js:1
+#: src/edit.js:283
+msgid "Trigger unit"
+msgstr "Unité de déclenchement"
+
+#: build/index.js:1
+#: src/edit.js:287
+msgid "Pixels"
+msgstr "Pixels"
+
+#: build/index.js:1
+#: src/edit.js:291
+msgid "Percentage of page"
+msgstr "Pourcentage de la page"
+
+#: build/index.js:1
+#: src/edit.js:304
+msgid "Scroll trigger (%)"
+msgstr "Déclencheur de défilement (%)"
+
+#: build/index.js:1
+#: src/edit.js:311
+msgid "Reveal after this percentage of the page has been scrolled."
+msgstr "Apparaît après ce pourcentage de défilement de la page."
+
+#: build/index.js:1
+#: src/edit.js:320
+msgid "Scroll trigger offset (px)"
+msgstr "Décalage du déclencheur de défilement (px)"
+
+#: build/index.js:1
+#: src/edit.js:327
+msgid "Stick only after the visitor has scrolled at least this many pixels. 0 = stick as soon as the block reaches the viewport edge."
+msgstr "Ne se fixe qu'après que le visiteur ait fait défiler au moins ce nombre de pixels. 0 = se fixe dès que le bloc atteint le bord de la fenêtre."
+
+#: build/index.js:1
+#: src/edit.js:337
+msgid "Stick when"
+msgstr "Se fixer quand"
+
+#: build/index.js:1
+#: src/edit.js:341
+msgid "Always"
+msgstr "Toujours"
+
+#: build/index.js:1
+#: src/edit.js:345
+msgid "Only while scrolling up"
+msgstr "Seulement en défilant vers le haut"
+
+#: build/index.js:1
+#: src/edit.js:355
+msgid "\"Only while scrolling up\" hides the block when scrolling down and reveals it on scroll up — a common pattern for sticky headers."
+msgstr "« Seulement en défilant vers le haut » masque le bloc lors du défilement vers le bas et le révèle lors du défilement vers le haut — un modèle courant pour les en-têtes collants."
+
+#: build/index.js:1
+#: src/edit.js:363
+msgid "Stop before element (CSS selector)"
+msgstr "Arrêter avant l'élément (sélecteur CSS)"
+
+#: build/index.js:1
+#: src/edit.js:369
+msgid "Un-sticks the block when it reaches this element. E.g. #footer"
+msgstr "Libère le bloc lorsqu'il atteint cet élément. Ex. #footer"
+
+#: build/index.js:1
+#: src/edit.js:379
+msgid "Show a dismiss (×) button"
+msgstr "Afficher un bouton de fermeture (×)"
+
+#: build/index.js:1
+#: src/edit.js:384
+msgid "Adds a close button so visitors can dismiss the block. Ideal for cookie bars and floating CTAs."
+msgstr "Ajoute un bouton de fermeture pour que les visiteurs puissent fermer le bloc. Idéal pour les barres de cookies et les CTA flottants."
+
+#: build/index.js:1
+#: src/edit.js:394
+msgid "Remember dismissal for (days)"
+msgstr "Se souvenir de la fermeture pendant (jours)"
+
+#: build/index.js:1
+#: src/edit.js:401
+msgid "How long to keep the block hidden after a visitor dismisses it. 0 = until the page is reloaded."
+msgstr "Durée pendant laquelle le bloc reste masqué après qu'un visiteur l'ait fermé. 0 = jusqu'au rechargement de la page."
+
+#: build/index.js:1
+#: src/edit.js:409
+msgid "Dismiss button position"
+msgstr "Position du bouton de fermeture"
+
+#: build/index.js:1
+#: src/edit.js:412
+msgid "Right"
+msgstr "Droite"
+
+#: build/index.js:1
+#: src/edit.js:413
+msgid "Left"
+msgstr "Gauche"
+
+#: build/index.js:1
+#: src/edit.js:422
+msgid "Dismiss button size (px)"
+msgstr "Taille du bouton de fermeture (px)"
+
+#: build/index.js:1
+#: src/edit.js:429
+msgid "Diameter of the close button. The × icon scales with it."
+msgstr "Diamètre du bouton de fermeture. L'icône × s'ajuste en conséquence."
+
+#: build/index.js:1
+#: src/edit.js:436
+msgid "Dismiss icon color"
+msgstr "Couleur de l'icône de fermeture"
+
+#: build/index.js:1
+#: src/edit.js:446
+msgid "Dismiss button background"
+msgstr "Arrière-plan du bouton de fermeture"
+
+#: build/index.js:1
+#: src/edit.js:460
+msgid "Responsive"
+msgstr "Responsive"
+
+#: build/index.js:1
+#: src/edit.js:465
+msgid "Disable sticky on mobile"
+msgstr "Désactiver le collant sur mobile"
+
+#: build/index.js:1
+#: src/edit.js:475
+msgid "Mobile breakpoint (px)"
+msgstr "Point de rupture mobile (px)"
+
+#: build/index.js:1
+#: src/edit.js:485
+msgid "Sticky is disabled when the viewport is narrower than this value."
+msgstr "Le comportement collant est désactivé lorsque la fenêtre est plus étroite que cette valeur."
+
+#: build/index.js:1
+#: src/edit.js:494
+msgid "Disable sticky on desktop"
+msgstr "Désactiver le collant sur ordinateur"
+
+#: build/index.js:1
+#: src/edit.js:504
+msgid "Desktop breakpoint (px)"
+msgstr "Point de rupture ordinateur (px)"
+
+#: build/index.js:1
+#: src/edit.js:514
+msgid "Sticky is disabled when the viewport is wider than this value."
+msgstr "Le comportement collant est désactivé lorsque la fenêtre est plus large que cette valeur."
+
+#: build/index.js:1
+#: src/edit.js:524
+msgid "Sticky State Styles"
+msgstr "Styles de l'État Collant"
+
+#: build/index.js:1
+#: src/edit.js:529
+msgid "Preview sticky styles in editor"
+msgstr "Aperçu des styles collants dans l'éditeur"
+
+#: build/index.js:1
+#: src/edit.js:530
+msgid "Apply sticky-state colours, shadow, and padding to the block canvas so you can see how it will look when stuck."
+msgstr "Applique les couleurs, l'ombre et le remplissage de l'état collant à la zone du bloc pour voir à quoi il ressemblera une fois fixé."
+
+#: build/index.js:1
+#: src/edit.js:542
+msgid "Background color when sticky"
+msgstr "Couleur de fond lorsque collant"
+
+#: build/index.js:1
+#: src/edit.js:553
+msgid "Text color when sticky"
+msgstr "Couleur du texte lorsque collant"
+
+#: build/index.js:1
+#: src/edit.js:565
+msgid "Opacity when sticky (%)"
+msgstr "Opacité lorsque collant (%)"
+
+#: build/index.js:1
+#: src/edit.js:572
+msgid "Makes the block semi-transparent while it is sticky. 100 = fully opaque."
+msgstr "Rend le bloc semi-transparent lorsqu'il est collant. 100 = entièrement opaque."
+
+#: build/index.js:1
+#: src/edit.js:580
+msgid "Shadow when sticky"
+msgstr "Ombre lorsque collant"
+
+#: build/index.js:1
+#: src/edit.js:584
+#: src/edit.js:642
+#: src/edit.js:735
+msgid "None"
+msgstr "Aucune"
+
+#: build/index.js:1
+#: src/edit.js:588
+msgid "Small"
+msgstr "Petite"
+
+#: build/index.js:1
+#: src/edit.js:592
+msgid "Medium"
+msgstr "Moyenne"
+
+#: build/index.js:1
+#: src/edit.js:596
+msgid "Large"
+msgstr "Grande"
+
+#: build/index.js:1
+#: src/edit.js:603
+msgid "Adds a drop shadow beneath the block once it becomes sticky."
+msgstr "Ajoute une ombre portée sous le bloc une fois qu'il devient collant."
+
+#: build/index.js:1
+#: src/edit.js:613
+msgid "Padding when sticky (px)"
+msgstr "Remplissage lorsque collant (px)"
+
+#: build/index.js:1
+#: src/edit.js:629
+msgid "Padding applied to all sides only while the block is sticky."
+msgstr "Remplissage appliqué de tous les côtés uniquement lorsque le bloc est collant."
+
+#: build/index.js:1
+#: src/edit.js:639
+msgid "Border when sticky"
+msgstr "Bordure lorsque collant"
+
+#: build/index.js:1
+#: src/edit.js:643
+msgid "Solid"
+msgstr "Plein"
+
+#: build/index.js:1
+#: src/edit.js:644
+msgid "Dashed"
+msgstr "Pointillé"
+
+#: build/index.js:1
+#: src/edit.js:649
+msgid "Adds a border only while the block is sticky."
+msgstr "Ajoute une bordure uniquement lorsque le bloc est collant."
+
+#: build/index.js:1
+#: src/edit.js:659
+msgid "Border width (px)"
+msgstr "Largeur de la bordure (px)"
+
+#: build/index.js:1
+#: src/edit.js:669
+msgid "Border color when sticky"
+msgstr "Couleur de la bordure lorsque collant"
+
+#: build/index.js:1
+#: src/edit.js:682
+msgid "Border radius when sticky (px)"
+msgstr "Rayon de la bordure lorsque collant (px)"
+
+#: build/index.js:1
+#: src/edit.js:689
+msgid "Rounds the block's corners only while it is sticky."
+msgstr "Arrondit les coins du bloc uniquement lorsqu'il est collant."
+
+#: build/index.js:1
+#: src/edit.js:701
+msgid "Full width when sticky"
+msgstr "Pleine largeur lorsque collant"
+
+#: build/index.js:1
+#: src/edit.js:706
+msgid "Expands the block to span the full viewport width when sticky."
+msgstr "Étend le bloc pour occuper toute la largeur de la fenêtre lorsqu'il est collant."
+
+#: build/index.js:1
+#: src/edit.js:715
+msgid "Scale when sticky (%)"
+msgstr "Échelle lorsque collant (%)"
+
+#: build/index.js:1
+#: src/edit.js:722
+msgid "Shrinks the block to this percentage of its size when sticky. Useful for logos or nav bars that scale down on scroll."
+msgstr "Réduit le bloc à ce pourcentage de sa taille lorsqu'il est collant. Utile pour les logos ou barres de navigation qui rétrécissent au défilement."
+
+#: build/index.js:1
+#: src/edit.js:731
+msgid "Entry & exit transition"
+msgstr "Transition d'entrée et de sortie"
+
+#: build/index.js:1
+#: src/edit.js:739
+msgid "Fade"
+msgstr "Fondu"
+
+#: build/index.js:1
+#: src/edit.js:743
+msgid "Slide"
+msgstr "Glissement"
+
+#: build/index.js:1
+#: src/edit.js:747
+msgid "Fade + Slide"
+msgstr "Fondu + Glissement"
+
+#: build/index.js:1
+#: src/edit.js:754
+msgid "Animation played when the block enters and exits the sticky state."
+msgstr "Animation jouée lorsque le bloc entre et sort de l'état collant."
+
+#: build/index.js:1
+#: src/edit.js:765
+msgid "Transition duration (ms)"
+msgstr "Durée de la transition (ms)"
+
+#: build/index.js:1
+#: src/edit.js:775
+msgid "How long the entry animation takes in milliseconds."
+msgstr "Durée de l'animation d'entrée en millisecondes."
+
+#: build/index.js:1
+#: src/edit.js:783
+msgid "Transition easing"
+msgstr "Courbe de transition"
+
+#: build/index.js:1
+#: src/edit.js:786
+msgid "Ease (default)"
+msgstr "Ease (par défaut)"
+
+#: build/index.js:1
+#: src/edit.js:787
+msgid "Ease in"
+msgstr "Ease in"
+
+#: build/index.js:1
+#: src/edit.js:788
+msgid "Ease out"
+msgstr "Ease out"
+
+#: build/index.js:1
+#: src/edit.js:789
+msgid "Ease in-out"
+msgstr "Ease in-out"
+
+#: build/index.js:1
+#: src/edit.js:790
+msgid "Linear"
+msgstr "Linéaire"
+
+#: build/index.js:1
+#: src/edit.js:795
+msgid "Controls the acceleration curve of the animation."
+msgstr "Contrôle la courbe d'accélération de l'animation."
+
+#: build/index.js:1
+#: src/edit.js:806
+msgid "Accessibility"
+msgstr "Accessibilité"
+
+#: build/index.js:1
+#: src/edit.js:811
+msgid "ARIA label"
+msgstr "Étiquette ARIA"
+
+#: build/index.js:1
+#: src/edit.js:813
+msgid "e.g. Site navigation"
+msgstr "ex. Navigation du site"
+
+#: build/index.js:1
+#: src/edit.js:817
+msgid "Adds an aria-label attribute to the sticky wrapper, improving screen reader context. Leave blank to omit."
+msgstr "Ajoute un attribut aria-label au conteneur collant, améliorant le contexte pour les lecteurs d'écran. Laissez vide pour l'omettre."
+
+#: build/index.js:1
+#: src/edit.js:826
+msgid "Advanced"
+msgstr "Avancé"
+
+#: build/index.js:1
+#: src/edit.js:831
+msgid "CSS class when sticky"
+msgstr "Classe CSS lorsque collant"
+
+#: build/index.js:1
+#: src/edit.js:837
+msgid "Extra CSS classes added to the block when it is sticky. Separate multiple classes with spaces."
+msgstr "Classes CSS supplémentaires ajoutées au bloc lorsqu'il est collant. Séparez plusieurs classes par des espaces."
+
+#: build/index.js:1
+#: src/edit.js:852
+#: src/save.js:110
+msgid "Dismiss"
+msgstr "Fermer"
+
+#: build/block.json
+#: src/block.json
+msgctxt "block title"
+msgid "Sticky Block for Gutenberg"
+msgstr "Bloc Collant pour Gutenberg"
+
+#: build/block.json
+#: src/block.json
+msgctxt "block keyword"
+msgid "Sticky"
+msgstr "Collant"
+
+#: build/block.json
+#: src/block.json
+msgctxt "block keyword"
+msgid "Sticky Block"
+msgstr "Bloc Collant"
+
+#: build/block.json
+#: src/block.json
+msgctxt "block keyword"
+msgid "WPWing"
+msgstr "WPWing"
+
+#: build/block.json
+#: src/block.json
+msgctxt "block description"
+msgid "A container block that sticks to the top of the viewport as visitors scroll — with entry/exit transitions, sticky-state styles, full-width mode, and more."
+msgstr "Un bloc conteneur qui se fixe en haut de la fenêtre lors du défilement des visiteurs — avec transitions d'entrée/sortie, styles d'état collant, mode pleine largeur et plus encore."
+

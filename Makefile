@@ -59,6 +59,15 @@ demo-reset: ## Delete and recreate sticky behavior demo pages
 	docker compose run --rm wpcli sh /docker/wordpress/demo-content.sh
 .PHONY: demo-reset
 
+make-pot: ## Regenerate the translation template from PHP and JS source strings
+	docker compose run --rm wpcli wp i18n make-pot /var/www/html/wp-content/plugins/wpwing-sticky-block /var/www/html/wp-content/plugins/wpwing-sticky-block/languages/wpwing-sticky-block.pot --allow-root
+.PHONY: make-pot
+
+make-mo: ## Compile languages/*.po into .mo (PHP) and per-script .json (JS) translation files
+	docker compose run --rm wpcli wp i18n make-mo /var/www/html/wp-content/plugins/wpwing-sticky-block/languages --allow-root
+	docker compose run --rm wpcli wp i18n make-json /var/www/html/wp-content/plugins/wpwing-sticky-block/languages --no-purge --allow-root
+.PHONY: make-mo
+
 caddy-trust: ## Trust Caddy's local CA (run once per machine, requires sudo)
 	@echo "Waiting for Caddy to generate its CA..."
 	@sleep 3
