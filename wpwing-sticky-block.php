@@ -5,7 +5,7 @@
  * Description:       Sticky Block for Gutenberg — make any content follow your visitors as they scroll.
  * Version:           2.10.0
  * Requires at least: 5.8
- * Tested up to:      7.0
+ * Tested up to:      7.1
  * Requires PHP:      7.4
  * Author:            WPWing
  * Author URI:        https://wpwing.com/

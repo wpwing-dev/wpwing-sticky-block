@@ -3,7 +3,7 @@
 Contributors:      wpwing, voboghure
 Tags:              sticky, sticky block, gutenberg, block editor, fixed, patterns
 Requires at least: 5.8
-Tested up to:      7.0
+Tested up to:      7.1
 Requires PHP:      7.4
 Stable tag:        2.10.0
 License:           GPL-3.0-or-later
